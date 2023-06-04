@@ -12,7 +12,7 @@ export const Navbar = () => {
                     <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"></svg>
                     </a>
 
-                    <img src="./logo.png"></img>
+                    <img src="logo.png" width="45" height="45"></img>
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li ><Link to="/" class="nav-link px-2 text-secondary"> Home </Link></li>

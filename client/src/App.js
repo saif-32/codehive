@@ -7,7 +7,6 @@ import { Login } from './pages/login';
 import { Discover } from './pages/discover';
 import { Profile } from './pages/profile';
 import { Navbar } from "./components/navbar"
-import { BasicExample } from "./components/example"
 
 function App() {
   return (

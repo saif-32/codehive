@@ -1,0 +1,39 @@
+/* body {
+    background-image: url("https://transparenttextures.com/patterns/always-grey.png");
+} */
+
+
+
+
+.footer-links {
+    text-decoration: none;
+    color: inherit;
+    margin-left: 5px;
+    display: inline-block;
+  }
+
+.footer-links:hover {
+    color: #FFD95A;
+    text-decoration: underline;
+}
+
+.btn-warning {
+    --bs-btn-color: #000;
+    --bs-btn-bg: #FFD95A !important;
+    --bs-btn-border-color: #ffc107;
+    --bs-btn-hover-color: #000;
+    --bs-btn-hover-bg: #ffca2c;
+    --bs-btn-hover-border-color: #ffc720;
+    --bs-btn-focus-shadow-rgb: 217,164,6;
+    --bs-btn-active-color: #000;
+    --bs-btn-active-bg: #ffcd39;
+    --bs-btn-active-border-color: #ffc720;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #000;
+    --bs-btn-disabled-bg: #ffc107;
+    --bs-btn-disabled-border-color: #ffc107;
+}
+
+.nav-link  {
+    color: #FFD95A !important;
+}

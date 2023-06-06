@@ -7,6 +7,7 @@ import { Login } from './pages/login';
 import { Discover } from './pages/discover';
 import { Profile } from './pages/profile';
 import { Navbar } from "./components/navbar"
+import { Footer } from "./components/footer"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/profile' element={<Profile />} />
         <Route path='/discover' element={<Discover />} />
       </Routes>
+        <Footer />
     </Router>
   </div>
   )

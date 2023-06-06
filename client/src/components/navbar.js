@@ -61,7 +61,7 @@ export const Navbar = () => {
                             <button type="button" onclick=<Link to="/login" ></Link> class="btn btn-outline-light me-2">Login</button>
                         </Link>
                         <Link to="/register" >
-                            <button type="button" class="btn btn-warning">Sign-up</button>
+                            <button type="button" class="btn btn-warning">Sign Up</button>
                         </Link>
                     </div>
                 </div>

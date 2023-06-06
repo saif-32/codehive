@@ -8,7 +8,7 @@ export const Home = () => {
             <div class="col-lg-6">
                 <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">CodeHive</h1>
                 <p class="lead">A dynamic platform that brings computer science students worldwide to communicate, collaborate, and innovate together.</p>
-                <button type="button" class="btn btn-lg btn-warning">Login</button>
+                <button type="button" class="btn btn-lg btn-warning">Start Innovating</button>
             </div>
             </div>
         </div>

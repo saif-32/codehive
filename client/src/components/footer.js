@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => {
     return (
-    <foot>
+    <div>
           {
             <section class="">
                 <footer class="bg-dark text-center text-white">
@@ -18,6 +18,6 @@ export const Footer = () => {
                 </footer>
             </section>
         }
-    </foot>
+    </div>
     );
 }

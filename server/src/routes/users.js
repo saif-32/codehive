@@ -37,11 +37,13 @@ router.post("/login", async(req, res) => {
     const checkPassword = await bcrypt.compare(password, user.password); // Encrypts password and checks if correct
 
     if (!checkPassword) {
+        //return console.log("Checking Password")
         return res.json({message: "Username or Password is incorrect. Please try again."})
     }
 
     const token = jwt.sign({id: user._id}, "secret"); // Creates a token for the user, need to create env variable.
     res.json({ token, userID: user._id});
+   //return console.log("Success")
 
 
 })

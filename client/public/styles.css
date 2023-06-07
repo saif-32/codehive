@@ -2,6 +2,10 @@
     background-image: url("https://transparenttextures.com/patterns/always-grey.png");
 } */
 
+.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 2000px;
+}
+
 .footer-links {
     text-decoration: none;
     color: inherit;

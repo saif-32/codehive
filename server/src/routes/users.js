@@ -34,6 +34,10 @@ router.post("/login", async(req, res) => {
         return res.json({Message: "This username was not found." });
     }
 
+    if (!user.verified) {
+        return res.json("Please verify your email to login.")
+    }
+
     const checkPassword = await bcrypt.compare(password, user.password); // Encrypts password and checks if correct
 
     if (!checkPassword) {
@@ -42,7 +46,6 @@ router.post("/login", async(req, res) => {
 
     const token = jwt.sign({id: user._id}, "secret"); // Creates a token for the user, need to create env variable.
     res.json({ token, userID: user._id});
-
 
 })
 

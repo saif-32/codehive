@@ -193,6 +193,10 @@ input[type="password"]:focus {
   .login-container button:hover {
     background-color: #A46C00;
   }
+
+  .login-form p {
+    color: red;
+  }
   
   .signup-link {
     font-size: 14px;

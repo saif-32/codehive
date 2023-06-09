@@ -45,18 +45,18 @@ router.post("/register", async(req, res) => {
 router.post("/login", async(req, res) => {
     const { username, password} = req.body; // User login information is sent in from the frontend
     const user = await UserModel.findOne({username}); // Attempts to find user, if user exists, info is saved in var user.
+    const checkPassword = await bcrypt.compare(password, user.password); // Encrypts password and checks if correct
+
     if (!user) {
         return res.json({ status: "error", message: "Username-Not-Found" });
     }
 
-    if (!user.verified) {
-        return res.json({ status: "error", message: "Not-Verified" });
+    if (!checkPassword) {
+        return res.json({ status: "error", message: "Incorrect-Password" });
     }
 
-    const checkPassword = await bcrypt.compare(password, user.password); // Encrypts password and checks if correct
-
-    if (!checkPassword) {
-        return res.json({message: "Username or Password is incorrect. Please try again."})
+    if (!user.verified) {
+        return res.json({ status: "error", message: "Not-Verified" });
     }
 
     const token = jwt.sign({id: user._id}, "secret"); // Creates a token for the user, need to create env variable.

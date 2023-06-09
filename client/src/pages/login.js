@@ -6,6 +6,7 @@ import axios from 'axios'
 export const Login = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [errorMessage, setErrorMessage] = useState("");
     const [cookies, setCookies] = useCookies(["access_token"]);
     const navigate = useNavigate();
 
@@ -29,19 +30,16 @@ export const Login = () => {
 
         if (responseStatus === "okay") {
           console.log("User was logged in successfully!")
-          console.log(responseData.token)
-          console.log(responseData.userID)
           setCookies("access_token", responseData.token);
           window.localStorage.setItem("userID", responseData.userID);
           navigate("/")
         }
         else {
-          if (responseData.message === "Username-Not-Found") {
-            console.log("Username not found")
+          if (responseData.message === "Username-Not-Found" || responseData.message === "Incorrect-Password" ) {
+            setErrorMessage("Username or password is incorrect");
           }
 
           if (responseData.message === "Not-Verified") {
-            console.log("User is not verified.")
             navigate("/register/email-sent")
           }
 
@@ -62,7 +60,7 @@ export const Login = () => {
           <label htmlFor="password"></label>
           <input type="password" id="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)}/>
 
-
+          <p>{errorMessage}</p>
           <a href="#" className="forgot-link">Forgot Username or Password?</a>
           <button type="submit">Log In</button>
 

@@ -46,11 +46,11 @@ router.post("/login", async(req, res) => {
     const { username, password} = req.body; // User login information is sent in from the frontend
     const user = await UserModel.findOne({username}); // Attempts to find user, if user exists, info is saved in var user.
     if (!user) {
-        return res.json({Message: "This username was not found." });
+        return res.json({ status: "error", message: "Username-Not-Found" });
     }
 
     if (!user.verified) {
-        return res.json("Please verify your email to login.")
+        return res.json({ status: "error", message: "Not-Verified" });
     }
 
     const checkPassword = await bcrypt.compare(password, user.password); // Encrypts password and checks if correct
@@ -60,8 +60,8 @@ router.post("/login", async(req, res) => {
     }
 
     const token = jwt.sign({id: user._id}, "secret"); // Creates a token for the user, need to create env variable.
-    res.json({ token, userID: user._id});
-
+    //res.json({ token, userID: user._id});
+    return res.json({status: 'okay', token, userID: user._id});
 })
 
 router.post("/verify-email", async(req, res) => {

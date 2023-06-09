@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import { useCookies } from "react-cookie"
 import axios from 'axios'
@@ -6,25 +6,47 @@ import axios from 'axios'
 export const Login = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const [_, setCookies] = useCookies(["access_token"])
+    const [cookies, setCookies] = useCookies(["access_token"]);
     const navigate = useNavigate();
+
+    console.log(cookies.access_token)
+
+    useEffect(() => { // If user is already signed in, redirect back to home page.
+      if (cookies.access_token) {
+        navigate("/");
+      }
+    }, [navigate, cookies.access_token]);
+
     const onSubmit = async (event) => {
+
       event.preventDefault();
-      try {
-        const response = await axios.post("http://localhost:3001/auth/login", {
+      const response = await axios.post("http://localhost:3001/auth/login", {
           username,
           password
-        });
+      }).then(response => {
+        const responseData = response.data;
+        const responseStatus = responseData.status;
 
-        setCookies("access_token", response.data.token);
-        window.localStorage.setItem("userID", response.data.userID);
-        navigate("/")
+        if (responseStatus === "okay") {
+          console.log("User was logged in successfully!")
+          console.log(responseData.token)
+          console.log(responseData.userID)
+          setCookies("access_token", responseData.token);
+          window.localStorage.setItem("userID", responseData.userID);
+          navigate("/")
+        }
+        else {
+          if (responseData.message === "Username-Not-Found") {
+            console.log("Username not found")
+          }
 
-        alert("Login Attempt was sent successfully.")
-      } catch (err) {
-        console.error(err)
-      }
-    
+          if (responseData.message === "Not-Verified") {
+            console.log("User is not verified.")
+            navigate("/register/email-sent")
+          }
+
+        }
+      })
     };
 
 

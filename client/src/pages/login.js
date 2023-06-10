@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link} from "react-router-dom"
 import { useCookies } from "react-cookie"
+import { GoogleLogin } from 'react-google-login';
 import axios from 'axios'
 
 export const Login = () => {
@@ -8,6 +9,7 @@ export const Login = () => {
     const [password, setPassword] = useState("")
     const [errorMessage, setErrorMessage] = useState("");
     const [cookies, setCookies] = useCookies(["access_token"]);
+    const [data, setData] = useState(null);
     const navigate = useNavigate();
 
     console.log(cookies.access_token)
@@ -18,24 +20,26 @@ export const Login = () => {
       }
     }, [navigate, cookies.access_token]);
 
-    const onSubmit = async (event) => {
+    const onSubmit = async (event) => { // Executes after Log in button is clicked.
 
       event.preventDefault();
       const response = await axios.post("http://localhost:3001/auth/login", {
           username,
           password
+      }, {
+        withCredentials: true
       }).then(response => {
         const responseData = response.data;
         const responseStatus = responseData.status;
 
         if (responseStatus === "okay") {
           console.log("User was logged in successfully!")
-          setCookies("access_token", responseData.token);
-          window.localStorage.setItem("userID", responseData.userID);
+          // setCookies("access_token", responseData.token);
+          // window.localStorage.setItem("userID", responseData.userID);
           navigate("/")
         }
         else {
-          if (responseData.message === "Username-Not-Found" || responseData.message === "Incorrect-Password" ) {
+          if (responseData.message === "Authentication Failed") {
             setErrorMessage("Username or password is incorrect");
           }
 
@@ -46,6 +50,17 @@ export const Login = () => {
         }
       })
     };
+
+
+
+
+
+
+
+
+
+
+
 
 
     return <div>
@@ -67,7 +82,8 @@ export const Login = () => {
         </form>
 
 
-        <p className="signup-link">Don't have an account? <a href="#">Sign Up</a></p>
+        <p className="signup-link">Don't have an account? <Link to="/register"
+                className="register-link">Sign Up</Link></p>
         
         <div class="or-seperator"><h3>Or Continue With</h3></div>
 

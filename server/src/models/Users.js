@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import passportLocalMongoose from 'passport-local-mongoose'
 
 const UserSchema = new mongoose.Schema({
     firstName: {type: String, required: true},
@@ -8,6 +9,8 @@ const UserSchema = new mongoose.Schema({
     password: {type: String, required: true},
     verified: {type: Boolean, default: false}
 });
+
+UserSchema.plugin(passportLocalMongoose);
 
 export const UserModel = mongoose.model("users", UserSchema); // Setting schema to a model (giving it a name)
 // Allows other files to be able to see the schema

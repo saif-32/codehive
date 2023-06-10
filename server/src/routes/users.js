@@ -71,6 +71,19 @@ router.get("/user", (req, res) => {
     res.send(req.user); // The req.user stores the entire user that has been authenticated inside of it.
 });
 
+router.get('/logout', async(req, res, next) => {
+    console.log("Running")
+    console.log(req.user)
+    req.logout(function(err) {
+      if (err) { 
+        console.log(err)
+        return next(err); 
+        }
+      console.log("Succesfully logged out user.")
+      res.json({ message: 'User logged out successfully' });
+    });
+  });
+
 
 router.post("/verify-email", async(req, res) => {
     const { username, token} = req.body;

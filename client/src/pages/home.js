@@ -10,7 +10,6 @@ export const Home = () => {
 
     useEffect(() => {
         const getUser = () => {
-            console.log("HELLO GETTING USER")
             axios({
               method: "GET",
               withCredentials: true,

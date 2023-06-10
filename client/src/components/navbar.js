@@ -1,21 +1,50 @@
 import { Link, useNavigate } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
+import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
-
-// Hello</div>) : <div>Hello</div>}
+import axios from 'axios'
 
 export const Navbar = () => {
     const [cookies, setCookies] = useCookies(["access_token"]);
+    const [data, setData] = useState(null);
     const navigate = useNavigate();
-    const logout = () => {
-        setCookies("access_token", "");
-        window.localStorage.removeItem("userID");
-        navigate("/")
-    };
+
+    useEffect(() => {
+        const getUser = () => {
+            axios({
+              method: "GET",
+              withCredentials: true,
+              url: "http://localhost:3001/auth/user",
+            }).then((res) => {
+              setData(res.data);
+              console.log(res.data);
+            });
+          };
+    
+        getUser(); // Call the function when the component mounts
+      }, []);
+
+
+        const logout = () => {
+            console.log("Attempting to logout from navbar.js")
+            axios({
+                method: "GET",
+                withCredentials: true,
+                url: "http://localhost:3001/auth/logout",
+            }).then((res) => {
+                console.log("User was logged out successfully.")
+                navigate(0);
+            });
+        };
+
+
+
+
+
     return ( 
     
     <div>
-        {!cookies.access_token ? (
+        {!data ? (
             // If user is not signed in, display this navbar.
             <div> 
                 <nav>

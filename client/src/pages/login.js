@@ -14,11 +14,23 @@ export const Login = () => {
 
     console.log(cookies.access_token)
 
-    useEffect(() => { // If user is already signed in, redirect back to home page.
-      if (cookies.access_token) {
-        navigate("/");
-      }
-    }, [navigate, cookies.access_token]);
+    useEffect(() => {
+      const getUser = () => {
+          axios({
+            method: "GET",
+            withCredentials: true,
+            url: "http://localhost:3001/auth/user",
+          }).then((res) => {
+            if (res.data) // If user is already signed in.
+            {
+              navigate("/")
+            }
+          });
+        };
+  
+      getUser(); // Call the function when the component mounts
+    }, []);
+
 
     const onSubmit = async (event) => { // Executes after Log in button is clicked.
 

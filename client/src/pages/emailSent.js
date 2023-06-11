@@ -1,9 +1,4 @@
 import '../styles/email.css'
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"
-import { useCookies } from "react-cookie"
-import axios from 'axios'
-
 export const EmailSent = () => {
 
     return <div>

@@ -64,11 +64,16 @@ function(accessToken, refreshToken, profile, cb) {
     googleId: profile.id,
     firstName: profile.name.givenName,
     lastName: profile.name.familyName,
-    username: profile.emails[0].value,
+    username: profile.emails[0].value.split("@")[0],
     email: profile.emails[0].value,
     verified: true
   }, function (err, user) {
-    return cb(err, user);
+    if (err) {
+      console.log(err)
+      return cb(null);
+    }
+    // No error occurred, continue with the user authentication process
+    return cb(null, user);
   });
 }
 ));
@@ -103,7 +108,12 @@ function(accessToken, refreshToken, profile, cb) {
     email,
     verified: true
   }, function (err, user) {
-    return cb(err, user);
+    if (err) {
+      console.log(err)
+      return cb(null);
+    }
+    // No error occurred, continue with the user authentication process
+    return cb(null, user);
   });
 }
 ));

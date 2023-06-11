@@ -12,6 +12,7 @@ import { Profile } from './pages/profile';
 import { Footer } from "./components/footer"
 import { VerifyEmail } from "./pages/verifyEmail"
 import { EmailSent } from './pages/emailSent';
+import { AuthError } from './pages/authError';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path='/register/email-sent' element={<EmailSent />} />
         <Route path='/login' element={<Login />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/register/autherror' element={<AuthError />} />
         <Route path='/discover' element={<Discover />} />
         <Route path='/verify-email/:username/:token' element={<VerifyEmail />} />
       </Routes>

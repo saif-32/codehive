@@ -96,16 +96,11 @@ function(accessToken, refreshToken, profile, cb) {
     lastName = "";
   }
 
-  const email = profile.username + '@github.com'
-  console.log("email")
-  console.log(email)
-
   UserModel.findOrCreate({ 
     githubId: profile.id,
     username: profile.username,
     firstName,
     lastName,
-    email,
     verified: true
   }, function (err, user) {
     if (err) {

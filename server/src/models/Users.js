@@ -3,10 +3,10 @@ import passportLocalMongoose from 'passport-local-mongoose'
 import findOrCreate from 'mongoose-findorcreate'
 
 const UserSchema = new mongoose.Schema({
-    firstName: {type: String, required: false},
-    lastName: {type: String, required: false},
+    firstName: {type: String, required: false, default: ''},
+    lastName: {type: String, required: false, default: ''},
     username: {type: String, required: false, unique: true},
-    email: {type: String, trim: true, index: true, unique: true, sparse: true},
+    email: {type: String, default: '', unique: false},
     password: {type: String, required: false},
     verified: {type: Boolean, default: false},
     googleId:{type: String, required: false},

@@ -52,6 +52,85 @@
     margin-top: -32px;
 }
 
+#birthdayMonth {
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    width: 30%;
+    margin-top: -32px;
+    margin-right: 20px;
+    background-color: #EFE1B3;
+}
+
+#birthdayDay {
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    width: 30%;
+    margin-top: -32px;
+    margin-right: 20px;
+    background-color: #EFE1B3;
+}
+
+#birthdayYear {
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    width: 30%;
+    margin-top: -32px;
+    background-color: #EFE1B3;
+}
+
+#gender {
+    display:flex;
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    width: 100%;
+    margin-top: -10px; 
+    margin-bottom: 10px;
+    background-color: #EFE1B3;
+}
+
+#university {
+    display:flex;
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    width: 100%;
+    margin-top: -10px; 
+    margin-bottom: 10px;
+    background-color: #EFE1B3;
+}
+
+#university::placeholder {
+    color: red;
+}
+
+select:focus,
+select:active {
+  outline: none;
+}
+
+select:focus,
+select:active {
+  outline: none;
+}
+
+select {
+    color:#4C3D3D;
+}
+
+input[type="number"]:focus {
+  outline: none;
+}
+
+
 .profile-card button {
     padding-top: 8px;
     padding-bottom: 8px;

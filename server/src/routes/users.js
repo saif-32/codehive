@@ -85,6 +85,26 @@ router.get('/logout', async(req, res, next) => {
   });
 
 
+
+router.get('/google',
+  passport.authenticate('google', { scope: ['email', 'profile'] }));
+
+router.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: 'http://localhost:3000' }),
+  function(req, res) {
+    res.redirect('http://localhost:3000');
+});
+
+router.get('/github',
+    passport.authenticate('github', { scope: [ 'user:email' ] }));
+
+router.get('/github/callback', 
+  passport.authenticate('github', { failureRedirect: 'http://localhost:3000' }),
+  function(req, res) {
+    res.redirect('http://localhost:3000');
+});
+
+
 router.post("/verify-email", async(req, res) => {
     const { username, token} = req.body;
     const user = await UserModel.findOne({username});

@@ -63,16 +63,13 @@ export const Login = () => {
       })
     };
 
+    const GoogleLoginButton = async (event) => {
+        window.location.href = 'http://localhost:3001/auth/google';
+    }
 
-
-
-
-
-
-
-
-
-
+    const GithubLoginButton = async (event) => {
+      window.location.href = 'http://localhost:3001/auth/github';
+  }
 
 
     return <div>
@@ -89,7 +86,7 @@ export const Login = () => {
 
           <p>{errorMessage}</p>
           <a href="#" className="forgot-link">Forgot Username or Password?</a>
-          <button type="submit">Log In</button>
+          <button type="submit" className="login-btn-1">Log In</button>
 
         </form>
 
@@ -100,15 +97,15 @@ export const Login = () => {
         <div class="or-seperator"><h3>Or Continue With</h3></div>
 
         <div className="social-media-button">
-          <a class="btn btn-block btn-social btn-google">
+          <button class="btn btn-block btn-social btn-google" onClick={GoogleLoginButton}>
                 <span class="fa fa-google"></span> Login with Google
-          </a>
+          </button>
         </div>
 
         <div className="social-media-button">
-          <a class="btn btn-block btn-social btn-github">
+          <button class="btn btn-block btn-social btn-github" onClick={GithubLoginButton}>
                 <span class="fa fa-github"></span> Login with Github
-          </a>
+          </button>
         </div>
 
         <div className="social-media-button">

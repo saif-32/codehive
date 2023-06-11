@@ -80,10 +80,27 @@ passport.use(new GitHubStrategy({
 },
 function(accessToken, refreshToken, profile, cb) {
   console.log(profile)
+  let firstName = "";
+  let lastName = "";
+  try {
+    const displayName = profile.displayName.split(' ');
+    firstName = displayName[0];
+    lastName = displayName.length > 1 ? displayName.slice(1).join(" ") : "";
+  } catch (error) {
+    firstName = "";
+    lastName = "";
+  }
+
+  const email = profile.username + '@github.com'
+  console.log("email")
+  console.log(email)
+
   UserModel.findOrCreate({ 
     githubId: profile.id,
-    firstName: profile.displayName, // Need to check if it also returns a last name...
     username: profile.username,
+    firstName,
+    lastName,
+    email,
     verified: true
   }, function (err, user) {
     return cb(err, user);

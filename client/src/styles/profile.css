@@ -1,0 +1,89 @@
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background-image: linear-gradient(to top, #261c1c, #2c2223);
+    margin-top: -40px; /* Adjust the value as needed */
+}
+  
+.profile-card {
+    width: 500px;
+    padding: 40px 40px;
+    background-color: #4C3D3D;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 0px 5px #2c2223;
+    position: relative;
+}
+  
+.profile-container h1 {
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #FFF7D4;
+}
+
+.profile-card h2 {
+    font-size: 32px;
+    color: #FFF7D4;
+}
+
+.profile-card h3 {
+    font-size: 20px;
+    color: #FFF7D4;
+    margin-bottom: 18px;
+}
+
+.light-yellow {
+    color: #FFD95A;
+}
+
+.profile-container img {
+    width: auto;
+}
+
+.profile-card input[type="text"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: -32px;
+}
+
+.profile-card button {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 25px;
+    padding-right: 25px;
+    background-color: #C07F00;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: -10px;
+}
+
+.button-container {
+    display: flex;
+}
+
+.first-screen-button {
+    display: table;
+    margin-left: auto;
+}
+
+.button-container .profile-next{
+    margin-left: -20%;
+}
+
+.button-container .profile-previous{
+    margin-right: 80%;
+}
+
+
+.profile-next:hover {
+    background-color: #A46C00;
+}
+

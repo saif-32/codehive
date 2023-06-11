@@ -272,14 +272,15 @@ input[type="password"]:focus {
   .reg-logo {
     height: 200px;
     width: auto;
+    padding-right: 30px;
   }
 
   .reg-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 105vh;
     background-image: linear-gradient(to top, #261c1c, #2c2223);
+    padding: 18px;
   }
   
   .reg-card {

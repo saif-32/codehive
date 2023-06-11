@@ -82,7 +82,7 @@ function(accessToken, refreshToken, profile, cb) {
   console.log(profile)
   UserModel.findOrCreate({ 
     githubId: profile.id,
-    firstName: profile.displayName, // Need to check if it also returns a last name.....
+    firstName: profile.displayName, // Need to check if it also returns a last name...
     username: profile.username,
     verified: true
   }, function (err, user) {

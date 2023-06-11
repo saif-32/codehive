@@ -181,7 +181,7 @@ input[type="password"]:focus {
 }
 
   
-  .login-container button {
+  .login-btn-1 {
     padding: 10px;
     background-color: #C07F00;
     color: #ffffff;
@@ -190,7 +190,7 @@ input[type="password"]:focus {
     cursor: pointer;
   }
   
-  .login-container button:hover {
+  .login-btn-1:hover {
     background-color: #A46C00;
   }
 

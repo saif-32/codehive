@@ -1,16 +1,16 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import crypto from "crypto";
+import passport from 'passport'
+import passportLocalMongoose from 'passport-local-mongoose'
 import { UserModel } from '../models/Users.js';
 import { verifyUserEmail } from '../services/Email.js'
-
 
 const router = express.Router();
 
 router.post("/register", async(req, res) => {
-    const { firstName, lastName, username, email, password } = req.body; // User details are sent in from the frontend
-
+    const { firstName, lastName, username, email, password } = req.body;
+    try {
     const checkUser = await UserModel.findOne({ username }); // Checks if username exists or not
     const checkEmail = await UserModel.findOne({ email }); // Checks if email exists or not
 
@@ -24,45 +24,86 @@ router.post("/register", async(req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10); // Hashes user password with 10 salt rounds.
 
-    // Creates a new user
     const newUser = new UserModel({
         firstName, 
         lastName, 
         username, 
-        email, 
+        email,
         password: hashedPassword
     }); 
+
+    await newUser.save();
     
     const emailToken = jwt.sign({username: req.body.username}, "secret", {expiresIn: '12h'});
     verifyUserEmail(firstName, lastName, email, username, emailToken);
 
-
-    newUser.save(); // Saves into database.
-
     res.json({Message: "User was registered successfully!" });
+} catch (error) {
+    console.error('Error registering user:', error);
+    res.status(500).json({ message: "An error occurred during registration. Please try again later." });
+}
 });
 
-router.post("/login", async(req, res) => {
-    const { username, password} = req.body; // User login information is sent in from the frontend
-    const user = await UserModel.findOne({username}); // Attempts to find user, if user exists, info is saved in var user.
-    const checkPassword = await bcrypt.compare(password, user.password); // Encrypts password and checks if correct
 
-    if (!user) {
-        return res.json({ status: "error", message: "Username-Not-Found" });
-    }
+router.post("/login", async(req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+        console.log("Authenticating user...")
 
-    if (!checkPassword) {
-        return res.json({ status: "error", message: "Incorrect-Password" });
-    }
+        if (err) throw err; // Error Occured
 
-    if (!user.verified) {
-        return res.json({ status: "error", message: "Not-Verified" });
-    }
-
-    const token = jwt.sign({id: user._id}, "secret"); // Creates a token for the user, need to create env variable.
-    //res.json({ token, userID: user._id});
-    return res.json({status: 'okay', token, userID: user._id});
+        if (!user){ // User Authentication Failed.
+            console.log("Authentication Failed")
+            return res.json({ message: 'Authentication Failed' });
+        }
+        else {
+          req.logIn(user, (err) => {
+            if (err) throw err;
+            console.log("Successfully Authenticated");
+            console.log(req.user)
+            return res.json({status: 'okay'});
+          });
+        }
+      })(req, res, next);
 })
+
+router.get("/user", (req, res) => {
+    console.log(req.user)
+    res.send(req.user); // The req.user stores the entire user that has been authenticated inside of it.
+});
+
+router.get('/logout', async(req, res, next) => {
+    console.log("Running")
+    console.log(req.user)
+    req.logout(function(err) {
+      if (err) { 
+        console.log(err)
+        return next(err); 
+        }
+      console.log("Succesfully logged out user.")
+      res.json({ message: 'User logged out successfully' });
+    });
+  });
+
+
+
+router.get('/google',
+  passport.authenticate('google', { scope: ['email', 'profile'] }));
+
+router.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: 'http://localhost:3000' }),
+  function(req, res) {
+    res.redirect('http://localhost:3000');
+});
+
+router.get('/github',
+    passport.authenticate('github', { scope: [ 'user:email' ] }));
+
+router.get('/github/callback', 
+  passport.authenticate('github', { failureRedirect: 'http://localhost:3000' }),
+  function(req, res) {
+    res.redirect('http://localhost:3000');
+});
+
 
 router.post("/verify-email", async(req, res) => {
     const { username, token} = req.body;

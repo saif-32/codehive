@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link} from "react-router-dom"
 import { useCookies } from "react-cookie"
+import { GoogleLogin } from 'react-google-login';
 import axios from 'axios'
 
 export const Login = () => {
@@ -8,34 +9,49 @@ export const Login = () => {
     const [password, setPassword] = useState("")
     const [errorMessage, setErrorMessage] = useState("");
     const [cookies, setCookies] = useCookies(["access_token"]);
+    const [data, setData] = useState(null);
     const navigate = useNavigate();
 
     console.log(cookies.access_token)
 
-    useEffect(() => { // If user is already signed in, redirect back to home page.
-      if (cookies.access_token) {
-        navigate("/");
-      }
-    }, [navigate, cookies.access_token]);
+    useEffect(() => {
+      const getUser = () => {
+          axios({
+            method: "GET",
+            withCredentials: true,
+            url: "http://localhost:3001/auth/user",
+          }).then((res) => {
+            if (res.data) // If user is already signed in.
+            {
+              navigate("/")
+            }
+          });
+        };
+  
+      getUser(); // Call the function when the component mounts
+    }, []);
 
-    const onSubmit = async (event) => {
+
+    const onSubmit = async (event) => { // Executes after Log in button is clicked.
 
       event.preventDefault();
       const response = await axios.post("http://localhost:3001/auth/login", {
           username,
           password
+      }, {
+        withCredentials: true
       }).then(response => {
         const responseData = response.data;
         const responseStatus = responseData.status;
 
         if (responseStatus === "okay") {
           console.log("User was logged in successfully!")
-          setCookies("access_token", responseData.token);
-          window.localStorage.setItem("userID", responseData.userID);
+          // setCookies("access_token", responseData.token);
+          // window.localStorage.setItem("userID", responseData.userID);
           navigate("/")
         }
         else {
-          if (responseData.message === "Username-Not-Found" || responseData.message === "Incorrect-Password" ) {
+          if (responseData.message === "Authentication Failed") {
             setErrorMessage("Username or password is incorrect");
           }
 
@@ -46,6 +62,14 @@ export const Login = () => {
         }
       })
     };
+
+    const GoogleLoginButton = async (event) => {
+        window.location.href = 'http://localhost:3001/auth/google';
+    }
+
+    const GithubLoginButton = async (event) => {
+      window.location.href = 'http://localhost:3001/auth/github';
+  }
 
 
     return <div>
@@ -62,25 +86,26 @@ export const Login = () => {
 
           <p>{errorMessage}</p>
           <a href="#" className="forgot-link">Forgot Username or Password?</a>
-          <button type="submit">Log In</button>
+          <button type="submit" className="login-btn-1">Log In</button>
 
         </form>
 
 
-        <p className="signup-link">Don't have an account? <a href="#">Sign Up</a></p>
+        <p className="signup-link">Don't have an account? <Link to="/register"
+                className="register-link">Sign Up</Link></p>
         
         <div class="or-seperator"><h3>Or Continue With</h3></div>
 
         <div className="social-media-button">
-          <a class="btn btn-block btn-social btn-google">
+          <button class="btn btn-block btn-social btn-google" onClick={GoogleLoginButton}>
                 <span class="fa fa-google"></span> Login with Google
-          </a>
+          </button>
         </div>
 
         <div className="social-media-button">
-          <a class="btn btn-block btn-social btn-github">
+          <button class="btn btn-block btn-social btn-github" onClick={GithubLoginButton}>
                 <span class="fa fa-github"></span> Login with Github
-          </a>
+          </button>
         </div>
 
         <div className="social-media-button">

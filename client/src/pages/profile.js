@@ -85,9 +85,9 @@ export const Profile = () => {
                     <option value="other">Other</option>
                 </select>
 
-                <label htmlFor="university"></label>
+                <label htmlFor="grade"></label>
                 <select id="birthdayYear">
-                    <option value="">Grade</option>
+                    <option value="" disabled selected>Grade</option>
                     <option value="Freshman">Freshman</option>
                     <option value="Sophmore">Sophmore</option>
                     <option value="Junior">Junior</option>
@@ -97,6 +97,42 @@ export const Profile = () => {
               <div className="button-container">
                 <button className="profile-previous" onClick={handlePrevious}>Back</button>
                 <button className="profile-next" onClick={handleNext}>Next</button>
+              </div>
+            </>
+          )}
+          {currentForm === 4 && (
+            <>
+            <h2>Programmer Information </h2>
+              <h3>Last step! Enter your programming details.</h3>
+
+                <label htmlFor="languages"></label>
+                <select id="university">
+                    <option value="">Programming Languages</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label htmlFor="interests"></label>
+                <select id="university">
+                    <option value="">Interests</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label htmlFor="skill"></label>
+                <select id="birthdayYear">
+                    <option value="" disabled selected>Skill</option>
+                    <option value="Novice">Novice</option>
+                    <option value="Sophmore">Advanced Beginner</option>
+                    <option value="Junior">Compotent</option>
+                    <option value="Senior">Proficient</option>
+                </select>
+
+              <div className="button-container">
+                <button className="profile-previous" onClick={handlePrevious}>Back</button>
+                <button className="profile-next" onClick={handleNext}>Submit</button>
               </div>
             </>
           )}

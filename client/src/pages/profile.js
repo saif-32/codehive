@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/profile.css';
+import test from './test.txt'
 
 export const Profile = () => {
   const [currentForm, setCurrentForm] = useState(1);
+  const [universities, setUniversities] = useState([]);
 
   const handleNext = () => {
     setCurrentForm(currentForm + 1);
@@ -12,6 +14,15 @@ export const Profile = () => {
   const handlePrevious = () => {
     setCurrentForm(currentForm - 1);
   };
+
+  useEffect(() => {
+    fetch(test)
+      .then((response) => response.text())
+      .then((text) => {
+        const universitiesArray = text.split('\n').filter((university) => university.trim() !== '');
+        setUniversities(universitiesArray);
+      });
+  }, []);
 
   return (
     <div>
@@ -74,16 +85,23 @@ export const Profile = () => {
           )}
           {currentForm === 3 && (
             <>
-            <h2>Student Information</h2>
-              <h3>Enter your university and grade</h3>
+                <h2>Student Information</h2>
+                <h3>Enter your university and grade</h3>
 
-                <label htmlFor="university"></label>
-                <select id="university">
-                    <option value="">University</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </select>
+                <div>
+                    <label htmlFor="university"></label>
+                    <input
+                        type="text"
+                        id="university"
+                        list="university-list"
+                        placeholder="Type to search"
+                    />
+                    <datalist id="university-list">
+                            {universities.map((university, index) => (
+                            <option key={index} value={university} />
+                            ))}
+                    </datalist>
+                </div>
 
                 <label htmlFor="grade"></label>
                 <select id="birthdayYear">

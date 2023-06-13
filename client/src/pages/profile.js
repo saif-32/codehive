@@ -25,20 +25,22 @@ export const Profile = () => {
   }, []);
 
   return (
-    <div>
+    <div className='form-container'>
       <div className="profile-container">
-        <img className="reg-logo" src="logo.png" alt="CodeHive Logo" />
+        <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo" />
         <div className="profile-card">
           {currentForm === 1 && (
             <>
               <h2>Create your Code<span className="light-yellow">Hive </span>Profile</h2>
               <h3>Enter your name</h3>
-              <label htmlFor="firstName"></label>
-              <input type="text" id="firstName" placeholder="First Name" />
-              <label htmlFor="lastName"></label>
-              <input type="text" id="lastName" placeholder="Last Name" />
+              <div className='text-fields'>
+                <label htmlFor="firstName"></label>
+                <input type="text" id="firstName" placeholder="First Name" />
+                <label htmlFor="lastName"></label>
+                <input type="text" id="lastName" placeholder="Last Name" />
+              </div>
               <div className="first-screen-button">
-                <button className="profile-next" onClick={handleNext}>Next</button>
+                <button className="profile-next first-next" onClick={handleNext}>Next</button>
               </div>
             </>
           )}
@@ -46,6 +48,7 @@ export const Profile = () => {
             <>
             <h2>Basic Information</h2>
               <h3>Enter your birthday and gender</h3>
+              <div className='text-fields'>
               <label htmlFor="birthdayMonth"></label>
               <select id="birthdayMonth">
                 <option value="" disabled selected>Select Month</option>
@@ -69,13 +72,14 @@ export const Profile = () => {
               
               <div>
                 <label htmlFor="gender"></label>
-                <select id="gender">
+                <select id="gender" style={{height: "46px"}}>
                     <option value="">Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
                 </select>
              </div>
+            </div>
 
               <div className="button-container">
                 <button className="profile-previous" onClick={handlePrevious}>Back</button>
@@ -88,13 +92,14 @@ export const Profile = () => {
                 <h2>Student Information</h2>
                 <h3>Enter your university and grade</h3>
 
+                <div className='text-fields'>
                 <div>
                     <label htmlFor="university"></label>
                     <input
                         type="text"
                         id="university"
                         list="university-list"
-                        placeholder="Type to search"
+                        placeholder="Search for University"
                     />
                     <datalist id="university-list">
                             {universities.map((university, index) => (
@@ -111,6 +116,7 @@ export const Profile = () => {
                     <option value="Junior">Junior</option>
                     <option value="Senior">Senior</option>
                 </select>
+                </div>
 
               <div className="button-container">
                 <button className="profile-previous" onClick={handlePrevious}>Back</button>
@@ -123,6 +129,7 @@ export const Profile = () => {
             <h2>Programmer Information </h2>
               <h3>Last step! Enter your programming details.</h3>
 
+            <div className='text-fields'>
                 <label htmlFor="languages"></label>
                 <select id="university">
                     <option value="">Programming Languages</option>
@@ -147,6 +154,7 @@ export const Profile = () => {
                     <option value="Junior">Compotent</option>
                     <option value="Senior">Proficient</option>
                 </select>
+            </div>
 
               <div className="button-container">
                 <button className="profile-previous" onClick={handlePrevious}>Back</button>

@@ -5,6 +5,8 @@ import test from './test.txt'
 export const Profile = () => {
   const [currentForm, setCurrentForm] = useState(1);
   const [universities, setUniversities] = useState([]);
+  const [inputs, setInputs] = useState([]);
+  const [currentInput, setCurrentInput] = useState('');
 
   const handleNext = () => {
     setCurrentForm(currentForm + 1);
@@ -15,6 +17,28 @@ export const Profile = () => {
     setCurrentForm(currentForm - 1);
   };
 
+  const handleInputChange = (e) => {
+    setCurrentInput(e.target.value);
+  };
+
+  const handleInputKeyPress = (e) => {
+    if (e.key === 'Enter' && currentInput.trim() !== '') {
+        if (inputs.length === 5) {
+            return; // 5 Progamming Languages Reached
+          }
+      setInputs((prevInputs) => [...prevInputs, currentInput.trim()]);
+      setCurrentInput('');
+    }
+  };
+
+  const handleInputBlur = () => {
+    setCurrentInput('');
+  };
+
+  const handleRemoveInput = (index) => {
+    setInputs((prevInputs) => prevInputs.filter((_, i) => i !== index));
+  };
+
   useEffect(() => {
     fetch(test)
       .then((response) => response.text())
@@ -23,6 +47,7 @@ export const Profile = () => {
         setUniversities(universitiesArray);
       });
   }, []);
+
 
   return (
     <div className='form-container'>
@@ -39,7 +64,7 @@ export const Profile = () => {
                 <label htmlFor="lastName"></label>
                 <input type="text" id="lastName" placeholder="Last Name" />
               </div>
-              <div className="first-screen-button">
+              <div className="button-container">
                 <button className="profile-next first-next" onClick={handleNext}>Next</button>
               </div>
             </>
@@ -72,7 +97,7 @@ export const Profile = () => {
               
               <div>
                 <label htmlFor="gender"></label>
-                <select id="gender" style={{height: "46px"}}>
+                <select id="gender">
                     <option value="">Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -127,16 +152,33 @@ export const Profile = () => {
           {currentForm === 4 && (
             <>
             <h2>Programmer Information </h2>
-              <h3>Last step! Enter your programming details.</h3>
+              <h3>Last step! Enter your programming details</h3>
 
             <div className='text-fields'>
                 <label htmlFor="languages"></label>
-                <select id="university">
-                    <option value="">Programming Languages</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </select>
+                <input
+                        type="text"
+                        id="university"
+                        value={currentInput}
+                        onChange={handleInputChange}
+                        onKeyPress={handleInputKeyPress}
+                        placeholder="Enter up to 5 programming languages"
+                    />
+                <div>
+                    <div className="input-boxes">
+                        {inputs.map((input, index) => (
+                        <div key={index} className="input-box">
+                            {input}
+                            <button
+              className="remove-button"
+              onClick={() => handleRemoveInput(index)}
+            >
+              x
+            </button>
+                        </div>
+                        ))}
+                    </div>
+                </div>
 
                 <label htmlFor="interests"></label>
                 <select id="university">

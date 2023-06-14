@@ -5,39 +5,64 @@ import test from './test.txt'
 export const Profile = () => {
   const [currentForm, setCurrentForm] = useState(1);
   const [universities, setUniversities] = useState([]);
-  const [inputs, setInputs] = useState([]);
-  const [currentInput, setCurrentInput] = useState('');
+  const [programmingLanguages, setProgrammingLanguages] = useState([]);
+  const [currentLanguage, setCurrentLanguage] = useState('');
+  const [interests, setInterests] = useState([]);
+  const [currentInterest, setCurrentInterest] = useState('');
 
   const handleNext = () => {
     setCurrentForm(currentForm + 1);
   };
 
-
   const handlePrevious = () => {
     setCurrentForm(currentForm - 1);
   };
 
-  const handleInputChange = (e) => {
-    setCurrentInput(e.target.value);
+  const handleLanguageChange = (e) => {
+    let value = e.target.value;
+    if (value.length > 10) {
+      value = value.slice(0, 10); // Truncate the value to 10 characters
+    }
+    setCurrentLanguage(value);
   };
 
-  const handleInputKeyPress = (e) => {
-    if (e.key === 'Enter' && currentInput.trim() !== '') {
-        if (inputs.length === 5) {
-            return; // 5 Progamming Languages Reached
-          }
-      setInputs((prevInputs) => [...prevInputs, currentInput.trim()]);
-      setCurrentInput('');
+  const handleLanguageKeyPress = (e) => {
+    if (e.key === 'Enter' && currentLanguage.trim() !== '') {
+      if (programmingLanguages.length === 5) {
+        return; // Limit reached, exit the function
+      }
+
+      setProgrammingLanguages((prevLanguages) => [...prevLanguages, currentLanguage.trim()]);
+      setCurrentLanguage('');
     }
   };
 
-  const handleInputBlur = () => {
-    setCurrentInput('');
+  const handleInterestChange = (e) => {
+    let value = e.target.value;
+    if (value.length > 15) {
+      value = value.slice(0, 15); // Truncate the value to 15 characters
+    }
+    setCurrentInterest(value);
   };
 
-  const handleRemoveInput = (index) => {
-    setInputs((prevInputs) => prevInputs.filter((_, i) => i !== index));
+  const handleInterestKeyPress = (e) => {
+    if (e.key === 'Enter' && currentInterest.trim() !== '') {
+        if (interests.length === 5) {
+            return; // Limit reached, exit the function
+          }
+      setInterests((prevInterests) => [...prevInterests, currentInterest.trim()]);
+      setCurrentInterest('');
+    }
   };
+
+  const handleRemoveLanguage = (index) => {
+    setProgrammingLanguages((prevLanguages) => prevLanguages.filter((_, i) => i !== index));
+  };
+
+  const handleRemoveInterest = (index) => {
+    setInterests((prevInterests) => prevInterests.filter((_, i) => i !== index));
+  };
+
 
   useEffect(() => {
     fetch(test)
@@ -53,9 +78,9 @@ export const Profile = () => {
     <div className='form-container'>
       <div className="profile-container">
         <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo" />
-        <div className="profile-card">
           {currentForm === 1 && (
             <>
+            <div className="profile-card">
               <h2>Create your Code<span className="light-yellow">Hive </span>Profile</h2>
               <h3>Enter your name</h3>
               <div className='text-fields'>
@@ -67,10 +92,13 @@ export const Profile = () => {
               <div className="button-container">
                 <button className="profile-next first-next" onClick={handleNext}>Next</button>
               </div>
+            </div>
             </>
           )}
           {currentForm === 2 && (
             <>
+            <div className="profile-card">
+            <div className={`content-container ${currentForm === 2 ? 'slide-in' : ''}`}>
             <h2>Basic Information</h2>
               <h3>Enter your birthday and gender</h3>
               <div className='text-fields'>
@@ -110,10 +138,13 @@ export const Profile = () => {
                 <button className="profile-previous" onClick={handlePrevious}>Back</button>
                 <button className="profile-next" onClick={handleNext}>Next</button>
               </div>
+              </div>
+              </div>
             </>
           )}
           {currentForm === 3 && (
             <>
+            <div className="profile-card">
                 <h2>Student Information</h2>
                 <h3>Enter your university and grade</h3>
 
@@ -147,50 +178,58 @@ export const Profile = () => {
                 <button className="profile-previous" onClick={handlePrevious}>Back</button>
                 <button className="profile-next" onClick={handleNext}>Next</button>
               </div>
+            </div>
             </>
           )}
           {currentForm === 4 && (
             <>
-            <h2>Programmer Information </h2>
-              <h3>Last step! Enter your programming details</h3>
+            <div className="profile-card" style={{height: '500px'}}>
+            <h2>Programmer Information</h2>
+            <h3>Last step! Enter your programming details</h3>
 
             <div className='text-fields'>
-                <label htmlFor="languages"></label>
-                <input
-                        type="text"
-                        id="university"
-                        value={currentInput}
-                        onChange={handleInputChange}
-                        onKeyPress={handleInputKeyPress}
-                        placeholder="Enter up to 5 programming languages"
-                    />
                 <div>
-                    <div className="input-boxes">
-                        {inputs.map((input, index) => (
-                        <div key={index} className="input-box">
-                            {input}
-                            <button
-              className="remove-button"
-              onClick={() => handleRemoveInput(index)}
-            >
-              x
-            </button>
-                        </div>
+                    <div>
+                        <input
+                        type="text"
+                        value={currentLanguage}
+                        id="p-languages"
+                        onChange={handleLanguageChange}
+                        onKeyPress={handleLanguageKeyPress}
+                        placeholder="Enter programming languages here"
+                        />
+                        <div className="input-boxes">
+                        {programmingLanguages.map((language, index) => (
+                            <div key={index} className="input-box">
+                            {language}
+                            <button className="remove-button" onClick={() => handleRemoveLanguage(index)}>x</button>
+                            </div>
                         ))}
+                        </div>
+                    </div>
+
+                    <div>
+                        <input
+                        type="text"
+                        value={currentInterest}
+                        id="p-interests"
+                        onChange={handleInterestChange}
+                        onKeyPress={handleInterestKeyPress}
+                        placeholder="Enter interests here (AI, Web Development, etc.)"
+                        />
+                        <div className="input-boxes">
+                        {interests.map((interest, index) => (
+                            <div key={index} className="input-box">
+                            {interest}
+                            <button className="remove-button" onClick={() => handleRemoveInterest(index)}>x</button>
+                            </div>
+                        ))}
+                        </div>
                     </div>
                 </div>
-
-                <label htmlFor="interests"></label>
-                <select id="university">
-                    <option value="">Interests</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </select>
-
                 <label htmlFor="skill"></label>
                 <select id="birthdayYear">
-                    <option value="" disabled selected>Skill</option>
+                    <option value="" disabled selected>Skill Level</option>
                     <option value="Novice">Novice</option>
                     <option value="Sophmore">Advanced Beginner</option>
                     <option value="Junior">Compotent</option>
@@ -198,13 +237,13 @@ export const Profile = () => {
                 </select>
             </div>
 
-              <div className="button-container">
+              <div className="button-container-last button-container">
                 <button className="profile-previous" onClick={handlePrevious}>Back</button>
                 <button className="profile-next" onClick={handleNext}>Submit</button>
               </div>
+            </div>
             </>
           )}
-        </div>
       </div>
     </div>
   );

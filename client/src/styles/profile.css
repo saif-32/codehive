@@ -8,14 +8,39 @@
     margin-top: -40px; /* Adjust the value as needed */
 }
 
-.content-container {
-    transform: translateX(0);
-    transition: transform 0.5s ease-in-out;
+.slide-in {
+    animation-name: slideIn;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+}
+  
+  .slide-out {
+    animation-name: slideOut;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+}
+  
+@keyframes slideIn {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
   
-.form-transition .content-container {
-    transform: translateX(-100%);
-}
+@keyframes slideOut {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
 
   
 .profile-card {
@@ -163,6 +188,16 @@ datalist#university-list option {
 
 #p-interests::placeholder {
     color: #5E4F4F;
+}
+
+#skillLevel {
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    width: 50%;
+    margin-top: -32px;
+    background-color: #EFE1B3;
 }
 
 select:focus,

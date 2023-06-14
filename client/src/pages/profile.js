@@ -4,6 +4,7 @@ import test from './test.txt'
 
 export const Profile = () => {
   const [currentForm, setCurrentForm] = useState(1);
+  const [transitionDirection, setTransitionDirection] = useState('');
   const [universities, setUniversities] = useState([]);
   const [programmingLanguages, setProgrammingLanguages] = useState([]);
   const [currentLanguage, setCurrentLanguage] = useState('');
@@ -11,11 +12,19 @@ export const Profile = () => {
   const [currentInterest, setCurrentInterest] = useState('');
 
   const handleNext = () => {
-    setCurrentForm(currentForm + 1);
+    setTransitionDirection('slide-out');
+    setTimeout(() => {
+      setCurrentForm(currentForm + 1);
+      setTransitionDirection('slide-in');
+    }, 400);
   };
-
+  
   const handlePrevious = () => {
-    setCurrentForm(currentForm - 1);
+    setTransitionDirection('slide-out');
+    setTimeout(() => {
+      setCurrentForm(currentForm - 1);
+      setTransitionDirection('slide-in');
+    }, 400);
   };
 
   const handleLanguageChange = (e) => {
@@ -80,7 +89,7 @@ export const Profile = () => {
         <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo" />
           {currentForm === 1 && (
             <>
-            <div className="profile-card">
+            <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
               <h2>Create your Code<span className="light-yellow">Hive </span>Profile</h2>
               <h3>Enter your name</h3>
               <div className='text-fields'>
@@ -97,8 +106,8 @@ export const Profile = () => {
           )}
           {currentForm === 2 && (
             <>
-            <div className="profile-card">
-            <div className={`content-container ${currentForm === 2 ? 'slide-in' : ''}`}>
+            <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
+            <div className="content-container">
             <h2>Basic Information</h2>
               <h3>Enter your birthday and gender</h3>
               <div className='text-fields'>
@@ -144,7 +153,7 @@ export const Profile = () => {
           )}
           {currentForm === 3 && (
             <>
-            <div className="profile-card">
+            <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
                 <h2>Student Information</h2>
                 <h3>Enter your university and grade</h3>
 
@@ -183,7 +192,7 @@ export const Profile = () => {
           )}
           {currentForm === 4 && (
             <>
-            <div className="profile-card" style={{height: '500px'}}>
+            <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`} style={{height: '500px'}}>
             <h2>Programmer Information</h2>
             <h3>Last step! Enter your programming details</h3>
 
@@ -228,7 +237,7 @@ export const Profile = () => {
                     </div>
                 </div>
                 <label htmlFor="skill"></label>
-                <select id="birthdayYear">
+                <select id="skillLevel">
                     <option value="" disabled selected>Skill Level</option>
                     <option value="Novice">Novice</option>
                     <option value="Sophmore">Advanced Beginner</option>

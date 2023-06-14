@@ -7,6 +7,16 @@
     background-image: linear-gradient(to top, #261c1c, #2c2223);
     margin-top: -40px; /* Adjust the value as needed */
 }
+
+.content-container {
+    transform: translateX(0);
+    transition: transform 0.5s ease-in-out;
+  }
+  
+.form-transition .content-container {
+    transform: translateX(-100%);
+}
+
   
 .profile-card {
     width: 500px;
@@ -15,9 +25,8 @@
     background-color: #4C3D3D;
     border-radius: 10px;
     box-shadow: inset 0px 0px 0px 5px #2c2223;
-    position: relative;
-}
-
+  }
+  
 .text-fields {
     width: 420px;
     height: 110px;
@@ -124,6 +133,38 @@ datalist#university-list option {
     color: #5E4F4F;
 }
 
+#p-languages {
+    display:flex;
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    width: 100%;
+    margin-top: -10px; 
+    margin-bottom: 10px;
+    background-color: #EFE1B3;
+}
+
+#p-languages::placeholder {
+    color: #5E4F4F;
+}
+
+#p-interests {
+    display:flex;
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    width: 100%;
+    margin-top: auto; 
+    margin-bottom: 10px;
+    background-color: #EFE1B3;
+}
+
+#p-interests::placeholder {
+    color: #5E4F4F;
+}
+
 select:focus,
 select:active {
   outline: none;
@@ -161,6 +202,12 @@ input[type="number"]:focus {
 .button-container {
     display: flex;
 }
+
+.button-container-last {
+    display: flex;
+    margin-top: 200px;
+}
+
 
 .first-screen-button {
     width: 420px;
@@ -205,7 +252,7 @@ input[type="number"]:focus {
     border: 2.5px solid #5E4F4F;
     border-radius: 8px;
     background-color: #EFE1B3;
-    color: #5E4F4F;
+    color: #C07F00;
     margin-right: 4px;
 }
 

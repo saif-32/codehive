@@ -34,7 +34,7 @@ export const Register = () => {
         <div className="reg-card">
         <h1>Sign Up With Code<span className="yellow">Hive</span></h1>
 
-          <img className="reg-logo" src="logo.png" alt="CodeHive Logo"/>
+          <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo"/>
           <form className="login-form" onSubmit={onSubmit}>
             <label htmlFor="email"></label>
             <input type="text" id="email" placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)}/>

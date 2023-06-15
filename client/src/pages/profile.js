@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import '../styles/profile.css';
 import test from './test.txt'
+import axios from 'axios'
 
 export const Profile = () => {
   const [currentForm, setCurrentForm] = useState(1);
@@ -10,6 +11,44 @@ export const Profile = () => {
   const [currentLanguage, setCurrentLanguage] = useState('');
   const [interests, setInterests] = useState([]);
   const [currentInterest, setCurrentInterest] = useState('');
+  const [data, setData] = useState(null);
+
+  const [userFirstName, setUserFirstName] = useState("")
+  const [userLastName, setUserLastName] = useState("")
+  const [userBirthdayMonth, setUserBirthdayMonth] = useState("")
+  const [userBirthdayDay, setUserBirthdayDay] = useState("")
+  const [userBirthdayYear, setUserBirthdayYear] = useState("")
+
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/auth/user", {
+          withCredentials: true,
+        });
+
+
+        setUserFirstName(response.data.firstName);
+        setUserLastName(response.data.lastName);
+        console.log(response.data);
+
+
+
+
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    getUser();
+  }, []);
+
+
+  if (data) {
+    setUserFirstName(data.username)
+  }
+  
 
   const handleNext = () => {
     setTransitionDirection('slide-out');
@@ -82,7 +121,6 @@ export const Profile = () => {
       });
   }, []);
 
-
   return (
     <div className='form-container'>
       <div className="profile-container">
@@ -94,9 +132,9 @@ export const Profile = () => {
               <h3>Enter your name</h3>
               <div className='text-fields'>
                 <label htmlFor="firstName"></label>
-                <input type="text" id="firstName" placeholder="First Name" />
+                <input type="text" id="firstName" placeholder="First Name" value={userFirstName} onChange={(event) => setUserFirstName(event.target.value)}/>
                 <label htmlFor="lastName"></label>
-                <input type="text" id="lastName" placeholder="Last Name" />
+                <input type="text" id="lastName" placeholder="Last Name" value={userLastName} onChange={(event) => setUserLastName(event.target.value)}/>
               </div>
               <div className="button-container">
                 <button className="profile-next first-next" onClick={handleNext}>Next</button>
@@ -112,7 +150,7 @@ export const Profile = () => {
               <h3>Enter your birthday and gender</h3>
               <div className='text-fields'>
               <label htmlFor="birthdayMonth"></label>
-              <select id="birthdayMonth">
+              <select id="birthdayMonth" value={userBirthdayMonth} onChange={(event) => setUserBirthdayMonth(event.target.value)}>
                 <option value="" disabled selected>Select Month</option>
                 <option value="1">January</option>
                 <option value="2">February</option>
@@ -127,10 +165,38 @@ export const Profile = () => {
                 <option value="11">November</option>
                 <option value="12">December</option> 
              </select>
-              <label htmlFor="birthdayDay"></label>
-              <input type="number" id="birthdayDay" min="1" max="31" placeholder="Day" />
+
+
+             <label htmlFor="birthdayDay"></label>
+              <input type="number" id="birthdayDay" min="1" max="31" placeholder="Day" value={userBirthdayDay} 
+              onChange={(event) => {
+                let value = event.target.value.slice(0, 2);
+                value = value.replace(/[^0-9]/g, '');
+                if (value.length > 1 && /^(0?[1-9]|1[0-9]|2[0-9]|3[01])$/.test(value)) {
+                  setUserBirthdayDay(value);
+                } else if (value === '0' || value === '1' || value === '2' || value === '3') {
+                  setUserBirthdayDay(value);
+                } else {
+                  setUserBirthdayDay('');
+                }
+              }}
+            />
+
+
               <label htmlFor="birthdayYear"></label>
-              <input type="number" id="birthdayYear" min="1900" max="2023" placeholder="Year" />
+              <input type="number" id="birthdayYear" min="1900" max="2023" placeholder="Year" value={userBirthdayYear} 
+              onChange={(event) => {
+                let value = event.target.value.slice(0, 4);
+                value = value.replace(/[^0-9]/g, '');
+                if (value.length > 1 && /^[12]/.test(value)) {
+                  setUserBirthdayYear(value);
+                } else if (value === '1' || value === '2') {
+                  setUserBirthdayYear(value);
+                } else {
+                  setUserBirthdayYear('');
+                }
+              }}
+            />
               
               <div>
                 <label htmlFor="gender"></label>

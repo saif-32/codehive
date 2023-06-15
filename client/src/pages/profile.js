@@ -23,6 +23,8 @@ export const Profile = () => {
   const [userGrade, setUserGrade] = useState("")
   const [userSkillLevel, setUserSkillLevel] = useState("")
 
+  const [buttonClicked, setButtonClicked] = useState(false);
+
 
   useEffect(() => {
     const getUser = async () => {
@@ -30,15 +32,7 @@ export const Profile = () => {
         const response = await axios.get("http://localhost:3001/auth/user", {
           withCredentials: true,
         });
-
-
-        setUserFirstName(response.data.firstName);
-        setUserLastName(response.data.lastName);
         console.log(response.data);
-
-
-
-
 
       } catch (error) {
         console.error(error);
@@ -50,7 +44,8 @@ export const Profile = () => {
 
 
   if (data) {
-    setUserFirstName(data.username)
+    setUserFirstName(data.firstName)
+    setUserLastName(data.lastName);
   }
   
 
@@ -136,12 +131,33 @@ export const Profile = () => {
               <h3>Enter your name</h3>
               <div className='text-fields'>
                 <label htmlFor="firstName"></label>
-                <input type="text" id="firstName" placeholder="First Name" value={userFirstName} onChange={(event) => setUserFirstName(event.target.value)}/>
+                <input type="text" id="firstName" placeholder="First Name" value={userFirstName} onChange={(event) => {
+                  console.log(event.key)
+                  let value = event.target.value.replace(/[^a-zA-Z]/g, ''); // Remove any non-alphabet characters
+                  value = value.slice(0, 20);
+                  setUserFirstName(value)}}
+                  onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    event.preventDefault(); // Prevent the form from submitting
+                    document.getElementById("firstNext").click(); // Click the "Next" button
+                  }
+                }}
+                  />
                 <label htmlFor="lastName"></label>
-                <input type="text" id="lastName" placeholder="Last Name" value={userLastName} onChange={(event) => setUserLastName(event.target.value)}/>
+                <input type="text" id="lastName" placeholder="Last Name" value={userLastName} onChange={(event) => {
+                  let value = event.target.value.replace(/[^a-zA-Z]/g, ''); // Remove any non-alphabet characters
+                  value = value.slice(0, 20);
+                  setUserLastName(value)}}
+                  onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    event.preventDefault(); // Prevent the form from submitting
+                    document.getElementById("firstNext").click(); // Click the "Next" button
+                  }
+                }}
+                  />
               </div>
               <div className="button-container">
-                <button className="profile-next first-next" onClick={handleNext}>Next</button>
+                <button className="profile-next first-next" id="firstNext" onClick={handleNext} disabled={userFirstName === "" || userLastName === ""}>Next</button>
               </div>
             </div>
             </>

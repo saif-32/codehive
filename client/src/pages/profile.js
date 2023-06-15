@@ -18,6 +18,10 @@ export const Profile = () => {
   const [userBirthdayMonth, setUserBirthdayMonth] = useState("")
   const [userBirthdayDay, setUserBirthdayDay] = useState("")
   const [userBirthdayYear, setUserBirthdayYear] = useState("")
+  const [userGender, setUserGender] = useState("")
+  const [userUniversity, setUserUniversity] = useState("")
+  const [userGrade, setUserGrade] = useState("")
+  const [userSkillLevel, setUserSkillLevel] = useState("")
 
 
   useEffect(() => {
@@ -200,7 +204,7 @@ export const Profile = () => {
               
               <div>
                 <label htmlFor="gender"></label>
-                <select id="gender">
+                <select id="gender" value={userGender} onChange={(event) => setUserGender(event.target.value)}>
                     <option value="">Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -231,6 +235,8 @@ export const Profile = () => {
                         id="university"
                         list="university-list"
                         placeholder="Search for University"
+                        value={userUniversity} 
+                        onChange={(event) => setUserUniversity(event.target.value)}
                     />
                     <datalist id="university-list">
                             {universities.map((university, index) => (
@@ -240,7 +246,7 @@ export const Profile = () => {
                 </div>
 
                 <label htmlFor="grade"></label>
-                <select id="birthdayYear">
+                <select id="birthdayYear" value={userGrade}  onChange={(event) => setUserGrade(event.target.value)}>
                     <option value="" disabled selected>Grade</option>
                     <option value="Freshman">Freshman</option>
                     <option value="Sophmore">Sophmore</option>
@@ -303,7 +309,7 @@ export const Profile = () => {
                     </div>
                 </div>
                 <label htmlFor="skill"></label>
-                <select id="skillLevel">
+                <select id="skillLevel" value={userSkillLevel}  onChange={(event) => setUserSkillLevel(event.target.value)}>
                     <option value="" disabled selected>Skill Level</option>
                     <option value="Novice">Novice</option>
                     <option value="Sophmore">Advanced Beginner</option>

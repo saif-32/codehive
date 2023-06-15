@@ -124,6 +124,16 @@
     background-color: #EFE1B3;
 }
 
+#grade {
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    width: 30%;
+    margin-top: -32px;
+    background-color: #EFE1B3;
+}
+
 #gender {
     display:flex;
     padding: 5px;

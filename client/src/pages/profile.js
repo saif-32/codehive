@@ -221,7 +221,7 @@ export const Profile = () => {
               <div>
                 <label htmlFor="gender"></label>
                 <select id="gender" value={userGender} onChange={(event) => setUserGender(event.target.value)}>
-                    <option value="">Gender</option>
+                    <option value="" disabled selected>Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
@@ -231,7 +231,8 @@ export const Profile = () => {
 
               <div className="button-container">
                 <button className="profile-previous" onClick={handlePrevious}>Back</button>
-                <button className="profile-next" onClick={handleNext}>Next</button>
+                { console.log(userBirthdayMonth)}
+                <button className="profile-next" onClick={handleNext} disabled={userBirthdayMonth === "" || userBirthdayYear === "" || userBirthdayDay == "" || userGender == ""}>Next</button>
               </div>
               </div>
               </div>
@@ -252,7 +253,8 @@ export const Profile = () => {
                         list="university-list"
                         placeholder="Search for University"
                         value={userUniversity} 
-                        onChange={(event) => setUserUniversity(event.target.value)}
+                        onChange={(event) => {
+                          setUserUniversity(event.target.value)}}
                     />
                     <datalist id="university-list">
                             {universities.map((university, index) => (
@@ -262,7 +264,7 @@ export const Profile = () => {
                 </div>
 
                 <label htmlFor="grade"></label>
-                <select id="birthdayYear" value={userGrade}  onChange={(event) => setUserGrade(event.target.value)}>
+                <select id="grade" value={userGrade}  onChange={(event) => setUserGrade(event.target.value)}>
                     <option value="" disabled selected>Grade</option>
                     <option value="Freshman">Freshman</option>
                     <option value="Sophmore">Sophmore</option>
@@ -273,7 +275,7 @@ export const Profile = () => {
 
               <div className="button-container">
                 <button className="profile-previous" onClick={handlePrevious}>Back</button>
-                <button className="profile-next" onClick={handleNext}>Next</button>
+                <button className="profile-next" onClick={handleNext} disabled={userGrade == ""}>Next</button>
               </div>
             </div>
             </>

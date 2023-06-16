@@ -1,21 +1,68 @@
 import { useState, useEffect } from 'react';
 import '../styles/profile.css';
 import test from './test.txt'
+import axios from 'axios'
 
 export const Profile = () => {
   const [currentForm, setCurrentForm] = useState(1);
+  const [transitionDirection, setTransitionDirection] = useState('');
   const [universities, setUniversities] = useState([]);
   const [programmingLanguages, setProgrammingLanguages] = useState([]);
   const [currentLanguage, setCurrentLanguage] = useState('');
   const [interests, setInterests] = useState([]);
   const [currentInterest, setCurrentInterest] = useState('');
+  const [data, setData] = useState(null);
+
+  const [userFirstName, setUserFirstName] = useState("")
+  const [userLastName, setUserLastName] = useState("")
+  const [userBirthdayMonth, setUserBirthdayMonth] = useState("")
+  const [userBirthdayDay, setUserBirthdayDay] = useState("")
+  const [userBirthdayYear, setUserBirthdayYear] = useState("")
+  const [userGender, setUserGender] = useState("")
+  const [userUniversity, setUserUniversity] = useState("")
+  const [userGrade, setUserGrade] = useState("")
+  const [userSkillLevel, setUserSkillLevel] = useState("")
+
+  const [buttonClicked, setButtonClicked] = useState(false);
+
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/auth/user", {
+          withCredentials: true,
+        });
+        console.log(response.data);
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    getUser();
+  }, []);
+
+
+  if (data) {
+    setUserFirstName(data.firstName)
+    setUserLastName(data.lastName);
+  }
+  
 
   const handleNext = () => {
-    setCurrentForm(currentForm + 1);
+    setTransitionDirection('slide-out');
+    setTimeout(() => {
+      setCurrentForm(currentForm + 1);
+      setTransitionDirection('slide-in');
+    }, 400);
   };
-
+  
   const handlePrevious = () => {
-    setCurrentForm(currentForm - 1);
+    setTransitionDirection('slide-out');
+    setTimeout(() => {
+      setCurrentForm(currentForm - 1);
+      setTransitionDirection('slide-in');
+    }, 400);
   };
 
   const handleLanguageChange = (e) => {
@@ -73,37 +120,57 @@ export const Profile = () => {
       });
   }, []);
 
-
   return (
     <div className='form-container'>
       <div className="profile-container">
         <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo" />
           {currentForm === 1 && (
             <>
-            <div className="profile-card">
+            <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
               <h2>Create your Code<span className="light-yellow">Hive </span>Profile</h2>
               <h3>Enter your name</h3>
               <div className='text-fields'>
                 <label htmlFor="firstName"></label>
-                <input type="text" id="firstName" placeholder="First Name" />
+                <input type="text" id="firstName" placeholder="First Name" value={userFirstName} onChange={(event) => {
+                  console.log(event.key)
+                  let value = event.target.value.replace(/[^a-zA-Z]/g, ''); // Remove any non-alphabet characters
+                  value = value.slice(0, 20);
+                  setUserFirstName(value)}}
+                  onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    event.preventDefault(); // Prevent the form from submitting
+                    document.getElementById("firstNext").click(); // Click the "Next" button
+                  }
+                }}
+                  />
                 <label htmlFor="lastName"></label>
-                <input type="text" id="lastName" placeholder="Last Name" />
+                <input type="text" id="lastName" placeholder="Last Name" value={userLastName} onChange={(event) => {
+                  let value = event.target.value.replace(/[^a-zA-Z]/g, ''); // Remove any non-alphabet characters
+                  value = value.slice(0, 20);
+                  setUserLastName(value)}}
+                  onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    event.preventDefault(); // Prevent the form from submitting
+                    document.getElementById("firstNext").click(); // Click the "Next" button
+                  }
+                }}
+                  />
               </div>
               <div className="button-container">
-                <button className="profile-next first-next" onClick={handleNext}>Next</button>
+                <button className="profile-next first-next" id="firstNext" onClick={handleNext} disabled={userFirstName === "" || userLastName === ""}>Next</button>
               </div>
             </div>
             </>
           )}
           {currentForm === 2 && (
             <>
-            <div className="profile-card">
-            <div className={`content-container ${currentForm === 2 ? 'slide-in' : ''}`}>
+            <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
+            <div className="content-container">
             <h2>Basic Information</h2>
               <h3>Enter your birthday and gender</h3>
               <div className='text-fields'>
               <label htmlFor="birthdayMonth"></label>
-              <select id="birthdayMonth">
+              <select id="birthdayMonth" value={userBirthdayMonth} onChange={(event) => setUserBirthdayMonth(event.target.value)}>
                 <option value="" disabled selected>Select Month</option>
                 <option value="1">January</option>
                 <option value="2">February</option>
@@ -118,15 +185,43 @@ export const Profile = () => {
                 <option value="11">November</option>
                 <option value="12">December</option> 
              </select>
-              <label htmlFor="birthdayDay"></label>
-              <input type="number" id="birthdayDay" min="1" max="31" placeholder="Day" />
+
+
+             <label htmlFor="birthdayDay"></label>
+              <input type="number" id="birthdayDay" min="1" max="31" placeholder="Day" value={userBirthdayDay} 
+              onChange={(event) => {
+                let value = event.target.value.slice(0, 2);
+                value = value.replace(/[^0-9]/g, '');
+                if (value.length > 1 && /^(0?[1-9]|1[0-9]|2[0-9]|3[01])$/.test(value)) {
+                  setUserBirthdayDay(value);
+                } else if (value === '0' || value === '1' || value === '2' || value === '3') {
+                  setUserBirthdayDay(value);
+                } else {
+                  setUserBirthdayDay('');
+                }
+              }}
+            />
+
+
               <label htmlFor="birthdayYear"></label>
-              <input type="number" id="birthdayYear" min="1900" max="2023" placeholder="Year" />
+              <input type="number" id="birthdayYear" min="1900" max="2023" placeholder="Year" value={userBirthdayYear} 
+              onChange={(event) => {
+                let value = event.target.value.slice(0, 4);
+                value = value.replace(/[^0-9]/g, '');
+                if (value.length > 1 && /^[12]/.test(value)) {
+                  setUserBirthdayYear(value);
+                } else if (value === '1' || value === '2') {
+                  setUserBirthdayYear(value);
+                } else {
+                  setUserBirthdayYear('');
+                }
+              }}
+            />
               
               <div>
                 <label htmlFor="gender"></label>
-                <select id="gender">
-                    <option value="">Gender</option>
+                <select id="gender" value={userGender} onChange={(event) => setUserGender(event.target.value)}>
+                    <option value="" disabled selected>Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
@@ -136,7 +231,8 @@ export const Profile = () => {
 
               <div className="button-container">
                 <button className="profile-previous" onClick={handlePrevious}>Back</button>
-                <button className="profile-next" onClick={handleNext}>Next</button>
+                { console.log(userBirthdayMonth)}
+                <button className="profile-next" onClick={handleNext} disabled={userBirthdayMonth === "" || userBirthdayYear === "" || userBirthdayDay == "" || userGender == ""}>Next</button>
               </div>
               </div>
               </div>
@@ -144,7 +240,7 @@ export const Profile = () => {
           )}
           {currentForm === 3 && (
             <>
-            <div className="profile-card">
+            <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
                 <h2>Student Information</h2>
                 <h3>Enter your university and grade</h3>
 
@@ -156,6 +252,9 @@ export const Profile = () => {
                         id="university"
                         list="university-list"
                         placeholder="Search for University"
+                        value={userUniversity} 
+                        onChange={(event) => {
+                          setUserUniversity(event.target.value)}}
                     />
                     <datalist id="university-list">
                             {universities.map((university, index) => (
@@ -165,7 +264,7 @@ export const Profile = () => {
                 </div>
 
                 <label htmlFor="grade"></label>
-                <select id="birthdayYear">
+                <select id="grade" value={userGrade}  onChange={(event) => setUserGrade(event.target.value)}>
                     <option value="" disabled selected>Grade</option>
                     <option value="Freshman">Freshman</option>
                     <option value="Sophmore">Sophmore</option>
@@ -176,14 +275,14 @@ export const Profile = () => {
 
               <div className="button-container">
                 <button className="profile-previous" onClick={handlePrevious}>Back</button>
-                <button className="profile-next" onClick={handleNext}>Next</button>
+                <button className="profile-next" onClick={handleNext} disabled={userGrade == ""}>Next</button>
               </div>
             </div>
             </>
           )}
           {currentForm === 4 && (
             <>
-            <div className="profile-card" style={{height: '500px'}}>
+            <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`} style={{height: '500px'}}>
             <h2>Programmer Information</h2>
             <h3>Last step! Enter your programming details</h3>
 
@@ -228,7 +327,7 @@ export const Profile = () => {
                     </div>
                 </div>
                 <label htmlFor="skill"></label>
-                <select id="birthdayYear">
+                <select id="skillLevel" value={userSkillLevel}  onChange={(event) => setUserSkillLevel(event.target.value)}>
                     <option value="" disabled selected>Skill Level</option>
                     <option value="Novice">Novice</option>
                     <option value="Sophmore">Advanced Beginner</option>

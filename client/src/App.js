@@ -13,6 +13,7 @@ import { Footer } from "./components/footer"
 import { VerifyEmail } from "./pages/verifyEmail"
 import { EmailSent } from './pages/emailSent';
 import { AuthError } from './pages/authError';
+import { ForgotPassword } from './pages/forgotPassword';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path='/register/autherror' element={<AuthError />} />
         <Route path='/discover' element={<Discover />} />
         <Route path='/verify-email/:username/:token' element={<VerifyEmail />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
       </Routes>
         <Footer />
     </Router>

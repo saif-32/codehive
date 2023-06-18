@@ -30,5 +30,11 @@ router.post('/forgot-password', async (req, res) => {
     } catch (error) {
         // Insert errors here
     }    
-    
 })
+
+router.get('/reset-password/:token', async (req, res) => {
+    res.render('password-reset', {token: req.params.token});
+});
+
+
+

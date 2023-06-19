@@ -12,8 +12,6 @@ export const Login = () => {
     const [data, setData] = useState(null);
     const navigate = useNavigate();
 
-    console.log(cookies.access_token)
-
     useEffect(() => {
       const getUser = () => {
           axios({

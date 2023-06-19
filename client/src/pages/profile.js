@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, Link} from "react-router-dom"
 import '../styles/profile.css';
 import test from './test.txt'
 import axios from 'axios'
@@ -12,7 +13,10 @@ export const Profile = () => {
   const [interests, setInterests] = useState([]);
   const [currentInterest, setCurrentInterest] = useState('');
   const [data, setData] = useState(null);
+  const navigate = useNavigate();
 
+
+  const [userUsername, setUserUsername] = useState("")
   const [userFirstName, setUserFirstName] = useState("")
   const [userLastName, setUserLastName] = useState("")
   const [userBirthdayMonth, setUserBirthdayMonth] = useState("")
@@ -32,8 +36,13 @@ export const Profile = () => {
         const response = await axios.get("http://localhost:3001/auth/user", {
           withCredentials: true,
         });
-        console.log(response.data);
-
+        
+        if (response.data) {
+          setUserUsername(response.data.username)
+          setUserFirstName(response.data.firstName)
+          setUserLastName(response.data.lastName)
+        }
+ 
       } catch (error) {
         console.error(error);
       }
@@ -42,13 +51,46 @@ export const Profile = () => {
     getUser();
   }, []);
 
+  useEffect(() => {
+    const getUser = () => {
+        axios({
+          method: "GET",
+          withCredentials: true,
+          url: "http://localhost:3001/auth/user",
+        }).then((res) => {
+          if (!res.data)
+          {
+            navigate("/")
+          }
+        });
+      };
 
-  if (data) {
-    setUserFirstName(data.firstName)
-    setUserLastName(data.lastName);
-  }
+    getUser();
+  }, []);
+
+  const onSubmit = async (event) => { // Executes after submit button is clicked.
+    console.log("Submitting...")
+    event.preventDefault();
+    const response = await axios.post("http://localhost:3001/profile/create", {
+      userUsername,
+      userFirstName,
+      userLastName,
+      userBirthdayMonth,
+      userBirthdayDay,
+      userBirthdayYear,
+      userGender,
+      userUniversity,
+      userGrade,
+      programmingLanguages,
+      interests,
+      userSkillLevel
+    }, {
+      withCredentials: true
+    }).then(response => {
+      alert("Succesfully created profile!")
+    })
+  };
   
-
   const handleNext = () => {
     setTransitionDirection('slide-out');
     setTimeout(() => {
@@ -124,6 +166,7 @@ export const Profile = () => {
     <div className='form-container'>
       <div className="profile-container">
         <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo" />
+        <form className="profile-form" onSubmit={onSubmit}>
           {currentForm === 1 && (
             <>
             <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
@@ -157,7 +200,7 @@ export const Profile = () => {
                   />
               </div>
               <div className="button-container">
-                <button className="profile-next first-next" id="firstNext" onClick={handleNext} disabled={userFirstName === "" || userLastName === ""}>Next</button>
+                <button className="profile-next first-next" type="button" id="firstNext" onClick={handleNext} disabled={userFirstName === "" || userLastName === ""}>Next</button>
               </div>
             </div>
             </>
@@ -188,19 +231,24 @@ export const Profile = () => {
 
 
              <label htmlFor="birthdayDay"></label>
-              <input type="number" id="birthdayDay" min="1" max="31" placeholder="Day" value={userBirthdayDay} 
-              onChange={(event) => {
-                let value = event.target.value.slice(0, 2);
-                value = value.replace(/[^0-9]/g, '');
-                if (value.length > 1 && /^(0?[1-9]|1[0-9]|2[0-9]|3[01])$/.test(value)) {
-                  setUserBirthdayDay(value);
-                } else if (value === '0' || value === '1' || value === '2' || value === '3') {
-                  setUserBirthdayDay(value);
-                } else {
-                  setUserBirthdayDay('');
-                }
-              }}
-            />
+            <input
+                  type="number"
+                  id="birthdayDay"
+                  min="1"
+                  max="31"
+                  placeholder="Day"
+                  value={userBirthdayDay}
+                  onChange={(event) => {
+                    let value = event.target.value.slice(0, 2);
+                    value = value.replace(/[^0-9]/g, '');
+                    if (/^(0?[1-9]|[12][0-9]|3[01])$/.test(value)) {
+                      setUserBirthdayDay(value);
+                    } else {
+                      setUserBirthdayDay('');
+                    }
+                  }}
+              />
+
 
 
               <label htmlFor="birthdayYear"></label>
@@ -230,9 +278,9 @@ export const Profile = () => {
             </div>
 
               <div className="button-container">
-                <button className="profile-previous" onClick={handlePrevious}>Back</button>
+                <button className="profile-previous" type="button" onClick={handlePrevious}>Back</button>
                 { console.log(userBirthdayMonth)}
-                <button className="profile-next" onClick={handleNext} disabled={userBirthdayMonth === "" || userBirthdayYear === "" || userBirthdayDay == "" || userGender == ""}>Next</button>
+                <button className="profile-next" onClick={handleNext} type="button" disabled={userBirthdayMonth === "" || userBirthdayYear === "" || userBirthdayDay == "" || userGender == ""}>Next</button>
               </div>
               </div>
               </div>
@@ -274,8 +322,8 @@ export const Profile = () => {
                 </div>
 
               <div className="button-container">
-                <button className="profile-previous" onClick={handlePrevious}>Back</button>
-                <button className="profile-next" onClick={handleNext} disabled={userGrade == ""}>Next</button>
+                <button className="profile-previous" type="button" onClick={handlePrevious}>Back</button>
+                <button className="profile-next" type="button" onClick={handleNext} disabled={userGrade == "" || userUniversity == ""}>Next</button>
               </div>
             </div>
             </>
@@ -301,7 +349,7 @@ export const Profile = () => {
                         {programmingLanguages.map((language, index) => (
                             <div key={index} className="input-box">
                             {language}
-                            <button className="remove-button" onClick={() => handleRemoveLanguage(index)}>x</button>
+                            <button className="remove-button" type="button" onClick={() => handleRemoveLanguage(index)}>x</button>
                             </div>
                         ))}
                         </div>
@@ -320,7 +368,7 @@ export const Profile = () => {
                         {interests.map((interest, index) => (
                             <div key={index} className="input-box">
                             {interest}
-                            <button className="remove-button" onClick={() => handleRemoveInterest(index)}>x</button>
+                            <button className="remove-button" type="button" onClick={() => handleRemoveInterest(index)}>x</button>
                             </div>
                         ))}
                         </div>
@@ -337,12 +385,14 @@ export const Profile = () => {
             </div>
 
               <div className="button-container-last button-container">
-                <button className="profile-previous" onClick={handlePrevious}>Back</button>
-                <button className="profile-next" onClick={handleNext}>Submit</button>
+                <button className="profile-previous" type="button" onClick={handlePrevious}>Back</button>
+                <button className="profile-next" type='submit' disabled={userSkillLevel == "" || interests == "" || programmingLanguages == ""
+                }>Submit</button>
               </div>
             </div>
             </>
           )}
+          </form>
       </div>
     </div>
   );

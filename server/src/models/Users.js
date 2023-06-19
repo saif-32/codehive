@@ -12,6 +12,14 @@ const UserSchema = new mongoose.Schema({
     resetToken: {type: String, default: false},
     googleId:{type: String, required: false},
     githubId:{type: String, required: false},
+    profileCompleted:{type: Boolean, default: false},
+    age: {type: Number},
+    gender: {type: String},
+    university: {type: String}, // drop down menu for US Universities
+    gradeLevel: {type: String}, // freshman-senior
+    skillLevel: {type: String}, // novice-expert
+    languages: [{type: String}], // drop down menu for programming languages
+    interests: [{type: String}], // drop down menu for interests ? AI, Web Dev, Game Dev, etc
 });
 
 UserSchema.plugin(passportLocalMongoose);

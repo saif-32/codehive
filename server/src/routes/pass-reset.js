@@ -39,7 +39,6 @@ router.post('/reset-password', async (req, res) => {
     const {token} = req.body;
     console.log(token)
     res.status(200).json({ message: token});
-
 });
 
 export { router as passwordRouter };

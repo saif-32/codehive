@@ -1,22 +1,21 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import axios from 'axios'
 
 export const ForgotPassword = () => {
     const [email, setEmail]  = useState("");
+    const {token} = useParams();
     const navigate = useNavigate();
 
     const onSubmit = async (event) => {
         event.preventDefault();
         
-        try {
-          const response = await axios.post('http://localhost:3001/forgot-password', { email });
-            alert("Email verified, initiating password reset process.")
-            //navigate("/")
-        } catch (err) {
-          console.error(err)
-        }
-      }; 
+        const response = axios.post("http://localhost:3001/password/reset-password", {
+          token
+        }).then(response => {
+          alert("Token is being validated...")
+        })
+    }
 
     return <div>
         <h1>Forgot Password</h1>

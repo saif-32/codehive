@@ -19,4 +19,3 @@ UserSchema.plugin(findOrCreate)
 
 export const UserModel = mongoose.model("users", UserSchema); // Setting schema to a model (giving it a name)
 // Allows other files to be able to see the schema
-

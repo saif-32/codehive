@@ -10,16 +10,27 @@ const router = express.Router();
 
 router.post("/register", async(req, res) => {
     const { firstName, lastName, username, email, password } = req.body;
+
+    if (!firstName || !lastName || !username || !email || !password) {
+        return res.json({Message: "All-Fields-Required"});
+      }
+
     try {
     const checkUser = await UserModel.findOne({ username }); // Checks if username exists or not
     const checkEmail = await UserModel.findOne({ email }); // Checks if email exists or not
 
     if (checkUser) {
-        return res.json({Message: "This username already exists."});
+        return res.json({Message: "Username-Exists"});
     }
 
     if (checkEmail) {
-        return res.json({Message: "This email already exists."});
+        return res.json({Message: "Email-Exists"});
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d]{8,}$/;
+
+    if (!passwordRegex.test(password)) {
+        return res.json({ Message: "Password-Not-Strong" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10); // Hashes user password with 10 salt rounds.
@@ -37,8 +48,8 @@ router.post("/register", async(req, res) => {
     const emailToken = jwt.sign({username: req.body.username}, "secret", {expiresIn: '12h'});
     verifyUserEmail(firstName, lastName, email, username, emailToken);
 
-    res.json({Message: "User was registered successfully!" });
-} catch (error) {
+    return res.json({status: 'okay'});
+    } catch (error) {
     console.error('Error registering user:', error);
     res.status(500).json({ message: "An error occurred during registration. Please try again later." });
 }

@@ -278,6 +278,10 @@ input[type=number], input[type="text"] {
     padding-right: 30px;
   }
 
+  .reg-error {
+    margin-top: -32px;
+  }
+
   .reg-container {
     display: flex;
     justify-content: center;

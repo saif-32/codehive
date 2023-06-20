@@ -9,6 +9,7 @@ export const Register = () => {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
 
@@ -21,9 +22,33 @@ export const Register = () => {
         username,
         email,
         password
-      });
-      alert("Registration info was sent to backend.")
-      navigate("/")
+      }).then(response => {
+        const responseData = response.data;
+        const responseStatus = responseData.status;
+
+        if (responseStatus === "okay") {
+          console.log("User was logged in successfully!")
+          navigate("/register/email-sent?email=" + encodeURIComponent(email));
+        }
+
+        if (responseData.Message === "All-Fields-Required") {
+          console.log("hello")
+          setErrorMessage("All fields are required!");
+        }
+
+        if (responseData.Message === "Username-Exists") {
+          setErrorMessage("This username already exists");
+        }
+
+        if (responseData.Message === "Email-Exists") {
+          setErrorMessage("This email already exists");
+        }
+
+        if (responseData.Message === "Password-Not-Strong") {
+          setErrorMessage("Your password is not strong enough. Make sure it has at least 8 characters.");
+        }
+
+      })
     } catch (err) {
       console.error(err)
     }
@@ -36,6 +61,7 @@ export const Register = () => {
 
           <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo"/>
           <form className="login-form" onSubmit={onSubmit}>
+            <p className="reg-error">{errorMessage}</p>
             <label htmlFor="email"></label>
             <input type="text" id="email" placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)}/>
             <label htmlFor="firstName"></label>

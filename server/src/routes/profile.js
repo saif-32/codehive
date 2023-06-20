@@ -29,9 +29,9 @@ router.post("/create", async (req, res) => {
       return res.json({ Message: "This username was not found." });
     }
   
-    // if (user.profileCompleted) {
-    //   return res.json({ Message: "This profile was already completed. Display the edit page." });
-    // }
+    if (user.profileCompleted) {
+      return res.json({ Message: "This profile was already completed. Display the edit page." });
+    }
   
     const birthdate = new Date(userBirthdayYear, userBirthdayMonth - 1, userBirthdayDay);
     const today = new Date()

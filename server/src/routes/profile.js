@@ -44,24 +44,30 @@ router.post("/create", async (req, res) => {
 
     console.log(age)
 
-    let change = UserModel.updateOne(
-      {username: userUsername},
-      {
-        $set: {
-        firstName: userFirstName,
-        lastName: userLastName,
-        age: age,
-        gender: userGender,
-        university: userUniversity,
-        languages: programmingLanguages,
-        interests: interests,
-        grade: userGrade,
-        skillLevel: userSkillLevel,
-        profileCompleted: true,
-        },
-      }
-    ).then(console.log("User succesfully created their profile."));
-  });
+    try{
+        let change = UserModel.updateOne(
+            {username: userUsername},
+            {
+              $set: {
+              firstName: userFirstName,
+              lastName: userLastName,
+              age: age,
+              gender: userGender,
+              university: userUniversity,
+              languages: programmingLanguages,
+              interests: interests,
+              grade: userGrade,
+              skillLevel: userSkillLevel,
+              profileCompleted: true,
+              },
+            }
+          ).then(console.log("User succesfully created their profile."));
+        return res.json({status: 'okay'});
+    } catch (err) {
+        return res.json({status: 'error'});
+    }
+    // Need to return a error/success and then create frontend page for if profilecompleted or not
+});
 
 router.post("/edit", async(req, res) =>{
     const profile = new ProfileModel(req.body);

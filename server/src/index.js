@@ -128,6 +128,7 @@ passport.deserializeUser(async (id, cb) => {
           firstName: user.firstName,
           lastName: user.lastName,
           username: user.username,
+          profileCompleted: user.profileCompleted,
         };
         cb(null, userInformation);
       } else {

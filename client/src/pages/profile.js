@@ -41,6 +41,11 @@ export const Profile = () => {
           setUserUsername(response.data.username)
           setUserFirstName(response.data.firstName)
           setUserLastName(response.data.lastName)
+          console.log(response.data.profileCompleted)
+
+          if (response.data.profileCompleted) {
+            setCurrentForm(6)
+          }
         }
  
       } catch (error) {
@@ -87,6 +92,10 @@ export const Profile = () => {
     }, {
       withCredentials: true
     }).then(response => {
+      if (response.data.status === "okay") {
+        handleNext()
+      }
+      console.log(response.data.status)
       alert("Succesfully created profile!")
     })
   };
@@ -389,6 +398,23 @@ export const Profile = () => {
                 <button className="profile-next" type='submit' disabled={userSkillLevel == "" || interests == "" || programmingLanguages == ""
                 }>Submit</button>
               </div>
+            </div>
+            </>
+          )}
+          {currentForm === 5 && (
+            <>
+            <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
+            <h2>Your Code<span className="light-yellow">Hive </span>Profile was successfully created!</h2>
+            <h3>Get ready to unleash your innovative spirit and connect with talented students from around the world.
+            <br /> <br /> Head over to the <span className="light-yellow">Discover </span> page to explore exciting collaboration opportunities and start making an impact together. Happy coding!</h3>
+            </div>
+            </>
+          )}
+          {currentForm === 6 && (
+            <>
+            <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
+            <h2>Your Code<span className="light-yellow">Hive </span>Profile was already created!</h2>
+            <h3>This should display a user edit page.</h3>
             </div>
             </>
           )}

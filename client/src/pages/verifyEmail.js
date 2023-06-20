@@ -17,6 +17,7 @@ export const VerifyEmail = () => {
       }).then(response => {
         const responseStatus = response.data.status;
         if (responseStatus === "okay") {
+          console.log("Status is good.")
           setIsValidToken(true);
         }
       })

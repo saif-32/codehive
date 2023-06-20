@@ -330,7 +330,7 @@ input[type=number], input[type="text"] {
     flex-direction: column;
   }
 
-  .reg-container button {
+  .reg-sign-up {
     margin-top: 10px;
     padding: 10px;
     background-color: #C07F00;

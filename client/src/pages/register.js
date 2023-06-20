@@ -53,6 +53,14 @@ export const Register = () => {
       console.error(err)
     }
   };  
+
+  const GoogleLoginButton = async (event) => {
+    window.location.href = 'http://localhost:3001/auth/google';
+}
+
+  const GithubLoginButton = async (event) => {
+    window.location.href = 'http://localhost:3001/auth/github';
+  }
     
     return <div>
       <div className="reg-container">
@@ -72,22 +80,22 @@ export const Register = () => {
             <input type="text" id="username" placeholder="Username" value={username} onChange={(event) => setUsername(event.target.value)}/>
             <label htmlFor="password"></label>
             <input type="password" id="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)}/>
-            <button type="submit">Sign Up</button>
+            <button type="submit" className="reg-sign-up">Sign Up</button>
           </form>
 
           <div class="or-seperator"><h3>Or Continue With</h3></div>
 
           <div className="social-media-button">
-            <a class="btn btn-block btn-social btn-google">
-                  <span class="fa fa-google"></span> Sign Up with Google
-            </a>
-          </div>
+          <button class="btn btn-block btn-social btn-google" onClick={GoogleLoginButton}>
+                <span class="fa fa-google"></span> Login with Google
+          </button>
+        </div>
 
-          <div className="social-media-button">
-            <a class="btn btn-block btn-social btn-github">
-                  <span class="fa fa-github"></span> Sign Up with Github
-            </a>
-          </div>
+        <div className="social-media-button">
+          <button class="btn btn-block btn-social btn-github" onClick={GithubLoginButton}>
+                <span class="fa fa-github"></span> Login with Github
+          </button>
+        </div>
 
           <div className="social-media-button">
             <a class="btn btn-block btn-social btn-linkedin">

@@ -35,6 +35,17 @@
     margin-top: 20px;
 }
 
+.discover-card h1 {
+    color: #FFF7D4;
+    font-size: 32px;
+}
+
+.discover-card h4 {
+    color: #FFF7D4;
+    font-size: 16px;
+    margin-top: 0px;
+}
+
 
 .discover-search {
     border-radius: 50px !important;
@@ -119,6 +130,15 @@
     margin-bottom: 20px;
     position: relative;
 
+}
+
+.card-profile-picture {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #2c2223;
 }
 
 

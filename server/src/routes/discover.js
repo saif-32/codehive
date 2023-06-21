@@ -5,8 +5,9 @@ const router = express.Router();
 
 router.get("/users", async (req, res) => {
     try {
-        const response = await UserModel.find({}, 'firstName lastName');
-        res.json(response);
+        const users = await UserModel.find({}, 'firstName lastName username age university skillLevel languages interests');
+        const count = users.length;
+        res.json({ count, users });
     } catch (err) {
         res.json(err);
     }

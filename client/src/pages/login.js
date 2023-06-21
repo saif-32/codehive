@@ -8,8 +8,6 @@ export const Login = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [errorMessage, setErrorMessage] = useState("");
-    const [cookies, setCookies] = useCookies(["access_token"]);
-    const [data, setData] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {

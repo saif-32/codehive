@@ -107,7 +107,7 @@
     align-items: center;
     height: 100vh;
     background-image: linear-gradient(to top, #261c1c, #2c2223);
-  }
+}
   
   .login-card {
     width: 500px;
@@ -253,13 +253,13 @@ input[type=number], input[type="text"] {
     padding-bottom: 10px !important;
   }
 
-  .or-seperator {
+.or-seperator {
     margin: 50px 0 15px;
     text-align: center;
     border-top: 1px solid #e0e0e0;
-  }
+}
 
-  .or-seperator h3 {
+.or-seperator h3 {
     padding: 0 10px;
     height: 40px;
     font-size: 24px;
@@ -270,7 +270,7 @@ input[type=number], input[type="text"] {
     position: relative;
     top: -22px;
     z-index: 1;
-  }
+}
 
   .reg-logo {
     height: 200px;

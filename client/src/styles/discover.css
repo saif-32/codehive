@@ -1,0 +1,83 @@
+.discover-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    background-image: linear-gradient(to top, #261c1c, #2c2223);
+}
+
+.discover-logo {
+    width: 200px;
+    height: 200px;
+    margin-top: 20px;
+}
+
+.discover-container h1 {
+    color: #FFF7D4;
+    font-size: 35px;
+}
+
+.discover-container h3 {
+    color: #FFF7D4;
+    font-size: 24px;
+}
+
+.discover-search {
+    border-radius: 50px !important;
+    width: 50%;
+    margin-top: 20px;
+    background-image: url(https://cdn.discordapp.com/attachments/798251319847813200/1121164520342175885/search-3-xxl.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 30px;
+}
+
+.discover-search-user {
+    padding: 5px;
+    border-radius: 50px !important;
+    width: 25%;
+    background-color: #C07F00;
+    color: #ffffff;
+    font-size: 24px;
+    border: none;
+    cursor: pointer;
+}
+
+.discover-search-user:hover {
+    background-color: #A46C00;
+}
+
+.discover-seperator {
+    margin: 50px 0 15px;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+    width: 25%;
+}
+
+.discover-seperator h3 {
+    padding: 0 10px;
+    height: 40px;
+    font-size: 24px;
+    text-align: center;
+    line-height: 40px;
+    background: #2c2223;
+    display: inline-block;
+    position: relative;
+    top: -22px;
+    z-index: 1;
+}
+
+.filters {
+    display: flex;
+}
+
+.filter-heading {
+    color: #FFF7D4;
+    text-decoration: none;
+    margin-right: 30px;
+}
+
+
+
+

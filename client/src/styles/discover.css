@@ -4,6 +4,12 @@
     justify-content: flex-start;
     align-items: center;
     height: 100vh;
+}
+
+.show-users {
+    height: auto !important;
+}
+.discover-background {
     background-image: linear-gradient(to top, #261c1c, #2c2223);
 }
 
@@ -23,14 +29,23 @@
     font-size: 24px;
 }
 
+.discover-container h4 {
+    color: #FFF7D4;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+
 .discover-search {
     border-radius: 50px !important;
     width: 50%;
     margin-top: 20px;
-    background-image: url(https://cdn.discordapp.com/attachments/798251319847813200/1121164520342175885/search-3-xxl.png);
+    background-image: url(https://cdn.discordapp.com/attachments/798251319847813200/1121202158348546168/BrowserPreview_tmp.png);
+    background-size: 4% auto;
     background-repeat: no-repeat;
     background-position: left center;
-    padding-left: 30px;
+    padding-left: 50px;
+    text-indent: 22px;
 }
 
 .discover-search-user {
@@ -76,6 +91,34 @@
     color: #FFF7D4;
     text-decoration: none;
     margin-right: 30px;
+    cursor: pointer;
+}
+
+.filter-heading:hover {
+    color: #C07F00;
+    text-decoration: none;
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.discover-cards {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap to the next line */
+    justify-content: center; /* Align cards to the left */
+    max-width: 1400px; /* Set a maximum width to limit cards per line */
+}
+
+.discover-card {
+    width: 300px;
+    height: 400px;
+    background-color: #4C3D3D;
+    border-radius: 30px;
+    box-shadow:inset 0px 0px 0px 5px #261c1c;
+    margin-right: 15px;
+    margin-bottom: 20px;
+    position: relative;
+
 }
 
 

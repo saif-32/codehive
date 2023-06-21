@@ -13,6 +13,7 @@ import { profileRouter } from './routes/profile.js'
 import { UserModel } from './models/Users.js';
 import dotenv from 'dotenv';
 import { passwordRouter } from './routes/pass-reset.js';
+import { discoverRouter } from './routes/discover.js';
 dotenv.config();
 
 mongoose.connect("mongodb+srv://hiveadmin:ZbYOedcubmWvLEsc@codehive.ihhueao.mongodb.net/CodeHive?retryWrites=true&w=majority") // Establishes connection
@@ -143,5 +144,6 @@ passport.deserializeUser(async (id, cb) => {
 app.use("/auth", userRouter); // Whatever pages are created in users.js will proceed /auth 
 app.use("/profile", profileRouter);
 app.use("/password", passwordRouter);
+app.use("/discover", discoverRouter);
 
 app.listen(3001, () => console.log("Server is running.")); // Starts the server

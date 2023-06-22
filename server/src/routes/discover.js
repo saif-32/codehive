@@ -13,4 +13,15 @@ router.get("/users", async (req, res) => {
     }
 });
 
+router.post("/users/school", async (req, res) => {
+    try {
+        const { userUniversity } = req.body;
+        const users = await UserModel.find({university: userUniversity}, 'firstName lastName username age university skillLevel languages interests');
+        const count = users.length;
+        res.json({ count, users });
+    } catch (err) {
+        res.json(err);
+    }
+});
+
 export { router as discoverRouter };

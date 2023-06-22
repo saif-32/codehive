@@ -36,7 +36,7 @@
 }
 
 .discover-card h1 {
-    color: #FFF7D4;
+    color: #FFD95A;
     font-size: 32px;
 }
 
@@ -128,9 +128,8 @@
     box-shadow:inset 0px 0px 0px 5px #261c1c;
     margin-right: 15px;
     margin-bottom: 20px;
-    position: relative;
-
 }
+
 
 .card-profile-picture {
     margin-top: 15px;
@@ -140,6 +139,13 @@
     border-radius: 50%;
     border: 4px solid #2c2223;
 }
+
+@media screen and (max-width: 500px) {
+    .discover-card h1,
+    .discover-card h4 {
+      font-size: 12px;
+    }
+  }
 
 
 

@@ -6,9 +6,20 @@ import { useState, useEffect } from 'react';
 export const Discover = () => {
 
     const [currentSearch, setCurrentSearch] = useState("main");
+
     const [userUniversity, setUserUniversity] = useState("")
+    const [userLevel, setUserLevel] = useState("")
+    const [userInterests, setUserInterests] = useState("")
+    const [userLanguage, setUserLanguage] = useState("")
+
     const [userSearchButtonClicked, setUserSearchButtonClicked] = useState(false);
     const [userSchoolSearch, setUserSchoolSearch] = useState(false);
+    const [userlevelSearch, setUserLevelSearch] = useState(false);
+    const [userInterestsSearch, setUserInterestsSearch] = useState(false);
+    const [userLanguageSearch, setUserLanguageSearch] = useState(false);
+
+
+
     const [users, setUsers] = useState([]);
     const [userCount, setUserCount] = useState();
     
@@ -18,7 +29,7 @@ export const Discover = () => {
         setCurrentSearch("school");
     };
 
-    const userSearch = async (event) => { // Executes after Log in button is clicked.
+    const userSearch = async (event) => {
         event.preventDefault();
         setUserSearchButtonClicked(true)
 
@@ -34,8 +45,7 @@ export const Discover = () => {
         }
     }
 
-
-    const schoolSearch = async (event) => { // Executes after Log in button is clicked.
+    const schoolSearch = async (event) => {
         event.preventDefault();
         try {
             const response = await axios.post("http://localhost:3001/discover/users/school", {
@@ -43,6 +53,51 @@ export const Discover = () => {
             })
             const { count, users } = response.data;
             setUserSchoolSearch(true);
+            setUserCount(count);
+            setUsers(users);
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const levelSearch = async (event) => { 
+        event.preventDefault();
+        try {
+            const response = await axios.post("http://localhost:3001/discover/users/level", {
+                userLevel
+            })
+            const { count, users } = response.data;
+            setUserLevelSearch(true);
+            setUserCount(count);
+            setUsers(users);
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const interestsSearch = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await axios.post("http://localhost:3001/discover/users/interests", {
+                userInterests
+            })
+            const { count, users } = response.data;
+            setUserInterestsSearch(true);
+            setUserCount(count);
+            setUsers(users);
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const languageSearch = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await axios.post("http://localhost:3001/discover/users/languages", {
+                userLanguage
+            })
+            const { count, users } = response.data;
+            setUserLanguageSearch(true);
             setUserCount(count);
             setUsers(users);
         } catch (err) {
@@ -163,5 +218,11 @@ export const Discover = () => {
         </>
 
     )}
+
+
+
+
+
+
     </div>
 };

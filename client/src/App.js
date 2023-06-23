@@ -14,6 +14,7 @@ import { VerifyEmail } from "./pages/verifyEmail"
 import { EmailSent } from './pages/emailSent';
 import { AuthError } from './pages/authError';
 import { ForgotPassword } from './pages/forgotPassword';
+import { ChangePassword } from './pages/changeP'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path='/discover' element={<Discover />} />
         <Route path='/verify-email/:username/:token' element={<VerifyEmail />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/change-password/:username/:token' element={<ChangePassword />} />
       </Routes>
         <Footer />
     </Router>

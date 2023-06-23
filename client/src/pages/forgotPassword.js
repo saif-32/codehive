@@ -4,14 +4,13 @@ import axios from 'axios'
 
 export const ForgotPassword = () => {
     const [email, setEmail]  = useState("");
-    const {token} = useParams();
     const navigate = useNavigate();
 
     const onSubmit = async (event) => {
         event.preventDefault();
         
-        const response = axios.post("http://localhost:3001/password/reset-password", {
-          token
+        const response = axios.post("http://localhost:3001/password/forgot-password", {
+          email
         }).then(response => {
           alert("Token is being validated...")
         })

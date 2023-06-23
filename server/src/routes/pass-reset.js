@@ -1,4 +1,5 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';
 import { UserModel } from '../models/Users.js';
 import { sendPasswordResetEmail } from '../services/Email.js';
 
@@ -15,8 +16,11 @@ router.post('/forgot-password', async (req, res) => {
             return res.status(404).json({error: 'User not found '});
         }
 
-        const token = jwt.sign({email: req.body.email}, "secret", {expiresIn: '12h'});
+        console.log("Hello")
+        const token = jwt.sign({email}, "secret", {expiresIn: '12h'});
        // UserModel.resetTokenExpiration = Date.now() + 43200000; // 12 hrs
+
+        console.log(token)
 
         console.log("Hello")
         UserModel.updateOne({email},
@@ -26,20 +30,13 @@ router.post('/forgot-password', async (req, res) => {
                 }
             }).then(console.log("User reset token was sent."));
 
-        sendPasswordResetEmail(email, token);
+        sendPasswordResetEmail(email, user.username, token);
         res.status(200).json({ message: 'Password reset email sent'});
 
     } catch (error) {
         // Insert errors here
     }    
 })
-
-router.post('/reset-password', async (req, res) => {
-    console.log("hello")
-    const {token} = req.body;
-    console.log(token)
-    res.status(200).json({ message: token});
-});
 
 router.post("/verify-pass-token", async(req, res) => {
     const {username, token } = req.body;

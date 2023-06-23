@@ -23,14 +23,14 @@ export async function verifyUserEmail(firstName, lastName, email, username, toke
         }
     }
 
-export async function sendPasswordResetEmail(email, token) {
+export async function sendPasswordResetEmail(email, username, token) {
     try {
         console.log("Sending email...")
         let info = await transporter.sendMail({
             from: 'postmaster@sandboxbadcff628d1c4212ad26569843a2da28.mailgun.org',
             to: email,
             subject: 'CodeHive Password Reset',
-            html: "http://localhost:3000/reset-password/" + token, 
+            html: "http://localhost:3000/change-password/" + username + "/" + token,
         })
     } catch (err) {
         console.log(err)

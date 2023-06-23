@@ -14,7 +14,7 @@ import { VerifyEmail } from "./pages/verifyEmail"
 import { EmailSent } from './pages/emailSent';
 import { AuthError } from './pages/authError';
 import { ForgotPassword } from './pages/forgotPassword';
-import { ChangePassword } from './pages/changeP'
+import { ChangePassword } from './pages/changePassword'
 
 function App() {
   return (

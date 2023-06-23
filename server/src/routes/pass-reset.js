@@ -41,6 +41,29 @@ router.post('/reset-password', async (req, res) => {
     res.status(200).json({ message: token});
 });
 
+router.post("/verify-pass-token", async(req, res) => {
+    const {username, token } = req.body;
+    const user = await UserModel.findOne({username});
+    
+    if(!user) {
+      return res.json({Message: "This username was not found." });
+    }
+    if(!user.resetToken)
+    {
+      return res.json({Message: "PLACEHOLDER: DID NOT RESET TOKEN"});
+    }
+  
+    try {
+      const decode = jwt.verify(token, "secret")
+      console.log(decode)
+      
+      console.log("User token has been decoded.");
+      return res.json({status: 'okay'});
+    } catch (err) {
+      return res.json({status: 'error'});
+    }
+  })
+
 export { router as passwordRouter };
 
 

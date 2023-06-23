@@ -27,7 +27,7 @@ router.post("/register", async(req, res) => {
         return res.json({Message: "Email-Exists"});
     }
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d!@#$%^&*()]{8,20}$/;
 
     if (!passwordRegex.test(password)) {
         return res.json({ Message: "Password-Not-Strong" });

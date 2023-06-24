@@ -27,7 +27,7 @@ router.post("/users/school", async (req, res) => {
 router.post("/users/level", async (req, res) => {
     try {
         const { userLevel } = req.body;
-        const users = await UserModel.find({university: userUniversity}, 'firstName lastName username age university skillLevel languages interests');
+        const users = await UserModel.find({skillLevel: userLevel}, 'firstName lastName username age university skillLevel languages interests');
         const count = users.length;
         res.json({ count, users });
     } catch (err) {
@@ -38,7 +38,7 @@ router.post("/users/level", async (req, res) => {
 router.post("/users/interests", async (req, res) => {
     try {
         const { userInterests } = req.body;
-        const users = await UserModel.find({university: userUniversity}, 'firstName lastName username age university skillLevel languages interests');
+        const users = await UserModel.find({interests: userInterests}, 'firstName lastName username age university skillLevel languages interests');
         const count = users.length;
         res.json({ count, users });
     } catch (err) {
@@ -48,8 +48,8 @@ router.post("/users/interests", async (req, res) => {
 
 router.post("/users/languages", async (req, res) => {
     try {
-        const { userLanguages } = req.body;
-        const users = await UserModel.find({university: userUniversity}, 'firstName lastName username age university skillLevel languages interests');
+        const { userLanguage } = req.body;
+        const users = await UserModel.find({languages: userLanguage}, 'firstName lastName username age university skillLevel languages interests');
         const count = users.length;
         res.json({ count, users });
     } catch (err) {

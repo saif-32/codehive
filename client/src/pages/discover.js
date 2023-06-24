@@ -14,7 +14,7 @@ export const Discover = () => {
 
     const [userSearchButtonClicked, setUserSearchButtonClicked] = useState(false);
     const [userSchoolSearch, setUserSchoolSearch] = useState(false);
-    const [userlevelSearch, setUserLevelSearch] = useState(false);
+    const [userLevelSearch, setUserLevelSearch] = useState(false);
     const [userInterestsSearch, setUserInterestsSearch] = useState(false);
     const [userLanguageSearch, setUserLanguageSearch] = useState(false);
 
@@ -28,6 +28,22 @@ export const Discover = () => {
     const handleSchool = () => {
         setCurrentSearch("school");
     };
+
+    const handleLevel = () => {
+        setCurrentSearch("level");
+    };
+
+    const handleInterests = () => {
+        setCurrentSearch("interests");
+    };
+
+    const handleLanguages = () => {
+        setCurrentSearch("languages");
+    };
+
+
+
+
 
     const userSearch = async (event) => {
         event.preventDefault();
@@ -122,9 +138,9 @@ export const Discover = () => {
                         <div className="discover-seperator"><h3>Or, Filter By...</h3></div>
                         <div className='filters'>
                             <h1 onClick={handleSchool} className="filter-heading">School</h1>
-                            <h1 className="filter-heading">Level</h1>
-                            <h1 className="filter-heading">Interests</h1>
-                            <h1 className="filter-heading">Language</h1>
+                            <h1 onClick={handleLevel} className="filter-heading">Level</h1>
+                            <h1 onClick={handleInterests} className="filter-heading">Interests</h1>
+                            <h1 onClick={handleLanguages} className="filter-heading">Language</h1>
                         </div>
                     </div>
                 </>
@@ -207,8 +223,8 @@ export const Discover = () => {
                                 <h4>Name: {user.firstName} {user.lastName}</h4>
                                 <h4>Age: {user.age}</h4>
                                 <h4>University: {user.university}</h4>
-                                <h4>Languages: {user.languages}</h4>
-                                <h4>Interests: {user.interests}</h4>
+                                <h4>Languages: {user.languages.join(', ')}</h4>
+                                <h4>Interests: {user.interests.join(', ')}</h4>
                                 <h4>Skill Level: {users.skilLlevel}</h4>
                             </div>
                         ))}
@@ -216,6 +232,150 @@ export const Discover = () => {
                 </>
                 )}
         </>
+
+    )}
+
+        {currentSearch === "level" && (
+            <>
+                {!userLevelSearch && (
+                        <>
+                            <div className="discover-container">
+                            <img className='discover-logo'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                            <h1>Search for Skill Level</h1>
+                    
+                            <label htmlFor="discoverSearch"></label>
+                            <input type="text" id="universitySearch" className='discover-search' value={userLevel} onChange={(event) => setUserLevel(event.target.value)}/>
+
+                            <button type="submit" className="discover-search-user" onClick={levelSearch}>Search Level</button>
+                            </div>
+                        </>
+                    )}
+
+
+                {userLevelSearch && (
+                    <>
+                        <div className="discover-container">
+                        {userCount > 0 ? (<h4>Showing {userCount} results:</h4>) : (<h4>No results found.</h4>)}
+                        <h1>Search for Skill Level</h1>
+                        
+                        <label htmlFor="discoverSearch"></label>
+                        <input type="text" id="universitySearch" className='discover-search' value={userLevel} onChange={(event) => setUserLevel(event.target.value)}/>
+
+                        <button type="submit" className="discover-search-user" onClick={levelSearch}>Search School</button>
+                        <div className='discover-cards'>
+                            {users.map((user, index) => (
+                                        <div className='discover-card' key={index}>
+                                        <img className='card-profile-picture'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                                        <h1>{user.username}</h1>
+                                        <h4>Name: {user.firstName} {user.lastName}</h4>
+                                        <h4>Age: {user.age}</h4>
+                                        <h4>University: {user.university}</h4>
+                                        <h4>Languages: {user.languages.join(', ')}</h4>
+                                        <h4>Interests: {user.interests.join(', ')}</h4>
+                                        <h4>Skill Level: {users.skilLlevel}</h4>
+                                    </div>
+                                ))}
+                        </div>
+                        </div>
+                    </>
+                    )}
+            </>
+
+    )}
+
+        {currentSearch === "interests" && (
+                <>
+                    {!userInterestsSearch && (
+                            <>
+                                <div className="discover-container">
+                                <img className='discover-logo'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                                <h1>Search for Interests</h1>
+                        
+                                <label htmlFor="discoverSearch"></label>
+                                <input type="text" id="universitySearch" className='discover-search' value={userInterests} onChange={(event) => setUserInterests(event.target.value)}/>
+
+                                <button type="submit" className="discover-search-user" onClick={interestsSearch}>Search Interests</button>
+                                </div>
+                            </>
+                        )}
+
+
+                    {userInterestsSearch && (
+                        <>
+                            <div className="discover-container">
+                            {userCount > 0 ? (<h4>Showing {userCount} results:</h4>) : (<h4>No results found.</h4>)}
+                            <h1>Search for Interests</h1>
+                            
+                            <label htmlFor="discoverSearch"></label>
+                            <input type="text" id="universitySearch" className='discover-search' value={userInterests} onChange={(event) => setUserInterests(event.target.value)}/>
+
+                            <button type="submit" className="discover-search-user" onClick={interestsSearch}>Search Interests</button>
+                            <div className='discover-cards'>
+                                {users.map((user, index) => (
+                                            <div className='discover-card' key={index}>
+                                            <img className='card-profile-picture'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                                            <h1>{user.username}</h1>
+                                            <h4>Name: {user.firstName} {user.lastName}</h4>
+                                            <h4>Age: {user.age}</h4>
+                                            <h4>University: {user.university}</h4>
+                                            <h4>Languages: {user.languages.join(', ')}</h4>
+                                            <h4>Interests: {user.interests.join(', ')}</h4>
+                                            <h4>Skill Level: {users.skilLlevel}</h4>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </>
+                        )}
+                </>
+
+    )}
+
+        {currentSearch === "languages" && (
+                <>
+                    {!userLanguageSearch && (
+                            <>
+                                <div className="discover-container">
+                                <img className='discover-logo'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                                <h1>Search for Language</h1>
+                        
+                                <label htmlFor="discoverSearch"></label>
+                                <input type="text" id="universitySearch" className='discover-search' value={userLanguage} onChange={(event) => setUserLanguage(event.target.value)}/>
+
+                                <button type="submit" className="discover-search-user" onClick={languageSearch}>Search Languages</button>
+                                </div>
+                            </>
+                        )}
+
+
+                    {userLanguageSearch && (
+                        <>
+                            <div className="discover-container">
+                            {userCount > 0 ? (<h4>Showing {userCount} results:</h4>) : (<h4>No results found.</h4>)}
+                            <h1>Search for Language</h1>
+                            
+                            <label htmlFor="discoverSearch"></label>
+                            <input type="text" id="universitySearch" className='discover-search' value={userLanguage} onChange={(event) => setUserLanguage(event.target.value)}/>
+
+                            <button type="submit" className="discover-search-user" onClick={languageSearch}>Search Languages</button>
+                            <div className='discover-cards'>
+                                {users.map((user, index) => (
+                                            <div className='discover-card' key={index}>
+                                            <img className='card-profile-picture'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                                            <h1>{user.username}</h1>
+                                            <h4>Name: {user.firstName} {user.lastName}</h4>
+                                            <h4>Age: {user.age}</h4>
+                                            <h4>University: {user.university}</h4>
+                                            <h4>Languages: {user.languages.join(', ')}</h4>
+                                            <h4>Interests: {user.interests.join(', ')}</h4>
+                                            <h4>Skill Level: {users.skilLlevel}</h4>
+                                        </div>
+                                    ))}
+                            </div>
+                            </div>
+                        </>
+                        )}
+                </>
 
     )}
 

@@ -166,7 +166,7 @@ export const Discover = () => {
                             <h4>Age: 24</h4>
                             <h4>University: University of California at Los Angeles</h4>
                             <h4>Languages: Javascript, Javascript</h4>
-                            <h4>Interests: Game Development, Game Development, Game Development</h4>
+                            <h4>Interests: Game Development, Game Development, Game Development, Game Development, Game Development</h4>
                             <h4>Skill Level: Advanced</h4>
                         </div>
                         {users.map((user, index) => (
@@ -176,9 +176,9 @@ export const Discover = () => {
                             <h4>Name: {user.firstName} {user.lastName}</h4>
                             <h4>Age: {user.age}</h4>
                             <h4>University: {user.university}</h4>
-                            <h4>Languages: {user.languages}</h4>
-                            <h4>Interests: {user.interests}</h4>
-                            <h4>Skill Level: {users.skilLlevel}</h4>
+                            <h4>Languages: {user.languages.join(', ')}</h4>
+                            <h4>Interests: {user.interests.join(', ')}</h4>
+                            <h4>Skill Level: {user.skillLevel}</h4>
                         </div>
                     ))}
                     </div>
@@ -216,6 +216,7 @@ export const Discover = () => {
                     <input type="text" id="universitySearch" className='discover-search' value={userUniversity} onChange={(event) => setUserUniversity(event.target.value)}/>
 
                     <button type="submit" className="discover-search-user" onClick={schoolSearch}>Search School</button>
+                    <div className='discover-cards'>
                     {users.map((user, index) => (
                                 <div className='discover-card' key={index}>
                                 <img className='card-profile-picture'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
@@ -228,6 +229,7 @@ export const Discover = () => {
                                 <h4>Skill Level: {users.skilLlevel}</h4>
                             </div>
                         ))}
+                    </div>
                     </div>
                 </>
                 )}

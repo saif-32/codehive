@@ -23,6 +23,9 @@ router.post("/create", async (req, res) => {
     const user = await UserModel.findOne({ username: userUsername });
 
     console.log(userUsername)
+    console.log(userGrade)
+
+    console.log(userSkillLevel)
   
     if (!user) {
       console.log("USER NOT FOUND!")

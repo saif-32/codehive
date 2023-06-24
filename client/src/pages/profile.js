@@ -27,9 +27,6 @@ export const Profile = () => {
   const [userGrade, setUserGrade] = useState("")
   const [userSkillLevel, setUserSkillLevel] = useState("")
 
-  const [buttonClicked, setButtonClicked] = useState(false);
-
-
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -75,6 +72,7 @@ export const Profile = () => {
 
   const onSubmit = async (event) => { // Executes after submit button is clicked.
     console.log("Submitting...")
+    console.log(userSkillLevel)
     event.preventDefault();
     const response = await axios.post("http://localhost:3001/profile/create", {
       userUsername,
@@ -95,8 +93,6 @@ export const Profile = () => {
       if (response.data.status === "okay") {
         handleNext()
       }
-      console.log(response.data.status)
-      alert("Succesfully created profile!")
     })
   };
   
@@ -126,7 +122,7 @@ export const Profile = () => {
 
   const handleLanguageKeyPress = (e) => {
     if (e.key === 'Enter' && currentLanguage.trim() !== '') {
-      if (programmingLanguages.length === 5) {
+      if (programmingLanguages.length === 3) {
         return; // Limit reached, exit the function
       }
 
@@ -145,7 +141,7 @@ export const Profile = () => {
 
   const handleInterestKeyPress = (e) => {
     if (e.key === 'Enter' && currentInterest.trim() !== '') {
-        if (interests.length === 5) {
+        if (interests.length === 3) {
             return; // Limit reached, exit the function
           }
       setInterests((prevInterests) => [...prevInterests, currentInterest.trim()]);
@@ -175,7 +171,6 @@ export const Profile = () => {
     <div className='form-container'>
       <div className="profile-container">
         <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo" />
-        <form className="profile-form" onSubmit={onSubmit}>
           {currentForm === 1 && (
             <>
             <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
@@ -383,19 +378,21 @@ export const Profile = () => {
                         </div>
                     </div>
                 </div>
+                {console.log(userSkillLevel)}
                 <label htmlFor="skill"></label>
                 <select id="skillLevel" value={userSkillLevel}  onChange={(event) => setUserSkillLevel(event.target.value)}>
                     <option value="" disabled selected>Skill Level</option>
                     <option value="Novice">Novice</option>
-                    <option value="Sophmore">Advanced Beginner</option>
-                    <option value="Junior">Compotent</option>
-                    <option value="Senior">Proficient</option>
+                    <option value="Advanced Beginner">Advanced Beginner</option>
+                    <option value="Compotent">Compotent</option>
+                    <option value="Proficient">Proficient</option>
                 </select>
+                {console.log(userSkillLevel)}
             </div>
 
               <div className="button-container-last button-container">
                 <button className="profile-previous" type="button" onClick={handlePrevious}>Back</button>
-                <button className="profile-next" type='submit' disabled={userSkillLevel == "" || interests == "" || programmingLanguages == ""
+                <button className="profile-next" type='submit' onClick={onSubmit} disabled={userSkillLevel == "" || interests == "" || programmingLanguages == ""
                 }>Submit</button>
               </div>
             </div>
@@ -418,7 +415,6 @@ export const Profile = () => {
             </div>
             </>
           )}
-          </form>
       </div>
     </div>
   );

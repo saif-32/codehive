@@ -42,8 +42,10 @@
 
 .discover-card h4 {
     color: #FFF7D4;
-    font-size: 16px;
-    margin-top: 0px;
+    font-size: 15px;
+    margin-top: -0.5px;
+    margin-right: 6px;
+    margin-left: 6px;
 }
 
 

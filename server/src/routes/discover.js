@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/users", async (req, res) => {
     try {
-        const users = await UserModel.find({}, 'firstName lastName username age university skillLevel languages interests');
+        const users = await UserModel.find({profileCompleted: true}, 'firstName lastName username age university skillLevel languages interests');
         const count = users.length;
         res.json({ count, users });
     } catch (err) {
@@ -21,7 +21,7 @@ router.post("/users/school", async (req, res) => {
         const { userUniversity } = req.body;
         const escapedUserUniversity = escapeRegExp(userUniversity);
         const regex = new RegExp(escapedUserUniversity, "i"); // "i" flag makes it case-insensitive
-        const users = await UserModel.find({university: regex}, 'firstName lastName username age university skillLevel languages interests');
+        const users = await UserModel.find({university: regex, profileCompleted: true}, 'firstName lastName username age university skillLevel languages interests');
         console.log(users)
         const count = users.length;
         res.json({ count, users });
@@ -35,7 +35,7 @@ router.post("/users/level", async (req, res) => {
         const { userLevel } = req.body;
         const escapedUserLevels = escapeRegExp(userLevel);
         const regex = new RegExp(escapedUserLevels, "i"); // "i" flag makes it case-insensitive
-        const users = await UserModel.find({skillLevel: regex}, 'firstName lastName username age university skillLevel languages interests');
+        const users = await UserModel.find({skillLevel: regex, profileCompleted: true}, 'firstName lastName username age university skillLevel languages interests');
         const count = users.length;
         res.json({ count, users });
     } catch (err) {
@@ -48,7 +48,7 @@ router.post("/users/interests", async (req, res) => {
         const { userInterests } = req.body;
         const escapedUserInterests = escapeRegExp(userInterests);
         const regex = new RegExp(escapedUserInterests, "i"); // "i" flag makes it case-insensitive
-        const users = await UserModel.find({ interests: regex }, 'firstName lastName username age university skillLevel languages interests');
+        const users = await UserModel.find({ interests: regex, profileCompleted: true}, 'firstName lastName username age university skillLevel languages interests');
         const count = users.length;
         res.json({ count, users });
     } catch (err) {
@@ -61,7 +61,7 @@ router.post("/users/languages", async (req, res) => {
         const { userLanguage } = req.body;
         const escapedUserLanguage = escapeRegExp(userLanguage);
         const regex = new RegExp(escapedUserLanguage, "i"); // "i" flag makes it case-insensitive
-        const users = await UserModel.find({ languages: regex }, 'firstName lastName username age university skillLevel languages interests');
+        const users = await UserModel.find({ languages: regex, profileCompleted: true}, 'firstName lastName username age university skillLevel languages interests');
         const count = users.length;
         res.json({ count, users });
     } catch (err) {

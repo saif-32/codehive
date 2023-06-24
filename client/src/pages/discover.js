@@ -5,23 +5,46 @@ import { useState, useEffect } from 'react';
 
 export const Discover = () => {
 
-    const [currentSearch, setCurrentSearch] = useState("main");
-
+    const [currentSearch, setCurrentSearch] = useState("");
     const [userUniversity, setUserUniversity] = useState("")
     const [userLevel, setUserLevel] = useState("")
     const [userInterests, setUserInterests] = useState("")
     const [userLanguage, setUserLanguage] = useState("")
-
     const [userSearchButtonClicked, setUserSearchButtonClicked] = useState(false);
     const [userSchoolSearch, setUserSchoolSearch] = useState(false);
     const [userLevelSearch, setUserLevelSearch] = useState(false);
     const [userInterestsSearch, setUserInterestsSearch] = useState(false);
     const [userLanguageSearch, setUserLanguageSearch] = useState(false);
-
-
-
     const [users, setUsers] = useState([]);
     const [userCount, setUserCount] = useState();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const getUser = () => {
+            axios({
+              method: "GET",
+              withCredentials: true,
+              url: "http://localhost:3001/auth/user",
+            }).then((res) => {
+              if (res.data) // If user is already signed in.
+              {
+                if (res.data.profileCompleted)
+                {
+                    setCurrentSearch("main")
+                }
+                else {
+                    setCurrentSearch("invalid")
+                }
+              }
+              else
+              {
+                navigate("/login")
+              }
+            });
+          };
+    
+        getUser(); // Call the function when the component mounts
+      }, []);
     
 
 
@@ -40,10 +63,6 @@ export const Discover = () => {
     const handleLanguages = () => {
         setCurrentSearch("languages");
     };
-
-
-
-
 
     const userSearch = async (event) => {
         event.preventDefault();
@@ -123,6 +142,12 @@ export const Discover = () => {
 
     return <div className='discover-background'>
 
+        {currentSearch === "" && (
+                <>
+                <div className='discover-container'></div>
+                </>
+    )}
+
         {currentSearch === "main" && (
         <>
             {!userSearchButtonClicked && (
@@ -159,7 +184,7 @@ export const Discover = () => {
                     <button type="button" onClick={userSearch} className="discover-search-user">Search User</button>
 
                     <div className='discover-cards'>
-                        <div className='discover-card'>
+                        {/* <div className='discover-card'>
                             <img className='card-profile-picture'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
                             <h1>username</h1>
                             <h4>Name: Donald Trump</h4>
@@ -168,7 +193,7 @@ export const Discover = () => {
                             <h4>Languages: Javascript, Javascript</h4>
                             <h4>Interests: Game Development, Game Development, Game Development, Game Development, Game Development</h4>
                             <h4>Skill Level: Advanced</h4>
-                        </div>
+                        </div> */}
                         {users.map((user, index) => (
                             <div className='discover-card' key={index}>
                             <img className='card-profile-picture'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
@@ -381,9 +406,20 @@ export const Discover = () => {
 
     )}
 
+        {currentSearch === "invalid" && (
+                    <>
+                    <div className='discover-container'>
+                        <div className="email-container">
+                            <img src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                            <div className="email-card">
+                            <h1>To start discovering others, please complete your profile <Link to="/profile"
+                    className="register-link">here</Link>!</h1>
+                            </div>
+                        </div>
+                    </div>
+                    </>
 
-
-
+    )}
 
 
     </div>

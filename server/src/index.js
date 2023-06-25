@@ -3,17 +3,24 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import session from 'express-session'
 import passport from 'passport'
+import dotenv from 'dotenv';
+import bcrypt from 'bcryptjs'
+import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
+
+import { UserModel } from './models/Users.js';
+import { userRouter } from './routes/users.js'
+import { passwordRouter } from './routes/pass-reset.js';
+import { discoverRouter } from './routes/discover.js';
+import { uploadRouter } from './routes/upload.js';
+
+
+
+
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Strategy as GitHubStrategy } from 'passport-github2';
-import bcrypt from 'bcryptjs'
-import cookieParser from 'cookie-parser'
-import { userRouter } from './routes/users.js'
-import { profileRouter } from './routes/profile.js'
-import { UserModel } from './models/Users.js';
-import dotenv from 'dotenv';
-import { passwordRouter } from './routes/pass-reset.js';
-import { discoverRouter } from './routes/discover.js';
+
 dotenv.config();
 
 mongoose.connect("mongodb+srv://hiveadmin:ZbYOedcubmWvLEsc@codehive.ihhueao.mongodb.net/CodeHive?retryWrites=true&w=majority") // Establishes connection
@@ -32,6 +39,7 @@ app.use(session({
     cookie: { secure: false } // Testing purposes, set to false.
 }))
 
+app.use(bodyParser.json({ limit: '1000mb' }));
 app.use(cookieParser('keyboardcat'))
 
 app.use(passport.initialize())
@@ -129,6 +137,7 @@ passport.deserializeUser(async (id, cb) => {
           firstName: user.firstName,
           lastName: user.lastName,
           username: user.username,
+          profilePicture: user.profilePicture,
           profileCompleted: user.profileCompleted,
         };
         cb(null, userInformation);
@@ -142,8 +151,9 @@ passport.deserializeUser(async (id, cb) => {
 
 
 app.use("/auth", userRouter); // Whatever pages are created in users.js will proceed /auth 
-app.use("/profile", profileRouter);
 app.use("/password", passwordRouter);
 app.use("/discover", discoverRouter);
+app.use("/upload", uploadRouter);
+
 
 app.listen(3001, () => console.log("Server is running.")); // Starts the server

@@ -20,6 +20,7 @@ const UserSchema = new mongoose.Schema({
     skillLevel: {type: String}, // novice-expert
     languages: [{type: String}], // drop down menu for programming languages
     interests: [{type: String}], // drop down menu for interests ? AI, Web Dev, Game Dev, etc
+    profilePicture: {type: String},
 });
 
 UserSchema.plugin(passportLocalMongoose);

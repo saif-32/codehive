@@ -23,42 +23,37 @@ export const Home = () => {
       }, []);
 
     
-    return <div> <Navbar />
-      <section class="hero">
-    <div class="hero-content">
-      <h1>Connect. Collaborate. Code.</h1>
-      <p>Welcome to CodeHive, the dynamic platform that brings computer science students worldwide to communicate, collaborate, and innovate together.</p>
-      {/* <img src={data.profilePicture}></img> */}
-      <a href="#join-now" class="cta-button">Join Now</a>
-    </div>
-  </section>
+    return <div> 
+    <Navbar />
 
-  <div class="typing-box">
-  <div class="typing-text">
-    <span class="python-line"><span class="python-keyword">print</span>(<span class="python-string">"Hello, World!"</span>)</span>
+    <div className="home-container">
+
+          <div className="home-tagline">
+            <h1>Connect. Collaborate. Code.</h1>
+            <p>Welcome to Code<span className="yellow">Hive</span>, the dynamic platform that brings computer science students worldwide to communicate, collaborate, and innovate together.</p>
+            <a href="#join-now" class="cta-button">Join Now</a>
+          </div>
+
+          <div className="features-container">
+            <div className="feature-box">
+              <img src="https://cdn.discordapp.com/attachments/708410306006876231/1122618242691772457/download_1.jpeg" alt="Feature 1 Icon" />
+              <h2>Discover</h2>
+              <p>Explore a diverse community of computer science students and discover like-minded peers based on their interests, languages, universities, and more.</p>
+            </div>
+            <div className="feature-box">
+              <img src="https://cdn.discordapp.com/attachments/708410306006876231/1122618242691772457/download_1.jpeg" alt="Feature 2 Icon" />
+              <h2>Collaborate</h2>
+              <p>Engage in meaningful collaborations with other students, share ideas, work on projects together, and foster innovation in the field of computer science.</p>
+            </div>
+            <div className="feature-box">
+              <img src="https://cdn.discordapp.com/attachments/708410306006876231/1122618242691772457/download_1.jpeg" alt="Feature 3 Icon" />
+              <h2>Innovate</h2>
+              <p>Push the boundaries of computer science by participating in hackathons, coding competitions, and innovative challenges to showcase your skills and creativity.</p>
+            </div>
+          </div>
+
+
+
+    </div>
   </div>
-  <span class="typing-cursor"></span>
-</div>
-
-
-  <section class="testimonials">
-    <h2>What our users say</h2>
-    <div class="testimonial">
-      <blockquote>"CodeHive has revolutionized the way I collaborate with other students. I've found amazing projects and made lifelong connections!"</blockquote>
-      <cite>- John Doe, Computer Science Student</cite>
-    </div>
-  </section>
-
-  <section class="featured-projects">
-    <h2>Featured Projects</h2>
-    <div class="project">
-      <h3>Project Name</h3>
-      <p>Description of the project and the collaboration involved. Showcase the impact and success of the project.</p>
-    </div>
-  </section>
-
-
-
-
-    </div>;
 };

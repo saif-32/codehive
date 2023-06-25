@@ -26,6 +26,7 @@ export const Profile = () => {
   const [userUniversity, setUserUniversity] = useState("")
   const [userGrade, setUserGrade] = useState("")
   const [userSkillLevel, setUserSkillLevel] = useState("")
+  const [userProfilePicture, setUserProfilePicture] = useState("")
   const [postImage, setPostImage] = useState({ myFile : "" })
 
   useEffect(() => {
@@ -40,8 +41,7 @@ export const Profile = () => {
           setUserUsername(response.data.username)
           setUserFirstName(response.data.firstName)
           setUserLastName(response.data.lastName)
-          console.log(response.data.profileCompleted)
-
+          setUserProfilePicture(response.data.profilePicture)
           if (response.data.profileCompleted) {
             setCurrentForm(6)
           }
@@ -207,7 +207,7 @@ export const Profile = () => {
 
               <label htmlFor="file-upload" classname='custom-file-upload'>
               <div className="profile-picture-container">
-                <img className='create-profile-picture' src= {postImage.myFile || data.profilePicture || "https://cdn.discordapp.com/attachments/798251319847813200/1122589471565684816/download.jpeg"} alt="Profile Picture" />
+                <img className='create-profile-picture' src= {postImage.myFile || userProfilePicture || "https://cdn.discordapp.com/attachments/798251319847813200/1122589471565684816/download.jpeg"} alt="Profile Picture" />
               </div>
               </label>
               <input 

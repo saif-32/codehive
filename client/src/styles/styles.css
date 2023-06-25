@@ -410,3 +410,32 @@ input[type=number], input[type="text"] {
     color: #EAE0C1;
   }
   
+
+
+
+
+
+  .not-found-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-image: linear-gradient(to top, #261c1c, #2c2223);
+    height: 100vh;
+  }
+  
+  .not-found-content {
+    max-width: 600px;
+    text-align: left !important;
+  }
+
+  .not-found-container img {
+    max-width: 100px;
+  }
+  
+  .not-found-content h1 {
+    font-size: 48px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #FFD95A;
+  }

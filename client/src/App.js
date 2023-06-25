@@ -17,6 +17,7 @@ import { ForgotPassword } from './pages/forgotPassword';
 import { ChangePassword } from './pages/changePassword'
 import { Privacy } from './pages/privacy';
 import { Terms } from './pages/terms';
+import { NotFound } from './pages/notFound';
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
 
         <Route path='/privacy' element={<Privacy />} />
         <Route path='/terms' element={<Terms />} />
+
+        <Route path="*" element={<NotFound />} />
 
       </Routes>
         <Footer />

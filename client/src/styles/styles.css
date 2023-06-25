@@ -442,27 +442,15 @@ input[type=number], input[type="text"] {
 
   
   
-.test-picture form{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-  }
-  
-.test-picture h3{
-    margin: 0;
-    margin-top: 1em;
-  }
-  
-  .test-picture input[type="file"] {
+input[type="file"] {
     display: none;
-  }
+}
 
-  .test-picture img {
+.test-picture img {
     width: 200px;
-  }
+}
   
-  .test-picture.custom-file-upload {
+.custom-file-upload {
     margin: auto;
     border: 1px solid #ccc;
     display: inline-block;
@@ -470,13 +458,31 @@ input[type=number], input[type="text"] {
     height: 50px;
     border-radius: 100%;
     cursor: pointer;
-  }
+}
   
-  .test-picture.custom-file-upload > img{
+.custom-file-upload > img{
     width: 50px;
     height: 50px;
-  }
-  
-  .test-picture button{
-    margin-top: 1em;
-  }
+}
+
+.profile-picture-container {
+  margin-bottom: 20px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid #2c2223;
+  cursor: pointer;
+  overflow: hidden; /* Ensure the image doesn't overflow */
+}
+
+.create-profile-picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image fills the container */
+}
+
+.create-profile-picture > img {
+  width: 50px;
+  height: 50px;
+}

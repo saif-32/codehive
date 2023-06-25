@@ -30,7 +30,7 @@ export const Home = () => {
     <div class="hero-content">
       <h1>Connect. Collaborate. Code.</h1>
       <p>Welcome to CodeHive, the dynamic platform that brings computer science students worldwide to communicate, collaborate, and innovate together.</p>
-      <img src={data.profilePicture}></img>
+      {/* <img src={data.profilePicture}></img> */}
       <a href="#join-now" class="cta-button">Join Now</a>
     </div>
   </section>

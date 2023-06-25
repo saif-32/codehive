@@ -13,6 +13,7 @@ import { userRouter } from './routes/users.js'
 import { passwordRouter } from './routes/pass-reset.js';
 import { discoverRouter } from './routes/discover.js';
 import { uploadRouter } from './routes/upload.js';
+import { profileRouter } from './routes/profile.js';
 
 
 
@@ -151,6 +152,7 @@ passport.deserializeUser(async (id, cb) => {
 
 
 app.use("/auth", userRouter); // Whatever pages are created in users.js will proceed /auth 
+app.use("/profile", profileRouter);
 app.use("/password", passwordRouter);
 app.use("/discover", discoverRouter);
 app.use("/upload", uploadRouter);

@@ -17,6 +17,7 @@ export const Discover = () => {
     const [userLanguageSearch, setUserLanguageSearch] = useState(false);
     const [users, setUsers] = useState([]);
     const [userCount, setUserCount] = useState();
+    const [data, setData] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,6 +29,7 @@ export const Discover = () => {
             }).then((res) => {
               if (res.data) // If user is already signed in.
               {
+                setData(res.data);
                 if (res.data.profileCompleted)
                 {
                     setCurrentSearch("main")
@@ -184,19 +186,9 @@ export const Discover = () => {
                     <button type="button" onClick={userSearch} className="discover-search-user">Search User</button>
 
                     <div className='discover-cards'>
-                        {/* <div className='discover-card'>
-                            <img className='card-profile-picture'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
-                            <h1>username</h1>
-                            <h4>Name: Donald Trump</h4>
-                            <h4>Age: 24</h4>
-                            <h4>University: University of California at Los Angeles</h4>
-                            <h4>Languages: Javascript, Javascript</h4>
-                            <h4>Interests: Game Development, Game Development, Game Development, Game Development, Game Development</h4>
-                            <h4>Skill Level: Advanced</h4>
-                        </div> */}
                         {users.map((user, index) => (
                             <div className='discover-card' key={index}>
-                            <img className='card-profile-picture'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                            <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'}></img>
                             <h1>{user.username}</h1>
                             <h4>Name: {user.firstName} {user.lastName}</h4>
                             <h4>Age: {user.age}</h4>
@@ -244,14 +236,14 @@ export const Discover = () => {
                     <div className='discover-cards'>
                     {users.map((user, index) => (
                                 <div className='discover-card' key={index}>
-                                <img className='card-profile-picture'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                                <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'}></img>
                                 <h1>{user.username}</h1>
                                 <h4>Name: {user.firstName} {user.lastName}</h4>
                                 <h4>Age: {user.age}</h4>
                                 <h4>University: {user.university}</h4>
                                 <h4>Languages: {user.languages.join(', ')}</h4>
                                 <h4>Interests: {user.interests.join(', ')}</h4>
-                                <h4>Skill Level: {users.skilLlevel}</h4>
+                                <h4>Skill Level: {user.skillLevel}</h4>
                             </div>
                         ))}
                     </div>
@@ -292,14 +284,14 @@ export const Discover = () => {
                         <div className='discover-cards'>
                             {users.map((user, index) => (
                                         <div className='discover-card' key={index}>
-                                        <img className='card-profile-picture'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                                        <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'}></img>
                                         <h1>{user.username}</h1>
                                         <h4>Name: {user.firstName} {user.lastName}</h4>
                                         <h4>Age: {user.age}</h4>
                                         <h4>University: {user.university}</h4>
                                         <h4>Languages: {user.languages.join(', ')}</h4>
                                         <h4>Interests: {user.interests.join(', ')}</h4>
-                                        <h4>Skill Level: {users.skilLlevel}</h4>
+                                        <h4>Skill Level: {user.skillLevel}</h4>
                                     </div>
                                 ))}
                         </div>
@@ -340,14 +332,14 @@ export const Discover = () => {
                             <div className='discover-cards'>
                                 {users.map((user, index) => (
                                             <div className='discover-card' key={index}>
-                                            <img className='card-profile-picture'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                                            <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'}></img>
                                             <h1>{user.username}</h1>
                                             <h4>Name: {user.firstName} {user.lastName}</h4>
                                             <h4>Age: {user.age}</h4>
                                             <h4>University: {user.university}</h4>
                                             <h4>Languages: {user.languages.join(', ')}</h4>
                                             <h4>Interests: {user.interests.join(', ')}</h4>
-                                            <h4>Skill Level: {users.skilLlevel}</h4>
+                                            <h4>Skill Level: {user.skillLevel}</h4>
                                         </div>
                                     ))}
                                 </div>
@@ -388,14 +380,14 @@ export const Discover = () => {
                             <div className='discover-cards'>
                                 {users.map((user, index) => (
                                             <div className='discover-card' key={index}>
-                                            <img className='card-profile-picture'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                                            <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'}></img>
                                             <h1>{user.username}</h1>
                                             <h4>Name: {user.firstName} {user.lastName}</h4>
                                             <h4>Age: {user.age}</h4>
                                             <h4>University: {user.university}</h4>
                                             <h4>Languages: {user.languages.join(', ')}</h4>
                                             <h4>Interests: {user.interests.join(', ')}</h4>
-                                            <h4>Skill Level: {users.skilLlevel}</h4>
+                                            <h4>Skill Level: {user.skillLevel}</h4>
                                         </div>
                                     ))}
                             </div>

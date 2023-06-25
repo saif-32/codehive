@@ -18,7 +18,6 @@ import { ChangePassword } from './pages/changePassword'
 import { Privacy } from './pages/privacy';
 import { Terms } from './pages/terms';
 import { NotFound } from './pages/notFound';
-import { ProfilePictureTest } from './pages/pic';
 
 function App() {
   return (
@@ -37,7 +36,6 @@ function App() {
 
         <Route path='/profile' element={<Profile />} />
         <Route path='/discover' element={<Discover />} />
-        <Route path='/pic' element={<ProfilePictureTest />} />
 
         <Route path='/privacy' element={<Privacy />} />
         <Route path='/terms' element={<Terms />} />

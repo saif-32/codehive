@@ -5,18 +5,15 @@ const router = express.Router();
 
 router.post("/profile-picture", async (req, res) => {
     try {
-        const { email, newImage } = req.body;
-        const user = await UserModel.findOne({email});
+        const { userProfile, newImage } = req.body;
+        const user = await UserModel.findOne({username: userProfile});
 
-        let change = UserModel.updateOne({email},
+        let change = await UserModel.updateOne({username: userProfile},
             {
                 $set:{
-                    verified: false,
                     profilePicture: newImage['myFile'],
                 }
-        }).then(console.log("User was successfully verified."));
-
-        console.log("complete")
+        })
         res.status(200).json({ message: 'Image was succesfully uplaoded'});
     } catch (err) {
         console.log(err)

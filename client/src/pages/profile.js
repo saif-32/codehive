@@ -26,6 +26,7 @@ export const Profile = () => {
   const [userUniversity, setUserUniversity] = useState("")
   const [userGrade, setUserGrade] = useState("")
   const [userSkillLevel, setUserSkillLevel] = useState("")
+  const [postImage, setPostImage] = useState({ myFile : "" })
 
   useEffect(() => {
     const getUser = async () => {
@@ -35,6 +36,7 @@ export const Profile = () => {
         });
         
         if (response.data) {
+          setData(response.data)
           setUserUsername(response.data.username)
           setUserFirstName(response.data.firstName)
           setUserLastName(response.data.lastName)
@@ -97,6 +99,11 @@ export const Profile = () => {
   };
   
   const handleNext = () => {
+    if (currentForm === 1)
+    {
+      createPost(postImage)
+    }
+
     setTransitionDirection('slide-out');
     setTimeout(() => {
       setCurrentForm(currentForm + 1);
@@ -157,6 +164,25 @@ export const Profile = () => {
     setInterests((prevInterests) => prevInterests.filter((_, i) => i !== index));
   };
 
+  const createPost = async (newImage) => {
+    try {
+        const userProfile = data.username
+        const response = await axios.post("http://localhost:3001/upload/profile-picture", {
+            userProfile,
+            newImage,
+        }, {
+            withCredentials: true
+          })
+    }catch(error){
+
+    }
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertToBase64(file)
+    setPostImage( {...postImage, myFile : base64})
+}
 
   useEffect(() => {
     fetch(test)
@@ -173,9 +199,26 @@ export const Profile = () => {
         <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo" />
           {currentForm === 1 && (
             <>
-            <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
+            <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`} style={{height: '450px'}}>
+
+
               <h2>Create your Code<span className="light-yellow">Hive </span>Profile</h2>
-              <h3>Enter your name</h3>
+              <h3>Enter your name and profile picture</h3>
+
+              <label htmlFor="file-upload" classname='custom-file-upload'>
+              <div className="profile-picture-container">
+                <img className='create-profile-picture' src= {postImage.myFile || "https://cdn.discordapp.com/attachments/798251319847813200/1122589471565684816/download.jpeg"} alt="Profile Picture" />
+              </div>
+              </label>
+              <input 
+                  type="file"
+                  label="Image"
+                  name="myFile"
+                  id="file-upload"
+                  accept=".jpeg, .png, .jpg"
+                  onChange={(e) => handleFileUpload(e)}
+              />
+
               <div className='text-fields'>
                 <label htmlFor="firstName"></label>
                 <input type="text" id="firstName" placeholder="First Name" value={userFirstName} onChange={(event) => {
@@ -419,3 +462,18 @@ export const Profile = () => {
     </div>
   );
 };
+
+
+function convertToBase64(file){
+  return new Promise((resolve, reject) =>{
+      const fileReader = new FileReader()
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+          resolve(fileReader.result)
+
+      };
+      fileReader.onerror = (error) => {
+          reject(error)
+      }
+  })
+}

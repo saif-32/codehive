@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
     skillLevel: {type: String}, // novice-expert
     languages: [{type: String}], // drop down menu for programming languages
     interests: [{type: String}], // drop down menu for interests ? AI, Web Dev, Game Dev, etc
-    profilePicture: {type: String},
+    profilePicture: {type: String, default:'https://cdn.discordapp.com/attachments/798251319847813200/1122589471565684816/download.jpeg'},
 });
 
 UserSchema.plugin(passportLocalMongoose);

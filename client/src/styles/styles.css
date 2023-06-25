@@ -349,3 +349,64 @@ input[type=number], input[type="text"] {
   .reg-container button:hover {
     background-color: #A46C00;
   }
+
+  .privacy-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-image: linear-gradient(to top, #261c1c, #2c2223);
+  }
+  
+  .privacy-content {
+    max-width: 600px;
+    text-align: left !important;
+  }
+
+  .privacy-line {
+    width: 100%;
+    border: 0.2px solid #fff; /* Adjust the color and style as needed */
+    margin: 5px 0;
+  }
+
+
+  .privacy-container img {
+    max-width: 100px;
+  }
+  
+  .privacy-content h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #FFF7D4;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+  
+  .privacy-content h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #FFF7D4;
+  }
+  
+  .privacy-content p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #FFF7D4;
+  }
+  
+  .privacy-content ul {
+    margin-bottom: 10px;
+    padding-left: 20px;
+    color: #FFF7D4;
+  }
+  
+  .privacy-content li {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #EAE0C1;
+  }
+  

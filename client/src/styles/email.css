@@ -1,12 +1,4 @@
-.email-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    background-image: linear-gradient(to top, #261c1c, #2c2223);
-    margin-top: -40px; /* Adjust the value as needed */
-}
+
   
 .email-card {
     width: 800px;

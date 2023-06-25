@@ -11,8 +11,8 @@ export const Footer = () => {
                     <div class="text-center p-3" style={{backgroundColor: 'rgba(0, 0, 0, 0.2)'}}>
                     Copyright © 2023 CodeHive All Rights Reserved.<br/>
                     <Link className="footer-links" to="/">Home</Link>
-                    <Link className="footer-links" to="/">Privacy</Link>
-                    <Link className="footer-links" to="/">Terms</Link>
+                    <Link className="footer-links" to="/privacy">Privacy</Link>
+                    <Link className="footer-links" to="/terms">Terms</Link>
 
                     </div>
                 </footer>

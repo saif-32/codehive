@@ -15,6 +15,8 @@ import { EmailSent } from './pages/emailSent';
 import { AuthError } from './pages/authError';
 import { ForgotPassword } from './pages/forgotPassword';
 import { ChangePassword } from './pages/changePassword'
+import { Privacy } from './pages/privacy';
+import { Terms } from './pages/terms';
 
 function App() {
   return (
@@ -22,15 +24,21 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<Home />} />
+
         <Route path='/register' element={<Register />} />
         <Route path='/register/email-sent' element={<EmailSent />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/profile' element={<Profile />} />
         <Route path='/register/autherror' element={<AuthError />} />
-        <Route path='/discover' element={<Discover />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/verify-email/:username/:token' element={<VerifyEmail />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/change-password/:username/:token' element={<ChangePassword />} />
+
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/discover' element={<Discover />} />
+
+        <Route path='/privacy' element={<Privacy />} />
+        <Route path='/terms' element={<Terms />} />
+
       </Routes>
         <Footer />
     </Router>

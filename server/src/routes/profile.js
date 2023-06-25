@@ -20,13 +20,16 @@ router.post("/create", async (req, res) => {
     interests,
     userSkillLevel
     } = req.body;
+
+    const formattedLanguages = programmingLanguages.map((language) => {
+      return language.charAt(0).toUpperCase() + language.slice(1).toLowerCase();
+    });
+
+    const formattedInterests = interests.map((interest) => {
+      return interest.charAt(0).toUpperCase() + interest.slice(1).toLowerCase();
+    });
+
     const user = await UserModel.findOne({ username: userUsername });
-
-    console.log(userUsername)
-    console.log(userGrade)
-
-    console.log(userSkillLevel)
-  
     if (!user) {
       console.log("USER NOT FOUND!")
       return res.json({ Message: "This username was not found." });
@@ -57,8 +60,8 @@ router.post("/create", async (req, res) => {
               age: age,
               gender: userGender,
               university: userUniversity,
-              languages: programmingLanguages,
-              interests: interests,
+              languages: formattedLanguages,
+              interests: formattedInterests,
               grade: userGrade,
               skillLevel: userSkillLevel,
               profileCompleted: true,

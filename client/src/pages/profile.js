@@ -207,7 +207,7 @@ export const Profile = () => {
 
               <label htmlFor="file-upload" classname='custom-file-upload'>
               <div className="profile-picture-container">
-                <img className='create-profile-picture' src= {postImage.myFile || "https://cdn.discordapp.com/attachments/798251319847813200/1122589471565684816/download.jpeg"} alt="Profile Picture" />
+                <img className='create-profile-picture' src= {postImage.myFile || data.profilePicture || "https://cdn.discordapp.com/attachments/798251319847813200/1122589471565684816/download.jpeg"} alt="Profile Picture" />
               </div>
               </label>
               <input 
@@ -327,7 +327,7 @@ export const Profile = () => {
               <div className="button-container">
                 <button className="profile-previous" type="button" onClick={handlePrevious}>Back</button>
                 { console.log(userBirthdayMonth)}
-                <button className="profile-next" onClick={handleNext} type="button" disabled={userBirthdayMonth === "" || userBirthdayYear === "" || userBirthdayDay == "" || userGender == ""}>Next</button>
+                <button className="profile-next" onClick={handleNext} type="button" disabled={userBirthdayMonth === "" || userBirthdayYear === "" || userBirthdayDay === "" || userGender === ""}>Next</button>
               </div>
               </div>
               </div>
@@ -370,7 +370,7 @@ export const Profile = () => {
 
               <div className="button-container">
                 <button className="profile-previous" type="button" onClick={handlePrevious}>Back</button>
-                <button className="profile-next" type="button" onClick={handleNext} disabled={userGrade == "" || userUniversity == ""}>Next</button>
+                <button className="profile-next" type="button" onClick={handleNext} disabled={userGrade === "" || userUniversity === ""}>Next</button>
               </div>
             </div>
             </>
@@ -435,7 +435,7 @@ export const Profile = () => {
 
               <div className="button-container-last button-container">
                 <button className="profile-previous" type="button" onClick={handlePrevious}>Back</button>
-                <button className="profile-next" type='submit' onClick={onSubmit} disabled={userSkillLevel == "" || interests == "" || programmingLanguages == ""
+                <button className="profile-next" type='submit' onClick={onSubmit} disabled={userSkillLevel === "" || interests === "" || programmingLanguages === ""
                 }>Submit</button>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import '../styles/discover.css'
 import axios from 'axios'
-import { useNavigate, useParams, Link} from "react-router-dom"
+import { useNavigate, Link} from "react-router-dom"
 import { useState, useEffect } from 'react';
 
 export const Discover = () => {
@@ -17,7 +17,6 @@ export const Discover = () => {
     const [userLanguageSearch, setUserLanguageSearch] = useState(false);
     const [users, setUsers] = useState([]);
     const [userCount, setUserCount] = useState();
-    const [data, setData] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,7 +28,6 @@ export const Discover = () => {
             }).then((res) => {
               if (res.data) // If user is already signed in.
               {
-                setData(res.data);
                 if (res.data.profileCompleted)
                 {
                     setCurrentSearch("main")
@@ -46,7 +44,7 @@ export const Discover = () => {
           };
     
         getUser(); // Call the function when the component mounts
-      }, []);
+      }, [navigate]);
     
 
 
@@ -155,7 +153,7 @@ export const Discover = () => {
             {!userSearchButtonClicked && (
                 <>
                     <div className="discover-container">
-                    <img className='discover-logo'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                    <img className='discover-logo'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png' alt="logo"></img>
                     <h1>Connect with others!</h1>
 
                     <label htmlFor="discoverSearch"></label>
@@ -188,7 +186,7 @@ export const Discover = () => {
                     <div className='discover-cards'>
                         {users.map((user, index) => (
                             <div className='discover-card' key={index}>
-                            <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'}></img>
+                            <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'} alt="Profile"></img>                            
                             <h1>{user.username}</h1>
                             <h4>Name: {user.firstName} {user.lastName}</h4>
                             <h4>Age: {user.age}</h4>
@@ -211,7 +209,7 @@ export const Discover = () => {
             {!userSchoolSearch && (
                     <>
                         <div className="discover-container">
-                        <img className='discover-logo'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                        <img className='discover-logo'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png' alt="logo"></img>
                         <h1>Search for School</h1>
                 
                         <label htmlFor="discoverSearch"></label>
@@ -236,7 +234,7 @@ export const Discover = () => {
                     <div className='discover-cards'>
                     {users.map((user, index) => (
                                 <div className='discover-card' key={index}>
-                                <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'}></img>
+                                <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'} alt="Profile"></img>                               
                                 <h1>{user.username}</h1>
                                 <h4>Name: {user.firstName} {user.lastName}</h4>
                                 <h4>Age: {user.age}</h4>
@@ -259,7 +257,7 @@ export const Discover = () => {
                 {!userLevelSearch && (
                         <>
                             <div className="discover-container">
-                            <img className='discover-logo'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                            <img className='discover-logo'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png' alt='logo'></img>
                             <h1>Search for Skill Level</h1>
                     
                             <label htmlFor="discoverSearch"></label>
@@ -284,8 +282,7 @@ export const Discover = () => {
                         <div className='discover-cards'>
                             {users.map((user, index) => (
                                         <div className='discover-card' key={index}>
-                                        <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'}></img>
-                                        <h1>{user.username}</h1>
+                                        <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'} alt="Profile"></img>                                        <h1>{user.username}</h1>
                                         <h4>Name: {user.firstName} {user.lastName}</h4>
                                         <h4>Age: {user.age}</h4>
                                         <h4>University: {user.university}</h4>
@@ -307,7 +304,7 @@ export const Discover = () => {
                     {!userInterestsSearch && (
                             <>
                                 <div className="discover-container">
-                                <img className='discover-logo'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                                <img className='discover-logo'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png' alt="logo"></img>
                                 <h1>Search for Interests</h1>
                         
                                 <label htmlFor="discoverSearch"></label>
@@ -332,8 +329,7 @@ export const Discover = () => {
                             <div className='discover-cards'>
                                 {users.map((user, index) => (
                                             <div className='discover-card' key={index}>
-                                            <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'}></img>
-                                            <h1>{user.username}</h1>
+                                            <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'} alt="Profile"></img>                                            <h1>{user.username}</h1>
                                             <h4>Name: {user.firstName} {user.lastName}</h4>
                                             <h4>Age: {user.age}</h4>
                                             <h4>University: {user.university}</h4>
@@ -355,7 +351,7 @@ export const Discover = () => {
                     {!userLanguageSearch && (
                             <>
                                 <div className="discover-container">
-                                <img className='discover-logo'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                                <img className='discover-logo'  src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png' alt="logo"></img>
                                 <h1>Search for Language</h1>
                         
                                 <label htmlFor="discoverSearch"></label>
@@ -380,7 +376,7 @@ export const Discover = () => {
                             <div className='discover-cards'>
                                 {users.map((user, index) => (
                                             <div className='discover-card' key={index}>
-                                            <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'}></img>
+                                            <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'} alt="Profile"></img>
                                             <h1>{user.username}</h1>
                                             <h4>Name: {user.firstName} {user.lastName}</h4>
                                             <h4>Age: {user.age}</h4>
@@ -402,7 +398,7 @@ export const Discover = () => {
                     <>
                     <div className='discover-container'>
                         <div className="email-container">
-                            <img src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+                            <img src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png' alt="logo"></img>
                             <div className="email-card">
                             <h1>To start discovering others, please complete your profile <Link to="/profile"
                     className="register-link">here</Link>!</h1>

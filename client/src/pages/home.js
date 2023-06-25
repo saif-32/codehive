@@ -1,7 +1,5 @@
 import { Navbar } from "../components/navbar"
 import { useState, useEffect } from "react";
-import { useNavigate, Link} from "react-router-dom"
-import { useCookies } from "react-cookie"
 import axios from 'axios'
 import '../styles/home.css'
 
@@ -17,7 +15,7 @@ export const Home = () => {
               url: "http://localhost:3001/auth/user",
             }).then((res) => {
               setData(res.data);
-              console.log(res.data);
+              console.log(res.data.username);
             });
           };
     

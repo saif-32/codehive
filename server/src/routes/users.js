@@ -78,7 +78,6 @@ router.post("/login", async(req, res, next) => {
 })
 
 router.get("/user", (req, res) => {
-    console.log(req.user)
     res.send(req.user); // The req.user stores the entire user that has been authenticated inside of it.
 });
 
@@ -142,6 +141,65 @@ router.post("/verify-email", async(req, res) => {
         return res.json({status: 'error'});
     }
 })
+
+router.post("/edit-account", async(req, res) => {
+  const { username, settingsFirstName, settingsLastName, settingsUsername, settingsEmail } = req.body;
+  const user = await UserModel.findOne({username});
+
+  try{
+      let change = UserModel.updateOne({username},
+      {
+          $set:{
+              firstName: settingsFirstName,
+              lastName: settingsLastName,
+              username: settingsUsername,
+              email: settingsEmail,
+          }
+      }).then(console.log("User succesfully edited account."));
+      return res.json({status: 'okay'});
+  } catch (err) {
+      return res.json({status: 'error'});
+  }
+})
+
+router.post("/edit-account/password", async(req, res) => {
+  console.log("initiating password change")
+  const { username, settingsOldPassword, settingsNewPassword, settingsConfirmNewPassword } = req.body;
+
+  if (!username || !settingsOldPassword || !settingsNewPassword || !settingsConfirmNewPassword) {
+    return res.json({Message: "All-Fields-Required"});
+  }
+
+  const user = await UserModel.findOne({username});
+
+  try{
+      const isMatch = await bcrypt.compare(settingsOldPassword, user.password);
+      if (!isMatch) {
+        return res.json({ Message: 'Incorrect old password' });
+      }
+
+      if (settingsNewPassword !== settingsConfirmNewPassword) {
+        return res.json({ Message: 'New password and confirm password do not match' });
+      }
+
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d!@#$%^&*()]{8,20}$/;
+
+      if (!passwordRegex.test(settingsNewPassword)) {
+          return res.json({ Message: "Password-Not-Strong" });
+      }
+      
+      const hashedNewPassword = await bcrypt.hash(settingsNewPassword, 10);
+      await UserModel.updateOne({ username }, { $set: { password: hashedNewPassword } });
+  
+      console.log("User successfully changed password.");
+      return res.json({ status: 'okay' });
+
+  } catch (err) {
+      return res.json({status: 'error'});
+  }
+})
+
+
 
 
 export { router as userRouter };

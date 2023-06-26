@@ -392,6 +392,12 @@ input[type="number"]:focus {
     width: 270px;
 }
 
+.account-inputs input[type="password"] {
+    padding: 5px;
+    width: 270px;
+}
+
+
 
 .settings-button-container button {
     color: #ffffff;
@@ -420,4 +426,49 @@ input[type="number"]:focus {
 
 .settings-cancel:hover {
     background-color: #999999;
+}
+
+.security-info ul {
+    font-size: 16px; /* Adjust the font size as per your preference */
+    color: white
+  }
+  
+.security-info li {
+    margin-bottom: 8px; /* Add spacing between each list item */
+}
+
+
+
+
+.settings-password-button-container button {
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.settings-change-pass {
+    background-color: #C07F00;
+    transition: background-color 0.3s ease;
+}
+
+.settings-cancel {
+    background-color: #333333;
+    transition: background-color 0.3s ease;
+}
+
+.settings-change-pass:hover {
+    background-color: #A46C00;
+}
+
+.settings-cancel:hover {
+    background-color: #999999;
+}
+
+.settings-pass-error {
+    font-size: 16px;
+    color: red;
+    margin-bottom: 0px;
 }

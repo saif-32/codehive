@@ -44,6 +44,12 @@ export const Profile = () => {
   const [settingsUsername, setSettingsUsername] = useState("")
   const [settingsEmail, setSettingsEmail] = useState("")
 
+  const [settingsOldPassword, setSettingsOldPassword] = useState("")
+  const [settingsNewPassword, setSettingsNewPassword] = useState("")
+  const [settingsConfirmNewPassword, setSettingsConfirmNewPassword] = useState("")
+  const [settingsPasswordError, setSettingsPasswordError] = useState("")
+
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -98,6 +104,60 @@ export const Profile = () => {
 
     getUser();
   }, []);
+
+  const onSettingsSubmit = async (event) => {
+    event.preventDefault();
+    const username = data.username
+    const response = await axios.post("http://localhost:3001/auth/edit-account", {
+      username,
+      settingsFirstName,
+      settingsLastName,
+      settingsUsername,
+      settingsEmail,
+    }, {
+      withCredentials: true
+    }).then(response => {
+      if (response.data.status === "okay") {
+        console.log("Success")
+      }
+    })
+  };
+
+  const onPasswordChangeSubmit = async (event) => {
+    event.preventDefault();
+    const username = data.username
+    const response = await axios.post("http://localhost:3001/auth/edit-account/password", {
+      username,
+      settingsOldPassword,
+      settingsNewPassword,
+      settingsConfirmNewPassword,
+    }, {
+      withCredentials: true
+    }).then(response => {
+      const responseData = response.data;
+      if (response.data.status === "okay") {
+        setSettingsPasswordError("Your password was succesfully changed.");
+      }
+
+      if (responseData.Message === "All-Fields-Required") {
+        console.log("hello")
+        setSettingsPasswordError("All fields are required");
+      }
+
+      if (responseData.Message === "Incorrect old password") {
+        setSettingsPasswordError("Your current password is incorrect");
+      }
+
+      if (responseData.Message === "New password and confirm password do not match") {
+        setSettingsPasswordError("New password and confirm password do not match");
+      }
+
+      if (responseData.Message === "Password-Not-Strong") {
+        setSettingsPasswordError("Password is not strong enough");
+      }
+
+    })
+  };
 
   const onSubmit = async (event) => { // Executes after submit button is clicked.
     console.log("Submitting...")
@@ -486,7 +546,7 @@ export const Profile = () => {
               <div className={`profile-completed-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
               <div className="button-column">
                 <button className={activeButton === 'Account' ? 'active' : ''} onClick={() => handleClick('Account')}>Account</button>
-                <button onClick={() => handleClick('Button 2')}>Security</button>
+                <button className={activeButton === 'Security' ? 'active' : ''} onClick={() => handleClick('Security')}>Security</button>
                 <button onClick={() => handleClick('Button 2')}>Information</button>
                 <button onClick={() => handleClick('Button 3')}>Friends</button>
               </div>
@@ -538,12 +598,48 @@ export const Profile = () => {
 
 
                       <div className="settings-button-container">
-                        <button className="settings-save" type="button">Save</button>
+                        <button className="settings-save" type="button" onClick={onSettingsSubmit}>Save</button>
                         <button className="settings-cancel" type='button'>Cancel</button>
                       </div>
                     
 
                   </div>
+                )}
+
+                {activeButton === "Security" && (
+                  <div className="content-display">
+                        <h1>Account Security</h1>
+
+                        <div className='security-info'>
+                          <ul>
+                            <li>Use a combination of uppercase and lowercase letters, numbers, and symbols in your password.</li>
+                            <li>Avoid using common or easily guessable passwords.</li>
+                            <li>Consider using a password manager to securely store your passwords.</li>
+                            <li>Regularly update your passwords to maintain account security.</li>
+                          </ul>
+                        </div>
+
+                        <div class="account-inputs">
+                          <label for="settings-old-password">Old Password</label>
+                          <input id="settings-old-password" type="password" value={settingsOldPassword} onChange={(event) => setSettingsOldPassword(event.target.value)}/>
+                          <label for="settings-new-password">New Password</label>
+                          <input id="settings-new-password" type="password" value={settingsNewPassword} onChange={(event) => setSettingsNewPassword(event.target.value)}/>
+
+                          <label for="settings-confirm-new-password">Confirm New Password</label>
+                          <input id="settings-confirm-new-password" type="password" value={settingsConfirmNewPassword} onChange={(event) => setSettingsConfirmNewPassword(event.target.value)}/>
+                          
+                          <p className='settings-pass-error'>{settingsPasswordError}</p>
+                          
+                          <div className="settings-password-button-container">
+                            <button className="settings-change-pass" type="button" onClick={onPasswordChangeSubmit}>Change Password</button>
+                            <button className="settings-cancel" type='button'>Cancel</button>
+                          </div>
+
+                        </div>
+
+                  </div>
+
+
                 )}
 
 

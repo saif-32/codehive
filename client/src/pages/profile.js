@@ -5,6 +5,15 @@ import test from './test.txt'
 import axios from 'axios'
 
 export const Profile = () => {
+
+  const [activeButton, setActiveButton] = useState(null);
+
+  const handleClick = (button) => {
+    setActiveButton(button);
+  };
+
+
+
   const [currentForm, setCurrentForm] = useState(1);
   const [transitionDirection, setTransitionDirection] = useState('');
   const [universities, setUniversities] = useState([]);
@@ -196,9 +205,9 @@ export const Profile = () => {
   return (
     <div className='form-container'>
       <div className="profile-container">
-        <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo" />
           {currentForm === 1 && (
             <>
+            <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo" />
             <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`} style={{height: '450px'}}>
 
 
@@ -254,6 +263,7 @@ export const Profile = () => {
           )}
           {currentForm === 2 && (
             <>
+            <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo" />
             <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
             <div className="content-container">
             <h2>Basic Information</h2>
@@ -335,6 +345,7 @@ export const Profile = () => {
           )}
           {currentForm === 3 && (
             <>
+            <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo" />
             <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
                 <h2>Student Information</h2>
                 <h3>Enter your university and grade</h3>
@@ -377,6 +388,7 @@ export const Profile = () => {
           )}
           {currentForm === 4 && (
             <>
+            <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo" />
             <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`} style={{height: '500px'}}>
             <h2>Programmer Information</h2>
             <h3>Last step! Enter your programming details</h3>
@@ -443,6 +455,7 @@ export const Profile = () => {
           )}
           {currentForm === 5 && (
             <>
+            <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo" />
             <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
             <h2>Your Code<span className="light-yellow">Hive </span>Profile was successfully created!</h2>
             <h3>Get ready to unleash your innovative spirit and connect with talented students from around the world.
@@ -452,10 +465,45 @@ export const Profile = () => {
           )}
           {currentForm === 6 && (
             <>
-            <div className={`profile-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
-            <h2>Your Code<span className="light-yellow">Hive </span>Profile was already created!</h2>
-            <h3>This should display a user edit page.</h3>
-            </div>
+              <div className={`profile-completed-card ${transitionDirection === 'slide-out' ? 'slide-out' : 'slide-in'}`}>
+              <div className="button-column">
+                <button className={activeButton === 'Account' ? 'active' : ''} onClick={() => handleClick('Account')}>Account</button>
+                <button onClick={() => handleClick('Button 2')}>Security</button>
+                <button onClick={() => handleClick('Button 2')}>Information</button>
+                <button onClick={() => handleClick('Button 3')}>Friends</button>
+              </div>
+
+              <div className="content">
+                {activeButton === "Account" && (
+
+                  <div className="content-display">
+                    <h1>Account Settings</h1>
+                      <label htmlFor="file-upload" classname='custom-file-upload'>
+                        <div className="profile-pic-content profile-picture-container">
+                          <img className='create-profile-picture' src= {postImage.myFile || userProfilePicture || "https://cdn.discordapp.com/attachments/798251319847813200/1122589471565684816/download.jpeg"} alt="Profile Picture" />
+                        </div>
+                        </label>
+                        <input 
+                            type="file"
+                            label="Image"
+                            name="myFile"
+                            id="file-upload"
+                            accept=".jpeg, .png, .jpg"
+                            onChange={(e) => handleFileUpload(e)}
+                        />
+                      
+
+
+                  </div>
+
+                
+                
+                )}
+
+
+              </div>
+
+              </div>
             </>
           )}
       </div>

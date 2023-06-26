@@ -49,7 +49,7 @@
     background-color: #4C3D3D;
     border-radius: 10px;
     box-shadow: inset 0px 0px 0px 5px #2c2223;
-  }
+}
   
 .text-fields {
     width: 420px;
@@ -310,5 +310,59 @@ input[type="number"]:focus {
     font-size: 12px;
     padding: 2px;
     margin-top: -15px;
+}
+  
+
+
+.profile-completed-card {
+    display: flex;
+    width: 75%;
+    height: 85%;
+    padding: 5px;
+    background-color: #4C3D3D;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 0px 5px #2c2223;
   }
   
+  .button-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start; /* Align buttons to start */
+    border-right: 1px solid white; /* Add a right border */
+  }
+  
+.button-column button {
+    padding: 15px 40px;
+    width: 100%;
+    margin-bottom: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: transparent;
+    border: none;
+}
+
+.button-column button:hover {
+    color: white;
+}
+
+.button-column button.active {
+    color: #FFD95A;
+  }
+  
+.content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+.content-display {
+    font-size: 24px;
+}
+
+.profile-pic-content.profile-picture-container {
+    width: 175px;
+    height: 175px;
+}

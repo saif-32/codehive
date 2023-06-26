@@ -38,6 +38,12 @@ export const Profile = () => {
   const [userProfilePicture, setUserProfilePicture] = useState("")
   const [postImage, setPostImage] = useState({ myFile : "" })
 
+
+  const [settingsFirstName, setSettingsFirstName] = useState("")
+  const [settingsLastName, setSettingsLastName] = useState("")
+  const [settingsUsername, setSettingsUsername] = useState("")
+  const [settingsEmail, setSettingsEmail] = useState("")
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -48,9 +54,21 @@ export const Profile = () => {
         if (response.data) {
           setData(response.data)
           setUserUsername(response.data.username)
+          setSettingsUsername(response.data.username)
+
+
+          setSettingsEmail(response.data.email)
+
+
           setUserFirstName(response.data.firstName)
+          setSettingsFirstName(response.data.firstName)
+
           setUserLastName(response.data.lastName)
+          setSettingsLastName(response.data.lastName)
+
+
           setUserProfilePicture(response.data.profilePicture)
+
           if (response.data.profileCompleted) {
             setCurrentForm(6)
           }
@@ -477,27 +495,55 @@ export const Profile = () => {
                 {activeButton === "Account" && (
 
                   <div className="content-display">
-                    <h1>Account Settings</h1>
-                      <label htmlFor="file-upload" classname='custom-file-upload'>
-                        <div className="profile-pic-content profile-picture-container">
-                          <img className='create-profile-picture' src= {postImage.myFile || userProfilePicture || "https://cdn.discordapp.com/attachments/798251319847813200/1122589471565684816/download.jpeg"} alt="Profile Picture" />
+                        <h1>Account Settings</h1>
+                        <div>
+                            <label htmlFor="file-upload" classname='custom-file-upload'>
+                            <div className="profile-pic-content profile-picture-container">
+                              <img className='create-profile-picture' src= {postImage.myFile || userProfilePicture || "https://cdn.discordapp.com/attachments/798251319847813200/1122589471565684816/download.jpeg"} alt="Profile Picture" />
+                            </div>
+                            </label>
+                            <input 
+                                type="file"
+                                label="Image"
+                                name="myFile"
+                                id="file-upload"
+                                accept=".jpeg, .png, .jpg"
+                                onChange={(e) => handleFileUpload(e)}
+                            />
                         </div>
-                        </label>
-                        <input 
-                            type="file"
-                            label="Image"
-                            name="myFile"
-                            id="file-upload"
-                            accept=".jpeg, .png, .jpg"
-                            onChange={(e) => handleFileUpload(e)}
-                        />
-                      
 
+                      <div>
+                        <div class="account-inputs">
+                          <label for="settings-name">First Name</label>
+                          <input id="settings-name" type="text" value={settingsFirstName} onChange={(event) => setSettingsFirstName(event.target.value)}/>
+                        </div>
+
+                        <div class="account-inputs">
+                          <label for="settings-last-name">Last Name</label>
+                          <input id="settings-last-name" type="text" value={settingsLastName} onChange={(event) => setSettingsLastName(event.target.value)}/>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div class="account-inputs">
+                          <label for="settings-username">Username</label>
+                          <input id="settings-username" type="text" value={settingsUsername} onChange={(event) => setSettingsUsername(event.target.value)}/>
+                      </div>
+
+                        <div class="account-inputs">
+                          <label for="settings-email">Email</label>
+                          <input id="settings-email" type="text" value={settingsEmail} onChange={(event) => setSettingsEmail(event.target.value)} name="email" />
+                        </div>
+                      </div>
+
+
+                      <div className="settings-button-container">
+                        <button className="settings-save" type="button">Save</button>
+                        <button className="settings-cancel" type='button'>Cancel</button>
+                      </div>
+                    
 
                   </div>
-
-                
-                
                 )}
 
 

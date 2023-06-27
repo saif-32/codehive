@@ -149,11 +149,19 @@
     align-items: center;
     justify-content: center;
     font-size: 20px;
-    transition: all 0.3s ease;
 }
 
 .discover-card-button:hover {
     background-color: #A46C00;
+}
+
+.discover-card-button.disabled {
+    background-color: #4BB543;
+    transition: all 0.3s ease;
+}
+
+.discover-card-button.disabled:hover {
+    background-color: #467938;
 }
 
 .card-profile-picture {

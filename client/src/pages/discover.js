@@ -7,6 +7,10 @@ import { useState, useEffect } from 'react';
 export const Discover = () => {
 
     const [userId, setUserId] = useState("");
+    const [currentUser, setCurrentUser] = useState("");
+    const [addedFriends, setAddedFriends] = useState([]);
+
+
     const [currentSearch, setCurrentSearch] = useState("");
     const [universities, setUniversities] = useState([]);
     const [userUniversity, setUserUniversity] = useState("")
@@ -33,6 +37,9 @@ export const Discover = () => {
               if (res.data) // If user is already signed in.
               {
                 setUserId(res.data._id)
+                setCurrentUser(res.data)
+                console.log("Hello")
+                console.log(currentUser)
                 if (res.data.profileCompleted)
                 {
                     setCurrentSearch("main")
@@ -186,12 +193,30 @@ export const Discover = () => {
     };
 
     const addFriend = async (friendId) => {
+        console.log("Initiating add friend...")
+
+        if (friendId === userId) {
+            console.log("You cannot add yourself as a friend.");
+            return;
+          }
+        
+        if (currentUser.friends.includes(friendId)) {
+            console.log("This user is already added as a friend.");
+            return;
+          }
+
+
         try {
             const response = await axios.post("http://localhost:3001/auth/add-friends", {
                 userId: userId,
                 friendId: friendId
             })
-        } catch (err) {
+            console.log("Hello")
+            setAddedFriends((prevAddedFriends) => [...prevAddedFriends, friendId]);
+            console.log("completed")
+            console.log(addedFriends)
+        } 
+        catch (err) {
             console.log(err)
         }
     }
@@ -307,10 +332,15 @@ export const Discover = () => {
                     {users.map((user, index) => (
                             <div className='discover-card' key={index}>
                             <button
-                                className="discover-card-button"
-                                onClick={() => addFriend(user._id)}
-                                >
-                            +</button>
+                            className={`discover-card-button ${user._id === userId || currentUser.friends.includes(user._id) ? 'disabled' : ''}`}
+                            onClick={() => addFriend(user._id)}
+                            disabled={user._id === userId || currentUser.friends.includes(user._id) || addedFriends.includes(user._id)}>
+                            {user._id === userId || currentUser.friends.includes(user._id) ? (
+                                <span className="check-mark">&#10003;</span>
+                                ) : (
+                                '+'
+                                )}
+                            </button>
 
                                 <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'} alt="Profile"></img>                               
                                 <h1>{user.username}</h1>

@@ -212,6 +212,8 @@ router.post("/add-friends", async(req, res) => {
 
     console.log("Friend added.")
 
+    return res.json({status: 'okay'});
+
   } catch (err) {
       return res.json({status: 'error'});
   }

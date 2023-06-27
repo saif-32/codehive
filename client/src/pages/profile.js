@@ -547,7 +547,7 @@ export const Profile = () => {
               <div className="button-column">
                 <button className={activeButton === 'Account' ? 'active' : ''} onClick={() => handleClick('Account')}>Account</button>
                 <button className={activeButton === 'Security' ? 'active' : ''} onClick={() => handleClick('Security')}>Security</button>
-                <button onClick={() => handleClick('Button 2')}>Information</button>
+                <button className={activeButton === 'Information' ? 'active' : ''} onClick={() => handleClick('Information')}>Information</button>
                 <button onClick={() => handleClick('Button 3')}>Friends</button>
               </div>
 
@@ -636,6 +636,173 @@ export const Profile = () => {
                           </div>
 
                         </div>
+
+                  </div>
+
+
+                )}
+
+                {activeButton === "Information" && (
+                  <div className="content-display">
+                        <h1>Account Information</h1>
+
+                        <div class="account-inputs">
+                          <label htmlFor="settingsBirthdayMonth">Month</label>
+                          <select id="settingsBirthdayMonth">
+                            <option value="" disabled selected>Select Month</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option> 
+                        </select>
+                      </div>
+
+                      <div className="account-inputs">
+                        <label htmlFor="settingsBirthdayDay">Day</label>
+                        <input
+                              type="number"
+                              min="1"
+                              max="31"
+                              id='settingsBirthdayDay'
+                              placeholder="Day"
+                              value={userBirthdayDay}
+                              onChange={(event) => {
+                                let value = event.target.value.slice(0, 2);
+                                value = value.replace(/[^0-9]/g, '');
+                                if (/^(0?[1-9]|[12][0-9]|3[01])$/.test(value)) {
+                                  setUserBirthdayDay(value);
+                                } else {
+                                  setUserBirthdayDay('');
+                                }
+                              }}
+                          />
+                      </div>
+
+                      <div className="account-inputs">
+                        <label htmlFor="settingsBirthdayYear">Year</label>
+                          <input type="number" id="settingsBirthdayYear" min="1900" max="2023" placeholder="Year" value={userBirthdayYear} 
+                          onChange={(event) => {
+                            let value = event.target.value.slice(0, 4);
+                            value = value.replace(/[^0-9]/g, '');
+                            if (value.length > 1 && /^[12]/.test(value)) {
+                              setUserBirthdayYear(value);
+                            } else if (value === '1' || value === '2') {
+                              setUserBirthdayYear(value);
+                            } else {
+                              setUserBirthdayYear('');
+                            }
+                          }}
+                        />
+                      </div>
+
+                      <div className="account-inputs">
+                        <label htmlFor="settingsGender">Gender</label>
+                        <select id="settingsGender" value={userGender} onChange={(event) => setUserGender(event.target.value)}>
+                            <option value="" disabled selected>Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                      </div>
+                    
+                    <div>
+                    
+                      <div className='account-inputs'>
+                        <label className='settings-university-label' htmlFor="settingsUniversity">University</label>
+                        <input
+                            type="text"
+                            id="settingsUniversity"
+                            list="university-list"
+                            placeholder="Search for University"
+                            value={userUniversity} 
+                            onChange={(event) => {
+                              setUserUniversity(event.target.value)}}
+                        />
+                        <datalist id="university-list">
+                                {universities.map((university, index) => (
+                                <option key={index} value={university} />
+                                ))}
+                        </datalist>
+                      </div>
+
+                      <div className='account-inputs'>
+                      <label className='settings-university-grade' htmlFor="settingsGrade">Grade</label>
+                        <select id="settingsGrade" value={userGrade}  onChange={(event) => setUserGrade(event.target.value)}>
+                            <option value="" disabled selected>Grade</option>
+                            <option value="Freshman">Freshman</option>
+                            <option value="Sophmore">Sophmore</option>
+                            <option value="Junior">Junior</option>
+                            <option value="Senior">Senior</option>
+                        </select>
+                      </div>
+                    </div>
+
+
+                    <div className='account-inputs'>
+                        <label className='settings-languages-label' htmlFor="settingsLanguages">Programming Languages</label>
+                        <input
+                        type="text"
+                        value={currentLanguage}
+                        id="settingsLanguages"
+                        onChange={handleLanguageChange}
+                        onKeyPress={handleLanguageKeyPress}
+                        placeholder="Enter programming languages here"
+                        />
+
+                        <div className="input-boxes">
+                        {programmingLanguages.map((language, index) => (
+                            <div key={index} className="input-box">
+                            {language}
+                            <button className="remove-button" type="button" onClick={() => handleRemoveLanguage(index)}>x</button>
+                            </div>
+                        ))}
+                        </div>
+
+                        <label className='settings-languages-label' htmlFor="settingsInterests">Interests</label>
+                        <input
+                        type="text"
+                        value={currentInterest}
+                        id="settingsInterests"
+                        onChange={handleInterestChange}
+                        onKeyPress={handleInterestKeyPress}
+                        placeholder="Enter interests here (AI, Web Development, etc.)"
+                        />
+                        <div className="input-boxes">
+                        {interests.map((interest, index) => (
+                            <div key={index} className="input-box">
+                            {interest}
+                            <button className="remove-button" type="button" onClick={() => handleRemoveInterest(index)}>x</button>
+                            </div>
+                        ))}
+                        </div>
+
+                        <label htmlFor="skill">Skill Level</label>
+                          <select id="settingsSkillLevel" value={userSkillLevel}  onChange={(event) => setUserSkillLevel(event.target.value)}>
+                              <option value="" disabled selected>Skill Level</option>
+                              <option value="Novice">Novice</option>
+                              <option value="Advanced Beginner">Advanced Beginner</option>
+                              <option value="Compotent">Compotent</option>
+                              <option value="Proficient">Proficient</option>
+                          </select>
+
+                          <div className="settings-information-button-container">
+                            <button className="settings-change-information" type="button" onClick={onPasswordChangeSubmit}>Save Changes</button>
+                            <button className="settings-cancel" type='button'>Cancel</button>
+                          </div>
+
+                    </div>
+
+                    
+
+
 
                   </div>
 

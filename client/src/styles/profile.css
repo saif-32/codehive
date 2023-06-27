@@ -383,7 +383,8 @@ input[type="number"]:focus {
 }
 
 .account-inputs input,
-.account-inputs label {
+.account-inputs label,
+.account-inputs select {
   display: block;
 }
 
@@ -396,6 +397,114 @@ input[type="number"]:focus {
     padding: 5px;
     width: 270px;
 }
+
+.account-inputs select {
+    padding: 5px;
+}
+
+#settingsBirthdayMonth {
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    background-color: #EFE1B3;
+    height: 36px;
+    width: 200px;
+}
+
+#settingsBirthdayDay {
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    background-color: #EFE1B3;
+    height: 36px;
+    width: 60px;
+}
+
+#settingsBirthdayYear {
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    background-color: #EFE1B3;
+    height: 36px;
+    width: 75px;
+}
+
+#settingsGender {
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    background-color: #EFE1B3;
+    height: 36px;
+    width: 100px;
+}
+
+#settingsUniversity {
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    margin-bottom: 10px;
+    background-color: #EFE1B3;
+    width: 375px;
+}
+
+#settingsLanguages {
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    margin-bottom: 10px;
+    background-color: #EFE1B3;
+    width: 495px;
+}
+
+#settingsInterests {
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    margin-bottom: 10px;
+    background-color: #EFE1B3;
+    width: 495px;
+}
+
+#settingsSkillLevel {
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    background-color: #EFE1B3;
+    height: 36px;
+    width: 200px;
+}
+
+.settings-university-label {
+    margin-top: 15px;
+}
+
+.settings-university-grade {
+    margin-top: 15px;
+}
+
+.settings-languages-label {
+    margin-top: 0px;
+}
+
+
+#settingsGrade {
+    padding: 5px;
+    border-radius: 8px;
+    border: 2.5px solid #5E4F4F;
+    font-size: 14px;
+    background-color: #EFE1B3;
+    margin-bottom: 10px;
+    height: 36px;
+}
+
 
 
 
@@ -471,4 +580,34 @@ input[type="number"]:focus {
     font-size: 16px;
     color: red;
     margin-bottom: 0px;
+}
+
+
+.settings-information-button-container button {
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 15px;
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+
+.settings-change-information {
+    background-color: #C07F00;
+    transition: background-color 0.3s ease;
+}
+
+.settings-cancel {
+    background-color: #333333;
+    transition: background-color 0.3s ease;
+}
+
+.settings-change-information:hover {
+    background-color: #A46C00;
+}
+
+.settings-cancel:hover {
+    background-color: #999999;
 }

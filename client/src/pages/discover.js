@@ -397,11 +397,13 @@ export const Discover = () => {
         {currentSearch === "invalid" && (
                     <>
                     <div className='discover-container'>
-                        <div className="email-container">
+                        <div className="discover-invalid-container">
                             <img src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png' alt="logo"></img>
-                            <div className="email-card">
-                            <h1>To start discovering others, please complete your profile <Link to="/profile"
-                    className="register-link">here</Link>!</h1>
+                            <div className="discover-invalid">
+                            <h1>Profile Incomplete</h1>
+                            <h2>To access the Discover page, 
+                            please complete your <Link to="/profile" className='discover-invalid-link'>Profile</Link> first. Fill in all the required fields and provide necessary information. 
+                            This will help us tailor the content and recommendations specifically for you.</h2>
                             </div>
                         </div>
                     </div>

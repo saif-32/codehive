@@ -49,6 +49,19 @@ export const Profile = () => {
   const [settingsConfirmNewPassword, setSettingsConfirmNewPassword] = useState("")
   const [settingsPasswordError, setSettingsPasswordError] = useState("")
 
+  const [settingsGender, setSettingsGender] = useState("")
+  const [settingsUniversity, setSettingsUniversity] = useState("")
+  const [settingsGrade, setSettingsGrade] = useState("")
+  const [settingsSkillLevel, setSettingsSkillLevel] = useState("")
+
+
+
+  const [settingsProgrammingLanguages, setSettingsProgrammingLanguages] = useState([]);
+  const [settingsCurrentProgrammingLanguages, setCurrentSettingsProgrammingLanguages] = useState('');
+
+  const [settingsInterests, setSettingsInterests] = useState([]);
+  const [settingsCurrentInterests, setCurrentSettingsInterests] = useState([]);
+
 
   useEffect(() => {
     const getUser = async () => {
@@ -59,9 +72,10 @@ export const Profile = () => {
         
         if (response.data) {
           setData(response.data)
+          console.log(response.data)
           setUserUsername(response.data.username)
           setSettingsUsername(response.data.username)
-
+          
 
           setSettingsEmail(response.data.email)
 
@@ -74,6 +88,15 @@ export const Profile = () => {
 
 
           setUserProfilePicture(response.data.profilePicture)
+          setSettingsGender(response.data.gender)
+          setSettingsUniversity(response.data.university)
+          setSettingsGrade(response.data.gradeLevel)
+          setSettingsSkillLevel(response.data.skillLevel)
+          
+          setSettingsProgrammingLanguages(response.data.languages)
+          setSettingsInterests(response.data.interests)
+
+
 
           if (response.data.profileCompleted) {
             setCurrentForm(6)
@@ -270,6 +293,53 @@ export const Profile = () => {
     const base64 = await convertToBase64(file)
     setPostImage( {...postImage, myFile : base64})
 }
+
+const handleSettingsLanguageChange = (e) => {
+  let value = e.target.value;
+  if (value.length > 10) {
+    value = value.slice(0, 10); // Truncate the value to 10 characters
+  }
+  setCurrentSettingsProgrammingLanguages(value);
+};
+
+const handleSettingsLanguageKeyPress = (e) => {
+  if (e.key === 'Enter' && settingsCurrentProgrammingLanguages.trim() !== '') {
+    if (settingsProgrammingLanguages.length === 3) {
+      return; // Limit reached, exit the function
+    }
+
+    setSettingsProgrammingLanguages((prevSettingsLanguages) => [...prevSettingsLanguages, settingsCurrentProgrammingLanguages.trim()]);
+    setCurrentSettingsProgrammingLanguages('');
+  }
+};
+
+const handleSettingsRemoveLanguage = (index) => {
+  setSettingsProgrammingLanguages((prevSettingsLanguages) => prevSettingsLanguages.filter((_, i) => i !== index));
+};
+
+const handleSettingsInterestsChange = (e) => {
+  let value = e.target.value;
+  if (value.length > 10) {
+    value = value.slice(0, 10); // Truncate the value to 10 characters
+  }
+  setCurrentSettingsInterests(value);
+};
+
+const handleSettingsInterestKeyPress = (e) => {
+  if (e.key === 'Enter' && settingsCurrentInterests.trim() !== '') {
+    if (settingsInterests.length === 3) {
+      return; // Limit reached, exit the function
+    }
+
+    setSettingsInterests((prevSettingsInterests) => [...prevSettingsInterests, settingsCurrentInterests.trim()]);
+    setCurrentSettingsInterests('');
+  }
+};
+
+const handleSettingsRemoveInterest = (index) => {
+  setSettingsInterests((prevSettingsInterests) => prevSettingsInterests.filter((_, i) => i !== index));
+};
+
 
   useEffect(() => {
     fetch(test)
@@ -646,7 +716,7 @@ export const Profile = () => {
                   <div className="content-display">
                         <h1>Account Information</h1>
 
-                        <div class="account-inputs">
+                      <div class="account-inputs">
                           <label htmlFor="settingsBirthdayMonth">Month</label>
                           <select id="settingsBirthdayMonth">
                             <option value="" disabled selected>Select Month</option>
@@ -705,7 +775,7 @@ export const Profile = () => {
 
                       <div className="account-inputs">
                         <label htmlFor="settingsGender">Gender</label>
-                        <select id="settingsGender" value={userGender} onChange={(event) => setUserGender(event.target.value)}>
+                        <select id="settingsGender" value={settingsGender} onChange={(event) => setSettingsGender(event.target.value)}>
                             <option value="" disabled selected>Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
@@ -722,9 +792,9 @@ export const Profile = () => {
                             id="settingsUniversity"
                             list="university-list"
                             placeholder="Search for University"
-                            value={userUniversity} 
+                            value={settingsUniversity} 
                             onChange={(event) => {
-                              setUserUniversity(event.target.value)}}
+                              setSettingsUniversity(event.target.value)}}
                         />
                         <datalist id="university-list">
                                 {universities.map((university, index) => (
@@ -735,7 +805,7 @@ export const Profile = () => {
 
                       <div className='account-inputs'>
                       <label className='settings-university-grade' htmlFor="settingsGrade">Grade</label>
-                        <select id="settingsGrade" value={userGrade}  onChange={(event) => setUserGrade(event.target.value)}>
+                        <select id="settingsGrade" value={settingsGrade}  onChange={(event) => setSettingsGrade(event.target.value)}>
                             <option value="" disabled selected>Grade</option>
                             <option value="Freshman">Freshman</option>
                             <option value="Sophmore">Sophmore</option>
@@ -750,18 +820,18 @@ export const Profile = () => {
                         <label className='settings-languages-label' htmlFor="settingsLanguages">Programming Languages</label>
                         <input
                         type="text"
-                        value={currentLanguage}
+                        value={settingsCurrentProgrammingLanguages}
                         id="settingsLanguages"
-                        onChange={handleLanguageChange}
-                        onKeyPress={handleLanguageKeyPress}
+                        onChange={handleSettingsLanguageChange}
+                        onKeyPress={handleSettingsLanguageKeyPress}
                         placeholder="Enter programming languages here"
                         />
 
-                        <div className="input-boxes">
-                        {programmingLanguages.map((language, index) => (
-                            <div key={index} className="input-box">
+                        <div className="settings-input-boxes">
+                        {settingsProgrammingLanguages.map((language, index) => (
+                            <div key={index} className="settings-input-box">
                             {language}
-                            <button className="remove-button" type="button" onClick={() => handleRemoveLanguage(index)}>x</button>
+                            <button className="settings-remove-button" type="button" onClick={() => handleSettingsRemoveLanguage(index)}>x</button>
                             </div>
                         ))}
                         </div>
@@ -769,23 +839,23 @@ export const Profile = () => {
                         <label className='settings-languages-label' htmlFor="settingsInterests">Interests</label>
                         <input
                         type="text"
-                        value={currentInterest}
+                        value={settingsCurrentInterests}
                         id="settingsInterests"
-                        onChange={handleInterestChange}
-                        onKeyPress={handleInterestKeyPress}
+                        onChange={handleSettingsInterestsChange}
+                        onKeyPress={handleSettingsInterestKeyPress}
                         placeholder="Enter interests here (AI, Web Development, etc.)"
                         />
-                        <div className="input-boxes">
-                        {interests.map((interest, index) => (
-                            <div key={index} className="input-box">
+                        <div className="settings-input-boxes">
+                        {settingsInterests.map((interest, index) => (
+                            <div key={index} className="settings-input-box">
                             {interest}
-                            <button className="remove-button" type="button" onClick={() => handleRemoveInterest(index)}>x</button>
+                            <button className="settings-remove-button" type="button" onClick={() => handleSettingsRemoveInterest(index)}>x</button>
                             </div>
                         ))}
                         </div>
 
                         <label htmlFor="skill">Skill Level</label>
-                          <select id="settingsSkillLevel" value={userSkillLevel}  onChange={(event) => setUserSkillLevel(event.target.value)}>
+                          <select id="settingsSkillLevel" value={settingsSkillLevel}  onChange={(event) => setSettingsSkillLevel(event.target.value)}>
                               <option value="" disabled selected>Skill Level</option>
                               <option value="Novice">Novice</option>
                               <option value="Advanced Beginner">Advanced Beginner</option>

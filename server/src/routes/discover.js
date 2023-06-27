@@ -6,9 +6,12 @@ const { escapeRegExp } = pkg;
 const router = express.Router();
 
 
-router.get("/users", async (req, res) => {
+router.post("/users", async (req, res) => {
     try {
-        const users = await UserModel.find({profileCompleted: true}, 'firstName lastName username age university skillLevel languages interests profilePicture');
+        const { userMainSearch } = req.body;
+        const escapedUserLevels = escapeRegExp(userMainSearch);
+        const regex = new RegExp(escapedUserLevels, "i"); // "i" flag makes it case-insensitive
+        const users = await UserModel.find({username: regex, profileCompleted: true}, 'firstName lastName username age university skillLevel languages interests profilePicture');
         const count = users.length;
         res.json({ count, users });
     } catch (err) {

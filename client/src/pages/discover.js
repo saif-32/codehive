@@ -9,6 +9,7 @@ export const Discover = () => {
     const [currentSearch, setCurrentSearch] = useState("");
     const [universities, setUniversities] = useState([]);
     const [userUniversity, setUserUniversity] = useState("")
+    const [userMainSearch, setUserMainSearch] = useState("")
     const [userLevel, setUserLevel] = useState("")
     const [userInterests, setUserInterests] = useState("")
     const [userLanguage, setUserLanguage] = useState("")
@@ -77,13 +78,13 @@ export const Discover = () => {
 
     const userSearch = async (event) => {
         event.preventDefault();
-        setUserSearchButtonClicked(true)
-
         try {
-            const response = await axios.get("http://localhost:3001/discover/users")
-            console.log(response.data)
-
+            console.log(userMainSearch)
+            const response = await axios.post("http://localhost:3001/discover/users", {
+                userMainSearch
+            })
             const { count, users } = response.data;
+            setUserSearchButtonClicked(true)
             setUserCount(count);
             setUsers(users);
         } catch (err) {
@@ -158,6 +159,12 @@ export const Discover = () => {
         }
     };
 
+    const handleMainSearchKeyPress = (e) => {
+        if (e.key === 'Enter') {
+          userSearch(e);
+        }
+    };
+
     const handleLevelKeyPress = (e) => {
         if (e.key === 'Enter') {
           levelSearch(e);
@@ -198,7 +205,7 @@ export const Discover = () => {
                     <h1>Connect with others!</h1>
 
                     <label htmlFor="discoverSearch"></label>
-                    <input type="text" id="discoverSearch" className='discover-search'/>
+                    <input type="text" id="discoverSearch" className='discover-search' value={userMainSearch} onChange={(event) => setUserMainSearch(event.target.value)} onKeyPress={handleMainSearchKeyPress}/>
 
                     <button type="button" onClick={userSearch} className="discover-search-user">Search User</button>
                         <div className="discover-seperator"><h3>Or, Filter By...</h3></div>
@@ -215,12 +222,13 @@ export const Discover = () => {
 
             {userSearchButtonClicked && (
                 <>
-                <div className="show-users discover-container">
+
+                <div className="discover-container">
                     {userCount > 0 ? (<h4>Showing {userCount} results:</h4>) : (<h4>No results found.</h4>)}
                     <h1>Connect with others!</h1>
 
                     <label htmlFor="discoverSearch"></label>
-                    <input type="text" id="discoverSearch" className='discover-search'/>
+                    <input type="text" id="discoverSearch" className='discover-search' value={userMainSearch} onChange={(event) => setUserMainSearch(event.target.value)} onKeyPress={handleMainSearchKeyPress}/>
 
                     <button type="button" onClick={userSearch} className="discover-search-user">Search User</button>
 

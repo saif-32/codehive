@@ -19,7 +19,7 @@ export const Home = () => {
             });
           };
     
-        getUser(); // Call the function when the component mounts
+        getUser();
       }, []);
 
     

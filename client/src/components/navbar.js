@@ -7,6 +7,7 @@ import axios from 'axios'
 export const Navbar = () => {
     const [cookies, setCookies] = useCookies(["access_token"]);
     const [data, setData] = useState(null);
+    const [loadingFinished, setLoadingFinished] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -17,6 +18,7 @@ export const Navbar = () => {
               url: "http://localhost:3001/auth/user",
             }).then((res) => {
               setData(res.data);
+              setLoadingFinished(true);
               console.log(res.data);
             });
           };
@@ -44,7 +46,25 @@ export const Navbar = () => {
     return ( 
     
     <div>
-        {!data ? (
+
+            {!loadingFinished && (
+                            <>
+                                <nav>
+                                <header class="p-3 text-bg-dark">
+                                        <div class="container">
+                                        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                                            <img src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" width="60" height="60"></img> 
+                                        </div>
+                                        </div>
+                                </header>
+
+                                </nav>
+                            </>
+            )}
+
+            {loadingFinished && (
+                            <>
+                            {!data ? (
             // If user is not signed in, display this navbar.
             <div> 
                 <nav>
@@ -99,7 +119,6 @@ export const Navbar = () => {
                 </nav>
             </div>
     ) :
-            // If user is signed in, display this navbar.
             <div> 
                 <nav>
                     {
@@ -139,8 +158,8 @@ export const Navbar = () => {
             
             
                                 <div class="text-end">
-                                    <Link to="/login" >
-                                        <button type="button" onclick=<Link to="/login" ></Link> class="btn btn-outline-light me-2">Profile</button>
+                                    <Link to="/profile" >
+                                        <button type="button" onclick=<Link to="/profile" ></Link> class="btn btn-outline-light me-2">Profile</button>
                                     </Link>
                                     <button type="button" onClick={logout} class="btn btn-warning">Log Out</button>
                                 </div>
@@ -151,6 +170,8 @@ export const Navbar = () => {
                 </nav>
             </div>
         }
+                            </>
+            )}
     </div>
         );
     }

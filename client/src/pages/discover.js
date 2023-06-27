@@ -1,4 +1,5 @@
 import '../styles/discover.css'
+import test from './test.txt'
 import axios from 'axios'
 import { useNavigate, Link} from "react-router-dom"
 import { useState, useEffect } from 'react';
@@ -6,6 +7,7 @@ import { useState, useEffect } from 'react';
 export const Discover = () => {
 
     const [currentSearch, setCurrentSearch] = useState("");
+    const [universities, setUniversities] = useState([]);
     const [userUniversity, setUserUniversity] = useState("")
     const [userLevel, setUserLevel] = useState("")
     const [userInterests, setUserInterests] = useState("")
@@ -45,6 +47,15 @@ export const Discover = () => {
     
         getUser(); // Call the function when the component mounts
       }, [navigate]);
+
+      useEffect(() => {
+        fetch(test)
+          .then((response) => response.text())
+          .then((text) => {
+            const universitiesArray = text.split('\n').filter((university) => university.trim() !== '');
+            setUniversities(universitiesArray);
+          });
+      }, []);
     
 
 
@@ -243,7 +254,12 @@ export const Discover = () => {
                         <h1>Search for School</h1>
                 
                         <label htmlFor="discoverSearch"></label>
-                        <input type="text" id="universitySearch" className='discover-search' value={userUniversity} onChange={(event) => setUserUniversity(event.target.value)} onKeyPress={handleSchoolKeyPress}/>
+                        <input type="text" id="universitySearch" list="university-list" className='discover-search' value={userUniversity} onChange={(event) => setUserUniversity(event.target.value)} onKeyPress={handleSchoolKeyPress}/>
+                        <datalist id="university-list">
+                            {universities.map((university, index) => (
+                            <option key={index} value={university} />
+                            ))}
+                        </datalist>
 
                         <button type="submit" className="discover-search-user" onClick={schoolSearch}>Search School</button>
                         </div>
@@ -258,7 +274,12 @@ export const Discover = () => {
                     <h1>Search for School</h1>
                     
                     <label htmlFor="discoverSearch"></label>
-                    <input type="text" id="universitySearch" className='discover-search' value={userUniversity} onChange={(event) => setUserUniversity(event.target.value)} onKeyPress={handleSchoolKeyPress}/>
+                    <input type="text" id="universitySearch" list="university-list" className='discover-search' value={userUniversity} onChange={(event) => setUserUniversity(event.target.value)} onKeyPress={handleSchoolKeyPress}/>
+                    <datalist id="university-list">
+                            {universities.map((university, index) => (
+                            <option key={index} value={university} />
+                            ))}
+                    </datalist>
 
                     <button type="submit" className="discover-search-user" onClick={schoolSearch}>Search School</button>
                     <div className='discover-cards'>

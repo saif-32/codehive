@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 
 export const Discover = () => {
 
+    const [userId, setUserId] = useState("");
     const [currentSearch, setCurrentSearch] = useState("");
     const [universities, setUniversities] = useState([]);
     const [userUniversity, setUserUniversity] = useState("")
@@ -31,6 +32,7 @@ export const Discover = () => {
             }).then((res) => {
               if (res.data) // If user is already signed in.
               {
+                setUserId(res.data._id)
                 if (res.data.profileCompleted)
                 {
                     setCurrentSearch("main")
@@ -183,6 +185,17 @@ export const Discover = () => {
         }
     };
 
+    const addFriend = async (friendId) => {
+        try {
+            const response = await axios.post("http://localhost:3001/auth/add-friends", {
+                userId: userId,
+                friendId: friendId
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
 
 
 
@@ -292,7 +305,13 @@ export const Discover = () => {
                     <button type="submit" className="discover-search-user" onClick={schoolSearch}>Search School</button>
                     <div className='discover-cards'>
                     {users.map((user, index) => (
-                                <div className='discover-card' key={index}>
+                            <div className='discover-card' key={index}>
+                            <button
+                                className="discover-card-button"
+                                onClick={() => addFriend(user._id)}
+                                >
+                            +</button>
+
                                 <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'} alt="Profile"></img>                               
                                 <h1>{user.username}</h1>
                                 <h4>Name: {user.firstName} {user.lastName}</h4>
@@ -337,7 +356,7 @@ export const Discover = () => {
                         <label htmlFor="discoverSearch"></label>
                         <input type="text" id="universitySearch" className='discover-search' value={userLevel} onChange={(event) => setUserLevel(event.target.value)} onKeyPress={handleLevelKeyPress}/>
 
-                        <button type="submit" className="discover-search-user" onClick={levelSearch}>Search School</button>
+                        <button type="submit" className="discover-search-user" onClick={levelSearch}>Search Level</button>
                         <div className='discover-cards'>
                             {users.map((user, index) => (
                                         <div className='discover-card' key={index}>

@@ -199,6 +199,29 @@ router.post("/edit-account/password", async(req, res) => {
   }
 })
 
+router.post("/add-friends", async(req, res) => {
+  console.log("initiating adding of friend")
+  const { userId, friendId } = req.body;
+
+  try{
+    const user = await UserModel.findById(userId);
+    const friend = await UserModel.findById(friendId);
+  
+    user.friends.push(friend._id);
+    await user.save();
+
+    console.log("Friend added.")
+
+  } catch (err) {
+      return res.json({status: 'error'});
+  }
+})
+
+router.get("/get-friends", async(req, res) => {
+  const { userId } = req.query;
+  const user = await UserModel.findById(userId).populate('friends');
+  res.json(user.friends);
+});
 
 
 

@@ -135,6 +135,7 @@ passport.deserializeUser(async (id, cb) => {
       const user = await UserModel.findOne({ _id: id });
       if (user) {
         const userInformation = {
+          _id: user._id,
           firstName: user.firstName,
           lastName: user.lastName,
           username: user.username,

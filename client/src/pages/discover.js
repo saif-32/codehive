@@ -140,6 +140,36 @@ export const Discover = () => {
         }
     }
 
+
+    const handleSchoolKeyPress = (e) => {
+        if (e.key === 'Enter') {
+          schoolSearch(e);
+        }
+    };
+
+    const handleLevelKeyPress = (e) => {
+        if (e.key === 'Enter') {
+          levelSearch(e);
+        }
+    };
+
+    const handleInterestsKeyPress = (e) => {
+        if (e.key === 'Enter') {
+          interestsSearch(e);
+        }
+    };
+
+    const handleLanguageKeyPress = (e) => {
+        if (e.key === 'Enter') {
+          languageSearch(e);
+        }
+    };
+
+
+
+
+
+
     return <div className='discover-background'>
 
         {currentSearch === "" && (
@@ -213,7 +243,7 @@ export const Discover = () => {
                         <h1>Search for School</h1>
                 
                         <label htmlFor="discoverSearch"></label>
-                        <input type="text" id="universitySearch" className='discover-search' value={userUniversity} onChange={(event) => setUserUniversity(event.target.value)}/>
+                        <input type="text" id="universitySearch" className='discover-search' value={userUniversity} onChange={(event) => setUserUniversity(event.target.value)} onKeyPress={handleSchoolKeyPress}/>
 
                         <button type="submit" className="discover-search-user" onClick={schoolSearch}>Search School</button>
                         </div>
@@ -228,7 +258,7 @@ export const Discover = () => {
                     <h1>Search for School</h1>
                     
                     <label htmlFor="discoverSearch"></label>
-                    <input type="text" id="universitySearch" className='discover-search' value={userUniversity} onChange={(event) => setUserUniversity(event.target.value)}/>
+                    <input type="text" id="universitySearch" className='discover-search' value={userUniversity} onChange={(event) => setUserUniversity(event.target.value)} onKeyPress={handleSchoolKeyPress}/>
 
                     <button type="submit" className="discover-search-user" onClick={schoolSearch}>Search School</button>
                     <div className='discover-cards'>
@@ -261,7 +291,7 @@ export const Discover = () => {
                             <h1>Search for Skill Level</h1>
                     
                             <label htmlFor="discoverSearch"></label>
-                            <input type="text" id="universitySearch" className='discover-search' value={userLevel} onChange={(event) => setUserLevel(event.target.value)}/>
+                            <input type="text" id="universitySearch" className='discover-search' value={userLevel} onChange={(event) => setUserLevel(event.target.value)} onKeyPress={handleLevelKeyPress}/>
 
                             <button type="submit" className="discover-search-user" onClick={levelSearch}>Search Level</button>
                             </div>
@@ -276,7 +306,7 @@ export const Discover = () => {
                         <h1>Search for Skill Level</h1>
                         
                         <label htmlFor="discoverSearch"></label>
-                        <input type="text" id="universitySearch" className='discover-search' value={userLevel} onChange={(event) => setUserLevel(event.target.value)}/>
+                        <input type="text" id="universitySearch" className='discover-search' value={userLevel} onChange={(event) => setUserLevel(event.target.value)} onKeyPress={handleLevelKeyPress}/>
 
                         <button type="submit" className="discover-search-user" onClick={levelSearch}>Search School</button>
                         <div className='discover-cards'>
@@ -308,7 +338,7 @@ export const Discover = () => {
                                 <h1>Search for Interests</h1>
                         
                                 <label htmlFor="discoverSearch"></label>
-                                <input type="text" id="universitySearch" className='discover-search' value={userInterests} onChange={(event) => setUserInterests(event.target.value)}/>
+                                <input type="text" id="universitySearch" className='discover-search' value={userInterests} onChange={(event) => setUserInterests(event.target.value)} onKeyPress={handleInterestsKeyPress}/>
 
                                 <button type="submit" className="discover-search-user" onClick={interestsSearch}>Search Interests</button>
                                 </div>
@@ -323,7 +353,7 @@ export const Discover = () => {
                             <h1>Search for Interests</h1>
                             
                             <label htmlFor="discoverSearch"></label>
-                            <input type="text" id="universitySearch" className='discover-search' value={userInterests} onChange={(event) => setUserInterests(event.target.value)}/>
+                            <input type="text" id="universitySearch" className='discover-search' value={userInterests} onChange={(event) => setUserInterests(event.target.value)} onKeyPress={handleInterestsKeyPress}/>
 
                             <button type="submit" className="discover-search-user" onClick={interestsSearch}>Search Interests</button>
                             <div className='discover-cards'>
@@ -355,7 +385,7 @@ export const Discover = () => {
                                 <h1>Search for Language</h1>
                         
                                 <label htmlFor="discoverSearch"></label>
-                                <input type="text" id="universitySearch" className='discover-search' value={userLanguage} onChange={(event) => setUserLanguage(event.target.value)}/>
+                                <input type="text" id="universitySearch" className='discover-search' value={userLanguage} onChange={(event) => setUserLanguage(event.target.value)} onKeyPress={handleLanguageKeyPress}/>
 
                                 <button type="submit" className="discover-search-user" onClick={languageSearch}>Search Languages</button>
                                 </div>
@@ -370,7 +400,7 @@ export const Discover = () => {
                             <h1>Search for Language</h1>
                             
                             <label htmlFor="discoverSearch"></label>
-                            <input type="text" id="universitySearch" className='discover-search' value={userLanguage} onChange={(event) => setUserLanguage(event.target.value)}/>
+                            <input type="text" id="universitySearch" className='discover-search' value={userLanguage} onChange={(event) => setUserLanguage(event.target.value)} onKeyPress={handleLanguageKeyPress}/>
 
                             <button type="submit" className="discover-search-user" onClick={languageSearch}>Search Languages</button>
                             <div className='discover-cards'>

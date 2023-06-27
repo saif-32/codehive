@@ -211,15 +211,17 @@ export const Discover = () => {
                 userId: userId,
                 friendId: friendId
             })
-            console.log("Hello")
             setAddedFriends((prevAddedFriends) => [...prevAddedFriends, friendId]);
-            console.log("completed")
             console.log(addedFriends)
         } 
         catch (err) {
             console.log(err)
         }
     }
+
+    useEffect(() => {
+        console.log(addedFriends);
+      }, [addedFriends]);
 
 
 
@@ -273,7 +275,17 @@ export const Discover = () => {
                     <div className='discover-cards'>
                         {users.map((user, index) => (
                             <div className='discover-card' key={index}>
-                            <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'} alt="Profile"></img>                            
+                            <button
+                            className={`discover-card-button ${user._id === userId || currentUser.friends.includes(user._id) ? 'disabled' : ''}`}
+                            onClick={() => addFriend(user._id)}
+                            disabled={user._id === userId || currentUser.friends.includes(user._id) || addedFriends.includes(user._id)}>
+                            {user._id === userId || currentUser.friends.includes(user._id) ? (
+                                <span className="check-mark">&#10003;</span>
+                                ) : (
+                                '+'
+                                )}
+                            </button>
+                            <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'} alt="Profile"></img>                         
                             <h1>{user.username}</h1>
                             <h4>Name: {user.firstName} {user.lastName}</h4>
                             <h4>Age: {user.age}</h4>
@@ -390,6 +402,16 @@ export const Discover = () => {
                         <div className='discover-cards'>
                             {users.map((user, index) => (
                                         <div className='discover-card' key={index}>
+                                        <button
+                                            className={`discover-card-button ${user._id === userId || currentUser.friends.includes(user._id) ? 'disabled' : ''}`}
+                                            onClick={() => addFriend(user._id)}
+                                            disabled={user._id === userId || currentUser.friends.includes(user._id) || addedFriends.includes(user._id)}>
+                                            {user._id === userId || currentUser.friends.includes(user._id) ? (
+                                                <span className="check-mark">&#10003;</span>
+                                                ) : (
+                                                '+'
+                                                )}
+                                        </button>
                                         <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'} alt="Profile"></img>                                        <h1>{user.username}</h1>
                                         <h4>Name: {user.firstName} {user.lastName}</h4>
                                         <h4>Age: {user.age}</h4>
@@ -437,6 +459,16 @@ export const Discover = () => {
                             <div className='discover-cards'>
                                 {users.map((user, index) => (
                                             <div className='discover-card' key={index}>
+                                            <button
+                                                className={`discover-card-button ${user._id === userId || currentUser.friends.includes(user._id) ? 'disabled' : ''}`}
+                                                onClick={() => addFriend(user._id)}
+                                                disabled={user._id === userId || currentUser.friends.includes(user._id) || addedFriends.includes(user._id)}>
+                                                {user._id === userId || currentUser.friends.includes(user._id) ? (
+                                                    <span className="check-mark">&#10003;</span>
+                                                    ) : (
+                                                    '+'
+                                                    )}
+                                            </button>
                                             <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'} alt="Profile"></img>                                            <h1>{user.username}</h1>
                                             <h4>Name: {user.firstName} {user.lastName}</h4>
                                             <h4>Age: {user.age}</h4>
@@ -484,6 +516,16 @@ export const Discover = () => {
                             <div className='discover-cards'>
                                 {users.map((user, index) => (
                                             <div className='discover-card' key={index}>
+                                            <button
+                                                className={`discover-card-button ${user._id === userId || currentUser.friends.includes(user._id) ? 'disabled' : ''}`}
+                                                onClick={() => addFriend(user._id)}
+                                                disabled={user._id === userId || currentUser.friends.includes(user._id) || addedFriends.includes(user._id)}>
+                                                {user._id === userId || currentUser.friends.includes(user._id) ? (
+                                                    <span className="check-mark">&#10003;</span>
+                                                    ) : (
+                                                    '+'
+                                                    )}
+                                            </button>
                                             <img className='card-profile-picture'  src={user.profilePicture || 'https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'} alt="Profile"></img>
                                             <h1>{user.username}</h1>
                                             <h4>Name: {user.firstName} {user.lastName}</h4>

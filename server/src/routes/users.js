@@ -200,7 +200,6 @@ router.post("/edit-account/password", async(req, res) => {
 })
 
 router.post("/add-friends", async(req, res) => {
-  console.log("initiating adding of friend")
   const { userId, friendId } = req.body;
 
   try{
@@ -210,7 +209,6 @@ router.post("/add-friends", async(req, res) => {
     user.friends.push(friend._id);
     await user.save();
 
-    console.log("Friend added.")
 
     return res.json({status: 'okay'});
 

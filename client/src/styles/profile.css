@@ -342,10 +342,11 @@ input[type="number"]:focus {
     text-align: center;
     background: transparent;
     border: none;
+    color: #FFF7D4;
 }
 
 .button-column button:hover {
-    color: white;
+    color: #C07F00;
 }
 
 .button-column button.active {

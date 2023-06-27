@@ -14,7 +14,7 @@ export const Profile = () => {
 
 
 
-  const [currentForm, setCurrentForm] = useState(1);
+  const [currentForm, setCurrentForm] = useState("");
   const [transitionDirection, setTransitionDirection] = useState('');
   const [universities, setUniversities] = useState([]);
   const [programmingLanguages, setProgrammingLanguages] = useState([]);
@@ -72,7 +72,6 @@ export const Profile = () => {
         
         if (response.data) {
           setData(response.data)
-          console.log(response.data)
           setUserUsername(response.data.username)
           setSettingsUsername(response.data.username)
           
@@ -100,7 +99,12 @@ export const Profile = () => {
 
           if (response.data.profileCompleted) {
             setCurrentForm(6)
+            setActiveButton("Account")
           }
+          else {
+            setCurrentForm(1)
+          }
+
         }
  
       } catch (error) {
@@ -618,7 +622,7 @@ const handleSettingsRemoveInterest = (index) => {
                 <button className={activeButton === 'Account' ? 'active' : ''} onClick={() => handleClick('Account')}>Account</button>
                 <button className={activeButton === 'Security' ? 'active' : ''} onClick={() => handleClick('Security')}>Security</button>
                 <button className={activeButton === 'Information' ? 'active' : ''} onClick={() => handleClick('Information')}>Information</button>
-                <button onClick={() => handleClick('Button 3')}>Friends</button>
+                <button className={activeButton === 'Friends' ? 'active' : ''} onClick={() => handleClick('Friends')}>Friends</button>
               </div>
 
               <div className="content">
@@ -872,6 +876,16 @@ const handleSettingsRemoveInterest = (index) => {
 
                     
 
+
+
+                  </div>
+
+
+                )}
+
+                {activeButton === "Friends" && (
+                  <div className="content-display">
+                        <h1>Account Friends</h1>
 
 
                   </div>

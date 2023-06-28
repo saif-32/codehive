@@ -57,6 +57,9 @@ router.post("/create", async (req, res) => {
               $set: {
               firstName: userFirstName,
               lastName: userLastName,
+              birthdayMonth: userBirthdayMonth,
+              birthdayDay: userBirthdayDay,
+              birthdayYear: userBirthdayYear,
               age: age,
               gender: userGender,
               university: userUniversity,

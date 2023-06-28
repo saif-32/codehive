@@ -8,11 +8,9 @@ const UserSchema = new mongoose.Schema({
     username: {type: String, required: false, unique: true},
     email: {type: String, default: '', unique: false},
     password: {type: String, required: false},
-    verified: {type: Boolean, default: false},
-    resetToken: {type: String},
-    googleId:{type: String, required: false},
-    githubId:{type: String, required: false},
-    profileCompleted:{type: Boolean, default: false},
+    birthdayMonth: {type: Number},
+    birthdayDay: {type: Number},
+    birthdayYear: {type: Number},
     age: {type: Number},
     gender: {type: String},
     university: {type: String}, // drop down menu for US Universities
@@ -22,6 +20,11 @@ const UserSchema = new mongoose.Schema({
     interests: [{type: String}], // drop down menu for interests ? AI, Web Dev, Game Dev, etc
     profilePicture: {type: String, default:'https://cdn.discordapp.com/attachments/798251319847813200/1122589471565684816/download.jpeg'},
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    verified: {type: Boolean, default: false},
+    resetToken: {type: String},
+    googleId:{type: String, required: false},
+    githubId:{type: String, required: false},
+    profileCompleted:{type: Boolean, default: false},
 });
 
 UserSchema.plugin(passportLocalMongoose);

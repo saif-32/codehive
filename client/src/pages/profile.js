@@ -55,6 +55,10 @@ export const Profile = () => {
   const [settingsUniversity, setSettingsUniversity] = useState("")
   const [settingsGrade, setSettingsGrade] = useState("")
   const [settingsSkillLevel, setSettingsSkillLevel] = useState("")
+  const [settingsBirthdayMonth, setSettingsBirthdayMonth] = useState("")
+  const [settingsBirthdayDay, setSettingsBirthdayDay] = useState("")
+  const [settingsBirthdayYear, setSettingsBirthdayYear] = useState("")
+  const [settingsInformationError, setSettingsInformationError] = useState("")
 
 
 
@@ -93,6 +97,11 @@ export const Profile = () => {
           setSettingsUniversity(response.data.university)
           setSettingsGrade(response.data.gradeLevel)
           setSettingsSkillLevel(response.data.skillLevel)
+
+          setSettingsBirthdayMonth(response.data.birthdayMonth)
+          setSettingsBirthdayDay(response.data.birthdayDay)
+          setSettingsBirthdayYear(response.data.birthdayYear)
+
           
           setSettingsProgrammingLanguages(response.data.languages)
           setSettingsInterests(response.data.interests)
@@ -210,6 +219,37 @@ export const Profile = () => {
 
     })
   };
+
+  const onInformationChangeSubmit = async (event) => {
+    event.preventDefault();
+    const username = data.username
+    const response = await axios.post("http://localhost:3001/auth/edit-account/information", {
+      username,
+      settingsBirthdayMonth,
+      settingsBirthdayDay,
+      settingsBirthdayYear,
+      settingsGender,
+      settingsUniversity,
+      settingsGrade,
+      settingsProgrammingLanguages,
+      settingsInterests,
+      settingsSkillLevel,
+    }, {
+      withCredentials: true
+    }).then(response => {
+      const responseData = response.data;
+      if (response.data.status === "okay") {
+        setSettingsInformationError("Your profile was succesfully updated.");
+      }
+
+      if (responseData.Message === "All-Fields-Required") {
+        setSettingsInformationError("All fields are required");
+      }
+    })
+  };
+
+
+
 
   const onSubmit = async (event) => { // Executes after submit button is clicked.
     event.preventDefault();
@@ -754,7 +794,7 @@ const handleSettingsRemoveInterest = (index) => {
 
                       <div class="account-inputs">
                           <label htmlFor="settingsBirthdayMonth">Month</label>
-                          <select id="settingsBirthdayMonth">
+                          <select id="settingsBirthdayMonth" value={settingsBirthdayMonth} onChange={(event) => setSettingsBirthdayMonth(event.target.value)}>
                             <option value="" disabled selected>Select Month</option>
                             <option value="1">January</option>
                             <option value="2">February</option>
@@ -779,14 +819,14 @@ const handleSettingsRemoveInterest = (index) => {
                               max="31"
                               id='settingsBirthdayDay'
                               placeholder="Day"
-                              value={userBirthdayDay}
+                              value={settingsBirthdayDay}
                               onChange={(event) => {
                                 let value = event.target.value.slice(0, 2);
                                 value = value.replace(/[^0-9]/g, '');
                                 if (/^(0?[1-9]|[12][0-9]|3[01])$/.test(value)) {
-                                  setUserBirthdayDay(value);
+                                  setSettingsBirthdayDay(value);
                                 } else {
-                                  setUserBirthdayDay('');
+                                  setSettingsBirthdayDay('');
                                 }
                               }}
                           />
@@ -794,16 +834,16 @@ const handleSettingsRemoveInterest = (index) => {
 
                       <div className="account-inputs">
                         <label htmlFor="settingsBirthdayYear">Year</label>
-                          <input type="number" id="settingsBirthdayYear" min="1900" max="2023" placeholder="Year" value={userBirthdayYear} 
+                          <input type="number" id="settingsBirthdayYear" min="1900" max="2023" placeholder="Year" value={settingsBirthdayYear} 
                           onChange={(event) => {
                             let value = event.target.value.slice(0, 4);
                             value = value.replace(/[^0-9]/g, '');
                             if (value.length > 1 && /^[12]/.test(value)) {
-                              setUserBirthdayYear(value);
+                              setSettingsBirthdayYear(value);
                             } else if (value === '1' || value === '2') {
-                              setUserBirthdayYear(value);
+                              setSettingsBirthdayYear(value);
                             } else {
-                              setUserBirthdayYear('');
+                              setSettingsBirthdayYear('');
                             }
                           }}
                         />
@@ -899,8 +939,10 @@ const handleSettingsRemoveInterest = (index) => {
                               <option value="Proficient">Proficient</option>
                           </select>
 
+
+                          <p className='settings-pass-error'>{settingsInformationError}</p>
                           <div className="settings-information-button-container">
-                            <button className="settings-change-information" type="button" onClick={onPasswordChangeSubmit}>Save Changes</button>
+                            <button className="settings-change-information" type="button" onClick={onInformationChangeSubmit}>Save Changes</button>
                             <button className="settings-cancel" type='button'>Cancel</button>
                           </div>
 

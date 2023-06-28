@@ -228,6 +228,84 @@ router.post("/edit-account/password", async(req, res) => {
   }
 })
 
+router.post("/edit-account/information", async(req, res) => {
+  console.log("initiating information change")
+  const {
+    username,
+    settingsBirthdayMonth,
+    settingsBirthdayDay,
+    settingsBirthdayYear,
+    settingsGender,
+    settingsUniversity,
+    settingsGrade,
+    settingsProgrammingLanguages,
+    settingsInterests,
+    settingsSkillLevel
+  } = req.body;
+  
+  if (
+    !username ||
+    !settingsBirthdayMonth ||
+    !settingsBirthdayDay ||
+    !settingsBirthdayYear ||
+    !settingsGender ||
+    !settingsUniversity ||
+    !settingsGrade ||
+    !settingsSkillLevel
+  ) {
+    console.log("Fields are empty.")
+    return res.json({ Message: "All-Fields-Required" });
+  }
+  
+  if (settingsProgrammingLanguages.length === 0 || settingsInterests.length === 0) {
+    console.log("Fields are empty.")
+    return res.json({ Message: "All-Fields-Required" });
+  }
+
+
+  const formattedLanguages = settingsProgrammingLanguages.map((language) => {
+    return language.charAt(0).toUpperCase() + language.slice(1).toLowerCase();
+  });
+
+  const formattedInterests = settingsInterests.map((interest) => {
+    return interest.charAt(0).toUpperCase() + interest.slice(1).toLowerCase();
+  });
+
+  const user = await UserModel.findOne({ username: username });
+  const birthdate = new Date(settingsBirthdayYear, settingsBirthdayMonth - 1, settingsBirthdayDay);
+  const today = new Date()
+
+  let age = today.getFullYear() - birthdate.getFullYear();
+  const monthDiff = today.getMonth() - birthdate.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthdate.getDate())) {
+    age--; // Reduce age by 1 if the birthday hasn't occurred yet this year
+  }
+
+
+  try{
+    let change = UserModel.updateOne(
+        {username: username},
+        {
+          $set: {
+          birthdayMonth: settingsBirthdayMonth,
+          birthdayDay: settingsBirthdayDay,
+          birthdayYear: settingsBirthdayYear,
+          age: age,
+          gender: settingsGender,
+          university: settingsUniversity,
+          languages: settingsProgrammingLanguages,
+          interests: settingsInterests,
+          grade: settingsGrade,
+          skillLevel: settingsSkillLevel,
+          },
+        }
+      ).then(console.log("User updated their profile."));
+    return res.json({status: 'okay'});
+} catch (err) {
+    return res.json({status: 'error'});
+}
+});
+
 router.post("/add-friends", async(req, res) => {
   const { userId, friendId } = req.body;
 

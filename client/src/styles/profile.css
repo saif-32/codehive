@@ -346,7 +346,7 @@ input[type="number"]:focus {
 }
 
 .button-column button:hover {
-    color: #C07F00;
+    color: #FFED9A;
 }
 
 .button-column button.active {

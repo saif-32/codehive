@@ -143,7 +143,36 @@ router.post("/verify-email", async(req, res) => {
 })
 
 router.post("/edit-account", async(req, res) => {
+  console.log("initiating...")
   const { username, settingsFirstName, settingsLastName, settingsUsername, settingsEmail } = req.body;
+
+  if (!username || !settingsFirstName || !settingsLastName || !settingsUsername || !settingsEmail) {
+    return res.json({Message: "All-Fields-Required"});
+  }
+
+  const currentUser = await UserModel.findOne({ username: username });
+
+  const emailRegex = /^\S+@\S+\.\S+$/;
+  if (!emailRegex.test(settingsEmail)) {
+    return res.json({ Message: "Invalid-Email" });
+  }
+
+  if (username !== settingsUsername)
+  {
+    const existingUser = await UserModel.findOne({ username: settingsUsername });
+    if (existingUser) {
+      return res.json({ Message: "Username-Already-Exists" });
+    }
+  }
+
+  if (currentUser.email !== settingsEmail)
+  {
+    const existingEmail = await UserModel.findOne({ email: settingsEmail });
+    if (existingEmail) {
+      return res.json({ Message: "Email-Already-Exists" });
+    }
+  }
+
   const user = await UserModel.findOne({username});
 
   try{

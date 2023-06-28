@@ -43,6 +43,8 @@ export const Profile = () => {
   const [settingsLastName, setSettingsLastName] = useState("")
   const [settingsUsername, setSettingsUsername] = useState("")
   const [settingsEmail, setSettingsEmail] = useState("")
+  const [settingsFirstPageErrors, setSettingsFirstPageErrors] = useState("")
+
 
   const [settingsOldPassword, setSettingsOldPassword] = useState("")
   const [settingsNewPassword, setSettingsNewPassword] = useState("")
@@ -144,9 +146,32 @@ export const Profile = () => {
     }, {
       withCredentials: true
     }).then(response => {
+      const responseData = response.data;
       if (response.data.status === "okay") {
-        console.log("Success")
+        setSettingsFirstPageErrors("Your account informaiton was successfully modified.");
       }
+
+      if (responseData.Message === "All-Fields-Required") {
+        setSettingsFirstPageErrors("All fields are required");
+      }
+
+      if (responseData.Message === "Invalid-Email") {
+        setSettingsFirstPageErrors("Invalid email format");
+      }
+
+      if (responseData.Message === "Username-Already-Exists") {
+        setSettingsFirstPageErrors("That username already exists");
+      }
+
+      if (responseData.Message === "Email-Already-Exists") {
+        setSettingsFirstPageErrors("That email already exists");
+      }
+
+      if (response.data.status === "error") {
+        setSettingsFirstPageErrors("An error occured, please try again later");
+      }
+
+
     })
   };
 
@@ -167,7 +192,6 @@ export const Profile = () => {
       }
 
       if (responseData.Message === "All-Fields-Required") {
-        console.log("hello")
         setSettingsPasswordError("All fields are required");
       }
 
@@ -187,8 +211,6 @@ export const Profile = () => {
   };
 
   const onSubmit = async (event) => { // Executes after submit button is clicked.
-    console.log("Submitting...")
-    console.log(userSkillLevel)
     event.preventDefault();
     const response = await axios.post("http://localhost:3001/profile/create", {
       userUsername,
@@ -383,9 +405,8 @@ const handleSettingsRemoveInterest = (index) => {
               <div className='text-fields'>
                 <label htmlFor="firstName"></label>
                 <input type="text" id="firstName" placeholder="First Name" value={userFirstName} onChange={(event) => {
-                  console.log(event.key)
                   let value = event.target.value.replace(/[^a-zA-Z]/g, ''); // Remove any non-alphabet characters
-                  value = value.slice(0, 20);
+                  value = value.slice(0, 10);
                   setUserFirstName(value)}}
                   onKeyDown={(event) => {
                   if (event.key === 'Enter') {
@@ -397,7 +418,7 @@ const handleSettingsRemoveInterest = (index) => {
                 <label htmlFor="lastName"></label>
                 <input type="text" id="lastName" placeholder="Last Name" value={userLastName} onChange={(event) => {
                   let value = event.target.value.replace(/[^a-zA-Z]/g, ''); // Remove any non-alphabet characters
-                  value = value.slice(0, 20);
+                  value = value.slice(0, 15);
                   setUserLastName(value)}}
                   onKeyDown={(event) => {
                   if (event.key === 'Enter') {
@@ -488,7 +509,6 @@ const handleSettingsRemoveInterest = (index) => {
 
               <div className="button-container">
                 <button className="profile-previous" type="button" onClick={handlePrevious}>Back</button>
-                { console.log(userBirthdayMonth)}
                 <button className="profile-next" onClick={handleNext} type="button" disabled={userBirthdayMonth === "" || userBirthdayYear === "" || userBirthdayDay === "" || userGender === ""}>Next</button>
               </div>
               </div>
@@ -585,7 +605,6 @@ const handleSettingsRemoveInterest = (index) => {
                         </div>
                     </div>
                 </div>
-                {console.log(userSkillLevel)}
                 <label htmlFor="skill"></label>
                 <select id="skillLevel" value={userSkillLevel}  onChange={(event) => setUserSkillLevel(event.target.value)}>
                     <option value="" disabled selected>Skill Level</option>
@@ -594,7 +613,6 @@ const handleSettingsRemoveInterest = (index) => {
                     <option value="Compotent">Compotent</option>
                     <option value="Proficient">Proficient</option>
                 </select>
-                {console.log(userSkillLevel)}
             </div>
 
               <div className="button-container-last button-container">
@@ -649,19 +667,29 @@ const handleSettingsRemoveInterest = (index) => {
                       <div>
                         <div class="account-inputs">
                           <label for="settings-name">First Name</label>
-                          <input id="settings-name" type="text" value={settingsFirstName} onChange={(event) => setSettingsFirstName(event.target.value)}/>
+                          <input id="settings-name" type="text" value={settingsFirstName} onChange={(event) => {
+                            let value = event.target.value.replace(/[^a-zA-Z]/g, '');
+                            value = value.slice(0, 10);
+                            setSettingsFirstName(value)}}/>
                         </div>
 
                         <div class="account-inputs">
                           <label for="settings-last-name">Last Name</label>
-                          <input id="settings-last-name" type="text" value={settingsLastName} onChange={(event) => setSettingsLastName(event.target.value)}/>
+                          <input id="settings-last-name" type="text" value={settingsLastName} onChange={(event) => {
+                            let value = event.target.value.replace(/[^a-zA-Z]/g, '');
+                            value = value.slice(0, 15);
+                            setSettingsLastName(value)}}/>
                         </div>
                       </div>
 
                       <div>
                         <div class="account-inputs">
                           <label for="settings-username">Username</label>
-                          <input id="settings-username" type="text" value={settingsUsername} onChange={(event) => setSettingsUsername(event.target.value)}/>
+                          <input id="settings-username" type="text" value={settingsUsername} onChange={(event) => {
+                            let value = event.target.value.replace(/[^a-zA-Z0-9]/g, '');
+                            value = value.slice(0, 15);
+                            setSettingsUsername(value)
+                          }}/>
                       </div>
 
                         <div class="account-inputs">
@@ -670,6 +698,7 @@ const handleSettingsRemoveInterest = (index) => {
                         </div>
                       </div>
 
+                      <p className='settings-first-error'>{settingsFirstPageErrors}</p>
 
                       <div className="settings-button-container">
                         <button className="settings-save" type="button" onClick={onSettingsSubmit}>Save</button>

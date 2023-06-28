@@ -12,11 +12,13 @@ const upload = multer({
       const { userProfile, newImage } = req.body;
       const user = await UserModel.findOne({ username: userProfile });
   
-      let change = await UserModel.updateOne({ username: userProfile }, {
-        $set: {
-          profilePicture: newImage['myFile'],
-        }
-      });
+      if (newImage && newImage.myFile) {
+        let change = await UserModel.updateOne({ username: userProfile }, {
+          $set: {
+            profilePicture: newImage.myFile,
+          }
+        });
+      }
   
       res.status(200).json({ message: 'Image was successfully uploaded' });
     } catch (err) {

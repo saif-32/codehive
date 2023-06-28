@@ -318,9 +318,12 @@ export const Profile = () => {
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
-    const base64 = await convertToBase64(file)
-    setPostImage( {...postImage, myFile : base64})
-}
+  
+    if (file) {
+      const base64 = await convertToBase64(file);
+      setPostImage({ ...postImage, myFile: base64 });
+    }
+  };
 
 const handleSettingsLanguageChange = (e) => {
   let value = e.target.value;
@@ -652,9 +655,7 @@ const handleSettingsRemoveInterest = (index) => {
                         <h1>Account Settings</h1>
                         <div>
                             <label htmlFor="file-upload" classname='custom-file-upload'>
-                            <div className="profile-pic-content profile-picture-container">
-                              <img className='create-profile-picture' src= {postImage.myFile || userProfilePicture || "https://cdn.discordapp.com/attachments/798251319847813200/1122589471565684816/download.jpeg"} alt="Profile Picture" />
-                            </div>
+                            <img className='settings-profile-picture' src= {postImage.myFile || userProfilePicture || "https://cdn.discordapp.com/attachments/798251319847813200/1122589471565684816/download.jpeg"} alt="Profile Picture" />
                             </label>
                             <input 
                                 type="file"

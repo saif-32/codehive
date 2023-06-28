@@ -363,10 +363,24 @@ input[type="number"]:focus {
     font-size: 24px;
 }
 
-.profile-pic-content.profile-picture-container {
-    width: 175px;
+.settings-picture-container {
+    margin-bottom: 20px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #2c2223;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  
+  .settings-profile-picture {
+    position: relative;
+    margin: 15px auto;
+    width: 175px !important;
     height: 175px;
-}
+    border-radius: 50%;
+    border: 4px solid #2c2223;
+  }
 
 .account-inputs {
     float: left;

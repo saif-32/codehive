@@ -48,8 +48,6 @@ router.post("/create", async (req, res) => {
       age--; // Reduce age by 1 if the birthday hasn't occurred yet this year
     }
 
-    console.log(age)
-
     try{
         let change = UserModel.updateOne(
             {username: userUsername},

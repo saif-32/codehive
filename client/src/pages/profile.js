@@ -136,6 +136,7 @@ export const Profile = () => {
 
   const onSettingsSubmit = async (event) => {
     event.preventDefault();
+    createPost(postImage)
     const username = data.username
     const response = await axios.post("http://localhost:3001/auth/edit-account", {
       username,
@@ -302,6 +303,7 @@ export const Profile = () => {
 
   const createPost = async (newImage) => {
     try {
+      console.log("Initiating profile change...")
         const userProfile = data.username
         const response = await axios.post("http://localhost:3001/upload/profile-picture", {
             userProfile,

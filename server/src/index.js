@@ -26,7 +26,10 @@ dotenv.config();
 
 mongoose.connect("mongodb+srv://hiveadmin:ZbYOedcubmWvLEsc@codehive.ihhueao.mongodb.net/CodeHive?retryWrites=true&w=majority") // Establishes connection
 
+
 const app = express(); // Generate version of API
+app.use(bodyParser.json({ limit: '10mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.use(express.json()); // Converts data from frontend to JSON
 app.use(cors({
     origin: "http://localhost:3000", // <-- location of the react app were connecting to
@@ -40,7 +43,6 @@ app.use(session({
     cookie: { secure: false } // Testing purposes, set to false.
 }))
 
-app.use(bodyParser.json({ limit: '1000mb' }));
 app.use(cookieParser('keyboardcat'))
 
 app.use(passport.initialize())

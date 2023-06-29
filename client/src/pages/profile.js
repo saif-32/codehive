@@ -862,7 +862,7 @@ export const Profile = () => {
                       <div className="account-inputs">
                           <label htmlFor="settingsBirthdayMonth">Month</label>
                           <select id="settingsBirthdayMonth" value={settingsBirthdayMonth} onChange={(event) => setSettingsBirthdayMonth(event.target.value)}>
-                            <option value="" disabled selected>Select Month</option>
+                            <option value="" disabled>Select Month</option>
                             <option value="1">January</option>
                             <option value="2">February</option>
                             <option value="3">March</option>
@@ -919,7 +919,7 @@ export const Profile = () => {
                       <div className="account-inputs">
                         <label htmlFor="settingsGender">Gender</label>
                         <select id="settingsGender" value={settingsGender} onChange={(event) => setSettingsGender(event.target.value)}>
-                            <option value="" disabled selected>Gender</option>
+                            <option value="" disabled>Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                             <option value="other">Other</option>
@@ -949,7 +949,7 @@ export const Profile = () => {
                       <div className='account-inputs'>
                       <label className='settings-university-grade' htmlFor="settingsGrade">Grade</label>
                         <select id="settingsGrade" value={settingsGrade}  onChange={(event) => setSettingsGrade(event.target.value)}>
-                            <option value="" disabled selected>Grade</option>
+                            <option value="" disabled>Grade</option>
                             <option value="Freshman">Freshman</option>
                             <option value="Sophmore">Sophmore</option>
                             <option value="Junior">Junior</option>
@@ -999,7 +999,7 @@ export const Profile = () => {
 
                         <label htmlFor="skill">Skill Level</label>
                           <select id="settingsSkillLevel" value={settingsSkillLevel}  onChange={(event) => setSettingsSkillLevel(event.target.value)}>
-                              <option value="" disabled selected>Skill Level</option>
+                              <option value="" disabled>Skill Level</option>
                               <option value="Novice">Novice</option>
                               <option value="Advanced Beginner">Advanced Beginner</option>
                               <option value="Compotent">Compotent</option>

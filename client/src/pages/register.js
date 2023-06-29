@@ -83,23 +83,23 @@ export const Register = () => {
             <button type="submit" className="reg-sign-up">Sign Up</button>
           </form>
 
-          <div class="or-seperator"><h3>Or Continue With</h3></div>
+          <div className="or-seperator"><h3>Or Continue With</h3></div>
 
           <div className="social-media-button">
-          <button class="btn btn-block btn-social btn-google" onClick={GoogleLoginButton}>
-                <span class="fa fa-google"></span> Login with Google
+          <button className="btn btn-block btn-social btn-google" onClick={GoogleLoginButton}>
+                <span className="fa fa-google"></span> Login with Google
           </button>
         </div>
 
         <div className="social-media-button">
-          <button class="btn btn-block btn-social btn-github" onClick={GithubLoginButton}>
-                <span class="fa fa-github"></span> Login with Github
+          <button className="btn btn-block btn-social btn-github" onClick={GithubLoginButton}>
+                <span className="fa fa-github"></span> Login with Github
           </button>
         </div>
 
           <div className="social-media-button">
-            <a class="btn btn-block btn-social btn-linkedin">
-                  <span class="fa fa-linkedin"></span> Sign Up with LinkedIn
+            <a className="btn btn-block btn-social btn-linkedin">
+                  <span className="fa fa-linkedin"></span> Sign Up with LinkedIn
             </a>
           </div>
         </div>

@@ -101,7 +101,7 @@ export const Navbar = () => {
             
                                 <div className="text-end">
                                     <Link to="/login" >
-                                        <button type="button" onClick=<Link to="/login" ></Link> className="btn btn-outline-light me-2">Login</button>
+                                        <button type="button" className="btn btn-outline-light me-2">Login</button>
                                     </Link>
                                     <Link to="/register" >
                                         <button type="button" className="btn btn-warning">Sign Up</button>

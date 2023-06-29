@@ -38,8 +38,6 @@ export const Discover = () => {
               {
                 setUserId(res.data._id)
                 setCurrentUser(res.data)
-                console.log("Hello")
-                console.log(currentUser)
                 if (res.data.profileCompleted)
                 {
                     setCurrentSearch("main")
@@ -88,7 +86,6 @@ export const Discover = () => {
     const userSearch = async (event) => {
         event.preventDefault();
         try {
-            console.log(userMainSearch)
             const response = await axios.post("http://localhost:3001/discover/users", {
                 userMainSearch
             })
@@ -193,15 +190,12 @@ export const Discover = () => {
     };
 
     const addFriend = async (friendId) => {
-        console.log("Initiating add friend...")
 
         if (friendId === userId) {
-            console.log("You cannot add yourself as a friend.");
             return;
           }
         
         if (currentUser.friends.includes(friendId)) {
-            console.log("This user is already added as a friend.");
             return;
           }
 
@@ -219,12 +213,6 @@ export const Discover = () => {
             console.log(err)
         }
     }
-
-    useEffect(() => {
-        console.log(addedFriends);
-      }, [addedFriends]);
-
-
 
 
 

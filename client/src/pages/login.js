@@ -90,23 +90,23 @@ export const Login = () => {
         <p className="signup-link">Don't have an account? <Link to="/register"
                 className="register-link">Sign Up</Link></p>
         
-        <div class="or-seperator"><h3>Or Continue With</h3></div>
+        <div className="or-seperator"><h3>Or Continue With</h3></div>
 
         <div className="social-media-button">
-          <button class="btn btn-block btn-social btn-google" onClick={GoogleLoginButton}>
-                <span class="fa fa-google"></span> Login with Google
+          <button className="btn btn-block btn-social btn-google" onClick={GoogleLoginButton}>
+                <span className="fa fa-google"></span> Login with Google
           </button>
         </div>
 
         <div className="social-media-button">
-          <button class="btn btn-block btn-social btn-github" onClick={GithubLoginButton}>
-                <span class="fa fa-github"></span> Login with Github
+          <button className="btn btn-block btn-social btn-github" onClick={GithubLoginButton}>
+                <span className="fa fa-github"></span> Login with Github
           </button>
         </div>
 
         <div className="social-media-button">
-          <a class="btn btn-block btn-social btn-linkedin">
-                <span class="fa fa-linkedin"></span> Login with LinkedIn
+          <a className="btn btn-block btn-social btn-linkedin">
+                <span className="fa fa-linkedin"></span> Login with LinkedIn
           </a>
         </div>
 

@@ -500,7 +500,7 @@ export const Profile = () => {
               <h2>Create your Code<span className="light-yellow">Hive </span>Profile</h2>
               <h3>Enter your name and profile picture</h3>
 
-              <label htmlFor="file-upload" classname='custom-file-upload'>
+              <label htmlFor="file-upload">
               <div className="profile-picture-container">
                 <img className='create-profile-picture' src= {postImage.myFile || userProfilePicture || "https://cdn.discordapp.com/attachments/798251319847813200/1122589471565684816/download.jpeg"} alt="Profile Picture" />
               </div>
@@ -761,7 +761,7 @@ export const Profile = () => {
                   <div className="content-display">
                         <h1>Account Settings</h1>
                         <div>
-                            <label htmlFor="file-upload" classname='custom-file-upload'>
+                            <label htmlFor="file-upload">
                             <img className='settings-profile-picture' src= {postImage.myFile || userProfilePicture || "https://cdn.discordapp.com/attachments/798251319847813200/1122589471565684816/download.jpeg"} alt="Profile Picture" />
                             </label>
                             <input 
@@ -775,16 +775,16 @@ export const Profile = () => {
                         </div>
 
                       <div>
-                        <div class="account-inputs">
-                          <label for="settings-name">First Name</label>
+                        <div className="account-inputs">
+                          <label htmlFor="settings-name">First Name</label>
                           <input id="settings-name" type="text" value={settingsFirstName} onChange={(event) => {
                             let value = event.target.value.replace(/[^a-zA-Z]/g, '');
                             value = value.slice(0, 10);
                             setSettingsFirstName(value)}}/>
                         </div>
 
-                        <div class="account-inputs">
-                          <label for="settings-last-name">Last Name</label>
+                        <div className="account-inputs">
+                          <label htmlFor="settings-last-name">Last Name</label>
                           <input id="settings-last-name" type="text" value={settingsLastName} onChange={(event) => {
                             let value = event.target.value.replace(/[^a-zA-Z]/g, '');
                             value = value.slice(0, 15);
@@ -793,8 +793,8 @@ export const Profile = () => {
                       </div>
 
                       <div>
-                        <div class="account-inputs">
-                          <label for="settings-username">Username</label>
+                        <div className="account-inputs">
+                          <label htmlFor="settings-username">Username</label>
                           <input id="settings-username" type="text" value={settingsUsername} onChange={(event) => {
                             let value = event.target.value.replace(/[^a-zA-Z0-9]/g, '');
                             value = value.slice(0, 15);
@@ -802,8 +802,8 @@ export const Profile = () => {
                           }}/>
                       </div>
 
-                        <div class="account-inputs">
-                          <label for="settings-email">Email</label>
+                        <div className="account-inputs">
+                          <label htmlFor="settings-email">Email</label>
                           <input id="settings-email" type="text" value={settingsEmail} onChange={(event) => setSettingsEmail(event.target.value)} name="email" />
                         </div>
                       </div>
@@ -832,13 +832,13 @@ export const Profile = () => {
                           </ul>
                         </div>
 
-                        <div class="account-inputs">
-                          <label for="settings-old-password">Old Password</label>
+                        <div className="account-inputs">
+                          <label htmlFor="settings-old-password">Old Password</label>
                           <input id="settings-old-password" type="password" value={settingsOldPassword} onChange={(event) => setSettingsOldPassword(event.target.value)}/>
-                          <label for="settings-new-password">New Password</label>
+                          <label htmlFor="settings-new-password">New Password</label>
                           <input id="settings-new-password" type="password" value={settingsNewPassword} onChange={(event) => setSettingsNewPassword(event.target.value)}/>
 
-                          <label for="settings-confirm-new-password">Confirm New Password</label>
+                          <label htmlFor="settings-confirm-new-password">Confirm New Password</label>
                           <input id="settings-confirm-new-password" type="password" value={settingsConfirmNewPassword} onChange={(event) => setSettingsConfirmNewPassword(event.target.value)}/>
                           
                           <p className='settings-pass-error'>{settingsPasswordError}</p>
@@ -859,7 +859,7 @@ export const Profile = () => {
                   <div className="content-display">
                         <h1>Account Information</h1>
 
-                      <div class="account-inputs">
+                      <div className="account-inputs">
                           <label htmlFor="settingsBirthdayMonth">Month</label>
                           <select id="settingsBirthdayMonth" value={settingsBirthdayMonth} onChange={(event) => setSettingsBirthdayMonth(event.target.value)}>
                             <option value="" disabled selected>Select Month</option>
@@ -1028,7 +1028,7 @@ export const Profile = () => {
                   <div className="content-display">
                         <h1>Friends List</h1>
 
-                      <div class="friends-container">
+                      <div className="friends-container">
 
                         {userFriends.map((friend) => (
                           <div key={friend._id} className="friend-display">
@@ -1044,78 +1044,78 @@ export const Profile = () => {
                           </div>
                         ))}
 
-                        <div class="friend-display">
-                          <div class="profile-picture"></div>
-                          <div class="friend-info">
-                            <div class="friend-name">Username</div>
-                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                        <div className="friend-display">
+                          <div className="profile-picture"></div>
+                          <div className="friend-info">
+                            <div className="friend-name">Username</div>
+                            <div className="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
                           </div>
                         </div>
 
-                        <div class="friend-display">
-                          <div class="profile-picture"></div>
-                          <div class="friend-info">
-                            <div class="friend-name">Username</div>
-                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                        <div className="friend-display">
+                          <div className="profile-picture"></div>
+                          <div className="friend-info">
+                            <div className="friend-name">Username</div>
+                            <div className="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
                           </div>
                         </div>
 
-                        <div class="friend-display">
-                          <div class="profile-picture"></div>
-                          <div class="friend-info">
-                            <div class="friend-name">Username</div>
-                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                        <div className="friend-display">
+                          <div className="profile-picture"></div>
+                          <div className="friend-info">
+                            <div className="friend-name">Username</div>
+                            <div className="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
                           </div>
                         </div>
 
-                        <div class="friend-display">
-                          <div class="profile-picture"></div>
-                          <div class="friend-info">
-                            <div class="friend-name">Username</div>
-                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
-                          </div>
-                        </div>
-
-
-                        <div class="friend-display">
-                          <div class="profile-picture"></div>
-                          <div class="friend-info">
-                            <div class="friend-name">Username</div>
-                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
-                          </div>
-                        </div>
-
-                        <div class="friend-display">
-                          <div class="profile-picture"></div>
-                          <div class="friend-info">
-                            <div class="friend-name">Username</div>
-                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                        <div className="friend-display">
+                          <div className="profile-picture"></div>
+                          <div className="friend-info">
+                            <div className="friend-name">Username</div>
+                            <div className="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
                           </div>
                         </div>
 
 
-                        <div class="friend-display">
-                          <div class="profile-picture"></div>
-                          <div class="friend-info">
-                            <div class="friend-name">Username</div>
-                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                        <div className="friend-display">
+                          <div className="profile-picture"></div>
+                          <div className="friend-info">
+                            <div className="friend-name">Username</div>
+                            <div className="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                          </div>
+                        </div>
+
+                        <div className="friend-display">
+                          <div className="profile-picture"></div>
+                          <div className="friend-info">
+                            <div className="friend-name">Username</div>
+                            <div className="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
                           </div>
                         </div>
 
 
-                        <div class="friend-display">
-                          <div class="profile-picture"></div>
-                          <div class="friend-info">
-                            <div class="friend-name">Username</div>
-                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                        <div className="friend-display">
+                          <div className="profile-picture"></div>
+                          <div className="friend-info">
+                            <div className="friend-name">Username</div>
+                            <div className="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
                           </div>
                         </div>
 
-                        <div class="friend-display">
-                          <div class="profile-picture"></div>
-                          <div class="friend-info">
-                            <div class="friend-name">Username</div>
-                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+
+                        <div className="friend-display">
+                          <div className="profile-picture"></div>
+                          <div className="friend-info">
+                            <div className="friend-name">Username</div>
+                            <div className="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                          </div>
+                        </div>
+
+                        <div className="friend-display">
+                          <div className="profile-picture"></div>
+                          <div className="friend-info">
+                            <div className="friend-name">Username</div>
+                            <div className="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
                           </div>
                         </div>
 

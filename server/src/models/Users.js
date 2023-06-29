@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
     languages: [{type: String}], // drop down menu for programming languages
     interests: [{type: String}], // drop down menu for interests ? AI, Web Dev, Game Dev, etc
     profilePicture: {type: String, default:'https://cdn.discordapp.com/attachments/798251319847813200/1122589471565684816/download.jpeg'},
-    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users' }],
     verified: {type: Boolean, default: false},
     resetToken: {type: String},
     googleId:{type: String, required: false},

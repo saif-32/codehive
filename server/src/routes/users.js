@@ -324,10 +324,19 @@ router.post("/add-friends", async(req, res) => {
   }
 })
 
-router.get("/get-friends", async(req, res) => {
-  const { userId } = req.query;
+router.post("/get-friends", async(req, res) => {
+  const { userId } = req.body;
+  console.log(userId)
   const user = await UserModel.findById(userId).populate('friends');
-  res.json(user.friends);
+
+  const friendsData = user.friends.map(friend => ({
+    username: friend.username,
+    skillLevel: friend.skillLevel,
+    languages: friend.languages,
+  }));
+
+  console.log(friendsData);
+  res.send(friendsData);
 });
 
 

@@ -9,6 +9,17 @@ export const Profile = () => {
   const [activeButton, setActiveButton] = useState(null);
 
   const handleClick = (button) => {
+    if (button === "Friends")
+    {
+      fetchUserFriends(data._id)
+      .then((data) => {
+        setUserFriends(data);
+        console.log(userFriends);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    }
     setActiveButton(button);
   };
 
@@ -67,6 +78,8 @@ export const Profile = () => {
 
   const [settingsInterests, setSettingsInterests] = useState([]);
   const [settingsCurrentInterests, setCurrentSettingsInterests] = useState([]);
+
+  const [userFriends, setUserFriends] = useState("");
 
 
   useEffect(() => {
@@ -142,6 +155,27 @@ export const Profile = () => {
 
     getUser();
   }, []);
+
+  const fetchUserFriends = async (userId) => {
+    try {
+      const response = await fetch('http://localhost:3001/auth/get-friends', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId }),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        console.error('Error:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   const onSettingsSubmit = async (event) => {
     event.preventDefault();
@@ -247,9 +281,6 @@ export const Profile = () => {
       }
     })
   };
-
-
-
 
   const onSubmit = async (event) => { // Executes after submit button is clicked.
     event.preventDefault();
@@ -411,7 +442,6 @@ const handleSettingsRemoveInterest = (index) => {
   setSettingsInterests((prevSettingsInterests) => prevSettingsInterests.filter((_, i) => i !== index));
 };
 
-
   useEffect(() => {
     fetch(test)
       .then((response) => response.text())
@@ -420,6 +450,9 @@ const handleSettingsRemoveInterest = (index) => {
         setUniversities(universitiesArray);
       });
   }, []);
+
+
+
 
   return (
     <div className='form-container'>
@@ -959,7 +992,116 @@ const handleSettingsRemoveInterest = (index) => {
 
                 {activeButton === "Friends" && (
                   <div className="content-display">
-                        <h1>Account Friends</h1>
+                        <h1>Friends List</h1>
+
+                      <div class="friends-container">
+
+
+                        <div class="friend-display">
+                          <div class="profile-picture"></div>
+                          <div class="friend-info">
+                            <div class="friend-name">Username</div>
+                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                          </div>
+                          <div class="friend-buttons">
+                            <button class="friend-button dm-button">DM</button>
+                            <button class="friend-button remove-friend-button">X</button>
+                          </div>
+                        </div>
+
+                        {userFriends.map((friend) => (
+  <div key={friend._id} className="friend-display">
+    <div className="profile-picture"></div>
+    <div className="friend-info">
+      <div className="friend-name">{friend.username}</div>
+      <div className="friend-skill">{friend.skillLevel} - {friend.languages.join(', ')}</div>
+    </div>
+    <div className="friend-buttons">
+      <button className="friend-button dm-button">DM</button>
+      <button className="friend-button remove-friend-button">X</button>
+    </div>
+  </div>
+))}
+
+                        <div class="friend-display">
+                          <div class="profile-picture"></div>
+                          <div class="friend-info">
+                            <div class="friend-name">Username</div>
+                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                          </div>
+                        </div>
+
+                        <div class="friend-display">
+                          <div class="profile-picture"></div>
+                          <div class="friend-info">
+                            <div class="friend-name">Username</div>
+                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                          </div>
+                        </div>
+
+                        <div class="friend-display">
+                          <div class="profile-picture"></div>
+                          <div class="friend-info">
+                            <div class="friend-name">Username</div>
+                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                          </div>
+                        </div>
+
+                        <div class="friend-display">
+                          <div class="profile-picture"></div>
+                          <div class="friend-info">
+                            <div class="friend-name">Username</div>
+                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                          </div>
+                        </div>
+
+
+                        <div class="friend-display">
+                          <div class="profile-picture"></div>
+                          <div class="friend-info">
+                            <div class="friend-name">Username</div>
+                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                          </div>
+                        </div>
+
+                        <div class="friend-display">
+                          <div class="profile-picture"></div>
+                          <div class="friend-info">
+                            <div class="friend-name">Username</div>
+                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                          </div>
+                        </div>
+
+
+                        <div class="friend-display">
+                          <div class="profile-picture"></div>
+                          <div class="friend-info">
+                            <div class="friend-name">Username</div>
+                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                          </div>
+                        </div>
+
+
+                        <div class="friend-display">
+                          <div class="profile-picture"></div>
+                          <div class="friend-info">
+                            <div class="friend-name">Username</div>
+                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                          </div>
+                        </div>
+
+                        <div class="friend-display">
+                          <div class="profile-picture"></div>
+                          <div class="friend-info">
+                            <div class="friend-name">Username</div>
+                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
+                          </div>
+                        </div>
+
+
+
+
+                      </div>
 
 
                   </div>

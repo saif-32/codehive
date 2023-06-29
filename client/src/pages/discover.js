@@ -205,14 +205,15 @@ export const Discover = () => {
             return;
           }
 
+        setAddedFriends((prevAddedFriends) => [...prevAddedFriends, friendId]);
+        currentUser.friends.push(friendId);
+
 
         try {
             const response = await axios.post("http://localhost:3001/auth/add-friends", {
                 userId: userId,
                 friendId: friendId
             })
-            setAddedFriends((prevAddedFriends) => [...prevAddedFriends, friendId]);
-            console.log(addedFriends)
         } 
         catch (err) {
             console.log(err)

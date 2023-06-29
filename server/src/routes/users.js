@@ -316,7 +316,6 @@ router.post("/add-friends", async(req, res) => {
     user.friends.push(friend._id);
     await user.save();
 
-
     return res.json({status: 'okay'});
 
   } catch (err) {

@@ -28,6 +28,7 @@ export const Profile = () => {
   const [userUsername, setUserUsername] = useState("")
   const [userFirstName, setUserFirstName] = useState("")
   const [userLastName, setUserLastName] = useState("")
+  const [userEmail, setUserEmail] = useState("")
   const [userBirthdayMonth, setUserBirthdayMonth] = useState("")
   const [userBirthdayDay, setUserBirthdayDay] = useState("")
   const [userBirthdayYear, setUserBirthdayYear] = useState("")
@@ -81,13 +82,17 @@ export const Profile = () => {
         if (response.data) {
           setData(response.data)
           setUserUsername(response.data.username)
+          setUserFirstName(response.data.firstName)
+          setUserLastName(response.data.lastName)
+          setUserProfilePicture(response.data.profilePicture)
+          setUserEmail(response.data.email)
+
+
+
           setSettingsUsername(response.data.username)
           setSettingsEmail(response.data.email)
-          setUserFirstName(response.data.firstName)
           setSettingsFirstName(response.data.firstName)
-          setUserLastName(response.data.lastName)
           setSettingsLastName(response.data.lastName)
-          setUserProfilePicture(response.data.profilePicture)
           setSettingsGender(response.data.gender)
           setSettingsUniversity(response.data.university)
           setSettingsGrade(response.data.gradeLevel)
@@ -136,6 +141,15 @@ export const Profile = () => {
     getUser();
   }, []);
 
+  useEffect(() => {
+    fetch(test)
+      .then((response) => response.text())
+      .then((text) => {
+        const universitiesArray = text.split('\n').filter((university) => university.trim() !== '');
+        setUniversities(universitiesArray);
+      });
+  }, []);
+
   const fetchUserFriends = async (userId) => {
     try {
       const response = await fetch('http://localhost:3001/auth/get-friends', {
@@ -157,6 +171,33 @@ export const Profile = () => {
     }
   };
 
+  const onSettingsCancel = async (event) => {
+    event.preventDefault();
+    setSettingsUsername(userUsername)
+    setSettingsFirstName(userFirstName)
+    setSettingsLastName(userLastName)
+    setSettingsEmail(userEmail)
+  };
+
+  const onPasswordCancel = async (event) => {
+    event.preventDefault();
+    setSettingsOldPassword("")
+    setSettingsNewPassword("")
+    setSettingsConfirmNewPassword("")
+  };
+
+  const onInformationCancel = async (event) => {
+    event.preventDefault();
+    setSettingsGender(data.gender)
+    setSettingsUniversity(data.university)
+    setSettingsGrade(data.gradeLevel)
+    setSettingsSkillLevel(data.skillLevel)
+    setSettingsBirthdayMonth(data.birthdayMonth)
+    setSettingsBirthdayDay(data.birthdayDay)
+    setSettingsBirthdayYear(data.birthdayYear)
+    setSettingsProgrammingLanguages(data.languages)
+    setSettingsInterests(data.interests)
+  };
 
   const onSettingsSubmit = async (event) => {
     event.preventDefault();
@@ -377,60 +418,51 @@ export const Profile = () => {
     }
   };
 
-const handleSettingsLanguageChange = (e) => {
-  let value = e.target.value;
-  if (value.length > 10) {
-    value = value.slice(0, 10); // Truncate the value to 10 characters
-  }
-  setCurrentSettingsProgrammingLanguages(value);
-};
-
-const handleSettingsLanguageKeyPress = (e) => {
-  if (e.key === 'Enter' && settingsCurrentProgrammingLanguages.trim() !== '') {
-    if (settingsProgrammingLanguages.length === 3) {
-      return; // Limit reached, exit the function
+  const handleSettingsLanguageChange = (e) => {
+    let value = e.target.value;
+    if (value.length > 10) {
+      value = value.slice(0, 10); // Truncate the value to 10 characters
     }
+    setCurrentSettingsProgrammingLanguages(value);
+  };
 
-    setSettingsProgrammingLanguages((prevSettingsLanguages) => [...prevSettingsLanguages, settingsCurrentProgrammingLanguages.trim()]);
-    setCurrentSettingsProgrammingLanguages('');
-  }
-};
+  const handleSettingsLanguageKeyPress = (e) => {
+    if (e.key === 'Enter' && settingsCurrentProgrammingLanguages.trim() !== '') {
+      if (settingsProgrammingLanguages.length === 3) {
+        return; // Limit reached, exit the function
+      }
 
-const handleSettingsRemoveLanguage = (index) => {
-  setSettingsProgrammingLanguages((prevSettingsLanguages) => prevSettingsLanguages.filter((_, i) => i !== index));
-};
-
-const handleSettingsInterestsChange = (e) => {
-  let value = e.target.value;
-  if (value.length > 10) {
-    value = value.slice(0, 10); // Truncate the value to 10 characters
-  }
-  setCurrentSettingsInterests(value);
-};
-
-const handleSettingsInterestKeyPress = (e) => {
-  if (e.key === 'Enter' && settingsCurrentInterests.trim() !== '') {
-    if (settingsInterests.length === 3) {
-      return; // Limit reached, exit the function
+      setSettingsProgrammingLanguages((prevSettingsLanguages) => [...prevSettingsLanguages, settingsCurrentProgrammingLanguages.trim()]);
+      setCurrentSettingsProgrammingLanguages('');
     }
+  };
 
-    setSettingsInterests((prevSettingsInterests) => [...prevSettingsInterests, settingsCurrentInterests.trim()]);
-    setCurrentSettingsInterests('');
-  }
-};
+  const handleSettingsRemoveLanguage = (index) => {
+    setSettingsProgrammingLanguages((prevSettingsLanguages) => prevSettingsLanguages.filter((_, i) => i !== index));
+  };
 
-const handleSettingsRemoveInterest = (index) => {
-  setSettingsInterests((prevSettingsInterests) => prevSettingsInterests.filter((_, i) => i !== index));
-};
+  const handleSettingsInterestsChange = (e) => {
+    let value = e.target.value;
+    if (value.length > 10) {
+      value = value.slice(0, 10); // Truncate the value to 10 characters
+    }
+    setCurrentSettingsInterests(value);
+  };
 
-  useEffect(() => {
-    fetch(test)
-      .then((response) => response.text())
-      .then((text) => {
-        const universitiesArray = text.split('\n').filter((university) => university.trim() !== '');
-        setUniversities(universitiesArray);
-      });
-  }, []);
+  const handleSettingsInterestKeyPress = (e) => {
+    if (e.key === 'Enter' && settingsCurrentInterests.trim() !== '') {
+      if (settingsInterests.length === 3) {
+        return; // Limit reached, exit the function
+      }
+
+      setSettingsInterests((prevSettingsInterests) => [...prevSettingsInterests, settingsCurrentInterests.trim()]);
+      setCurrentSettingsInterests('');
+    }
+  };
+
+  const handleSettingsRemoveInterest = (index) => {
+    setSettingsInterests((prevSettingsInterests) => prevSettingsInterests.filter((_, i) => i !== index));
+  };
 
 
 
@@ -759,7 +791,7 @@ const handleSettingsRemoveInterest = (index) => {
 
                       <div className="settings-button-container">
                         <button className="settings-save" type="button" onClick={onSettingsSubmit}>Save</button>
-                        <button className="settings-cancel" type='button'>Cancel</button>
+                        <button className="settings-cancel" type='button' onClick={onSettingsCancel} >Cancel</button>
                       </div>
                     
 
@@ -792,7 +824,7 @@ const handleSettingsRemoveInterest = (index) => {
                           
                           <div className="settings-password-button-container">
                             <button className="settings-change-pass" type="button" onClick={onPasswordChangeSubmit}>Change Password</button>
-                            <button className="settings-cancel" type='button'>Cancel</button>
+                            <button className="settings-cancel" type='button' onClick={onPasswordCancel}>Cancel</button>
                           </div>
 
                         </div>
@@ -957,7 +989,7 @@ const handleSettingsRemoveInterest = (index) => {
                           <p className='settings-pass-error'>{settingsInformationError}</p>
                           <div className="settings-information-button-container">
                             <button className="settings-change-information" type="button" onClick={onInformationChangeSubmit}>Save Changes</button>
-                            <button className="settings-cancel" type='button'>Cancel</button>
+                            <button className="settings-cancel" type='button' onClick={onInformationCancel} >Cancel</button>
                           </div>
 
                     </div>

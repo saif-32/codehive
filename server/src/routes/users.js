@@ -333,6 +333,7 @@ router.post("/get-friends", async(req, res) => {
     username: friend.username,
     skillLevel: friend.skillLevel,
     languages: friend.languages,
+    profilePicture: friend.profilePicture,
   }));
 
   console.log(friendsData);

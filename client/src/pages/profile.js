@@ -9,17 +9,6 @@ export const Profile = () => {
   const [activeButton, setActiveButton] = useState(null);
 
   const handleClick = (button) => {
-    if (button === "Friends")
-    {
-      fetchUserFriends(data._id)
-      .then((data) => {
-        setUserFriends(data);
-        console.log(userFriends);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-    }
     setActiveButton(button);
   };
 
@@ -93,33 +82,25 @@ export const Profile = () => {
           setData(response.data)
           setUserUsername(response.data.username)
           setSettingsUsername(response.data.username)
-          
-
           setSettingsEmail(response.data.email)
-
-
           setUserFirstName(response.data.firstName)
           setSettingsFirstName(response.data.firstName)
-
           setUserLastName(response.data.lastName)
           setSettingsLastName(response.data.lastName)
-
-
           setUserProfilePicture(response.data.profilePicture)
           setSettingsGender(response.data.gender)
           setSettingsUniversity(response.data.university)
           setSettingsGrade(response.data.gradeLevel)
           setSettingsSkillLevel(response.data.skillLevel)
-
           setSettingsBirthdayMonth(response.data.birthdayMonth)
           setSettingsBirthdayDay(response.data.birthdayDay)
           setSettingsBirthdayYear(response.data.birthdayYear)
-
-          
           setSettingsProgrammingLanguages(response.data.languages)
           setSettingsInterests(response.data.interests)
 
-
+          const userId = response.data._id;
+          const friendsData = await fetchUserFriends(userId);
+          setUserFriends(friendsData);
 
           if (response.data.profileCompleted) {
             setCurrentForm(6)
@@ -130,7 +111,6 @@ export const Profile = () => {
           }
 
         }
- 
       } catch (error) {
         console.error(error);
       }
@@ -176,6 +156,7 @@ export const Profile = () => {
       console.error('Error:', error);
     }
   };
+
 
   const onSettingsSubmit = async (event) => {
     event.preventDefault();
@@ -996,32 +977,19 @@ const handleSettingsRemoveInterest = (index) => {
 
                       <div class="friends-container">
 
-
-                        <div class="friend-display">
-                          <div class="profile-picture"></div>
-                          <div class="friend-info">
-                            <div class="friend-name">Username</div>
-                            <div class="friend-skill">Advanced Beginner - JavaScript, HTML, CSS</div>
-                          </div>
-                          <div class="friend-buttons">
-                            <button class="friend-button dm-button">DM</button>
-                            <button class="friend-button remove-friend-button">X</button>
-                          </div>
-                        </div>
-
                         {userFriends.map((friend) => (
-  <div key={friend._id} className="friend-display">
-    <div className="profile-picture"></div>
-    <div className="friend-info">
-      <div className="friend-name">{friend.username}</div>
-      <div className="friend-skill">{friend.skillLevel} - {friend.languages.join(', ')}</div>
-    </div>
-    <div className="friend-buttons">
-      <button className="friend-button dm-button">DM</button>
-      <button className="friend-button remove-friend-button">X</button>
-    </div>
-  </div>
-))}
+                          <div key={friend._id} className="friend-display">
+                            <div className="profile-picture" style={{ backgroundImage: `url(${friend.profilePicture})` }}></div>
+                            <div className="friend-info">
+                              <div className="friend-name">{friend.username}</div>
+                              <div className="friend-skill">{friend.skillLevel} - {friend.languages.join(', ')}</div>
+                            </div>
+                            <div className="friend-buttons">
+                              <button className="friend-button dm-button">DM</button>
+                              <button className="friend-button remove-friend-button">X</button>
+                            </div>
+                          </div>
+                        ))}
 
                         <div class="friend-display">
                           <div class="profile-picture"></div>

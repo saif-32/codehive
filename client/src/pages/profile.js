@@ -173,6 +173,7 @@ export const Profile = () => {
 
   const onSettingsCancel = async (event) => {
     event.preventDefault();
+    setPostImage(userProfilePicture)
     setSettingsUsername(userUsername)
     setSettingsFirstName(userFirstName)
     setSettingsLastName(userLastName)
@@ -236,7 +237,6 @@ export const Profile = () => {
       if (response.data.status === "error") {
         setSettingsFirstPageErrors("An error occured, please try again later");
       }
-
 
     })
   };

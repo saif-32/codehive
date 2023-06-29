@@ -15,7 +15,6 @@ export const Home = () => {
               url: "http://localhost:3001/auth/user",
             }).then((res) => {
               setData(res.data);
-              console.log(res.data.username);
             });
           };
     
@@ -31,7 +30,7 @@ export const Home = () => {
           <div className="home-tagline">
             <h1>Connect. Collaborate. Code.</h1>
             <p>Welcome to Code<span className="yellow">Hive</span>, the dynamic platform that brings computer science students worldwide to communicate, collaborate, and innovate together.</p>
-            <a href="#join-now" class="cta-button">Join Now</a>
+            <a href="#join-now" className="cta-button">Join Now</a>
           </div>
 
           <div className="features-container">

@@ -210,7 +210,7 @@ export const Discover = () => {
 
 
         try {
-            const response = await axios.post("http://localhost:3001/auth/add-friends", {
+            await axios.post("http://localhost:3001/auth/add-friends", {
                 userId: userId,
                 friendId: friendId
             })

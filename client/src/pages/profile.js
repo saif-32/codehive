@@ -327,6 +327,27 @@ export const Profile = () => {
       }
     })
   };
+
+  const removeFriend = async (friendId) => {
+    try {
+      const response = await fetch('http://localhost:3001/auth/remove-friend', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: data._id, friendId }), // Replace currentUser._id with the actual user ID
+      });
+  
+      if (response.ok) {
+        const updatedFriends = userFriends.filter((friend) => friend._id !== friendId);
+        setUserFriends(updatedFriends);
+      } else {
+        console.error('Error:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
   
   const handleNext = () => {
     if (currentForm === 1)
@@ -1018,7 +1039,7 @@ export const Profile = () => {
                             </div>
                             <div className="friend-buttons">
                               <button className="friend-button dm-button">DM</button>
-                              <button className="friend-button remove-friend-button">X</button>
+                              <button className="friend-button remove-friend-button" onClick={() => removeFriend(friend._id)}>X</button>
                             </div>
                           </div>
                         ))}

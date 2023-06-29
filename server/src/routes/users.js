@@ -329,6 +329,7 @@ router.post("/get-friends", async(req, res) => {
   const user = await UserModel.findById(userId).populate('friends');
 
   const friendsData = user.friends.map(friend => ({
+    _id: friend._id,
     username: friend.username,
     skillLevel: friend.skillLevel,
     languages: friend.languages,
@@ -337,6 +338,27 @@ router.post("/get-friends", async(req, res) => {
 
   console.log(friendsData);
   res.send(friendsData);
+});
+
+router.post("/remove-friend", async (req, res) => {
+  const { userId, friendId } = req.body;
+
+  try {
+    const user = await UserModel.findById(userId);
+    const friendIndex = user.friends.indexOf(friendId);
+
+    if (friendIndex === -1) {
+      return res.json({ status: 'error', message: 'Friend not found in user\'s friends list' });
+    }
+
+    user.friends.splice(friendIndex, 1);
+    await user.save();
+
+    return res.json({ status: 'okay', message: 'Friend removed successfully' });
+  } catch (err) {
+    console.error(err);
+    return res.json({ status: 'error', message: 'Internal server error' });
+  }
 });
 
 

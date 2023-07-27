@@ -81,7 +81,7 @@ export const Login = () => {
           <input type="password" id="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)}/>
 
           <p>{errorMessage}</p>
-          <a href="#" className="forgot-link">Forgot Username or Password?</a>
+          <a href="forgot-password" className="forgot-link">Forgot Username or Password?</a>
           <button type="submit" className="login-btn-1">Log In</button>
 
         </form>

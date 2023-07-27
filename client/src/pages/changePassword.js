@@ -12,9 +12,13 @@ export const ChangePassword = () => {
     const [success, setSuccess] = useState('');
     const navigate = useNavigate();
 
+  
+
     const handleSubmit = async(event) => {
         event.preventDefault();
     }
+
+    console.log("Initiating the reset for " + username + "'s password.")
 
     const response = axios.post("http://localhost:3001/password/verify-pass-token", {
         username,

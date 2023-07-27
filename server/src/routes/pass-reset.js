@@ -8,21 +8,26 @@ const router = express.Router();
 router.post('/forgot-password', async (req, res) => {
     const { email } = req.body;
 
+    // Checks if the email exist
     try {
         const user = await UserModel.findOne({email});
 
+        // If the email doesn't exist, returns an error that is sent to the page
         if(!user)
         {
-            return res.status(404).json({error: 'User not found '});
+          console.log("Error")
+          return res.status(404).json({error: 'User not found '});
         }
 
+        // Creates the token 
         console.log("Hello")
         const token = jwt.sign({email}, "secret", {expiresIn: '12h'});
-       // UserModel.resetTokenExpiration = Date.now() + 43200000; // 12 hrs
 
         console.log(token)
 
         console.log("Hello")
+        
+        // Sets resetToken to equal the generated token, and cues the sendPasswordReset email to send a pass reset mail
         UserModel.updateOne({email},
             {
                 $set:{
@@ -34,7 +39,7 @@ router.post('/forgot-password', async (req, res) => {
         res.status(200).json({ message: 'Password reset email sent'});
 
     } catch (error) {
-        // Insert errors here
+      res.status(500).json({ error: 'An error occurred. Please try again later.' });
     }    
 })
 
@@ -43,7 +48,7 @@ router.post("/verify-pass-token", async(req, res) => {
     const user = await UserModel.findOne({username});
     
     if(!user) {
-      return res.json({Message: "This username was not found." });
+      return res.status(404).json({ Message: "This username was not found." });
     }
     if(!user.resetToken)
     {

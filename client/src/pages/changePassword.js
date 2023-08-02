@@ -16,23 +16,38 @@ export const ChangePassword = () => {
         event.preventDefault();
     }
 
-    console.log("Initiating the reset for " + username + "'s password.")
 
-    const response = axios.post("http://localhost:3001/password/verify-pass-token", {
-        username,
-        token
-      }).then(response => {
-        const responseStatus = response.data.status;
-        if (responseStatus === 'okay') {
-          console.log("Status is good.")
-          setIsValidToken(true);
-        }
-      })
+    // const response = axios.post("http://localhost:3001/password/verify-pass-token", {
+    //     username,
+    //     token
+    //   }).then(response => {
+    //     const responseStatus = response.data.status;
+    //     if (responseStatus === 'okay') {
+    //       console.log("Status is good.")
+    //       setIsValidToken(true);
+    //     }
+    //   })
 
-      if (password !== confirmPassword) {
-        setError('Passwords do not match');
-        return;
-      }
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.post("http://localhost:3001/password/verify-pass-token", {
+              username,
+              token
+            });
+    
+            const responseStatus = response.data.status;
+            if (responseStatus === 'okay') {
+              console.log("Status is good.")
+              setIsValidToken(true);
+            }
+          } catch (error) {
+            console.error("Error verifying token:", error);
+          }
+        };
+    
+        fetchData();
+      }, []);
 
       return <div>
         {isValidToken ?     

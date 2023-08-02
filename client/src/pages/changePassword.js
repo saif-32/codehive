@@ -12,8 +12,6 @@ export const ChangePassword = () => {
     const [success, setSuccess] = useState('');
     const navigate = useNavigate();
 
-  
-
     const handleSubmit = async(event) => {
         event.preventDefault();
     }
@@ -38,10 +36,10 @@ export const ChangePassword = () => {
 
       return <div>
         {isValidToken ?     
-          <div className="email-container">
-            <img src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
-            <div className="email-card">
-              <h1>Enter a new password:</h1>
+          <div className="forgot-pass-container">
+            <div className="forgot-pass-card">
+              <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo"/>
+              <h1>Reset Password:</h1>
               {error && <p>{error}</p>}
               {success && <p>{success}</p>}
               <label htmlFor="password">New Password:</label>

@@ -25,13 +25,17 @@ export const ForgotPassword = () => {
   };
 
     return <div>
-        <h1>Forgot Password</h1>
-        <p>Enter your email below:</p>
-        <form onSubmit={onSubmit}>
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" required value={email} onChange={(event) => setEmail(event.target.value)} />
-          <button type="submit">Confirm Email</button>
-          {error && <p>{error}</p>}
-        </form>
+        <div className="forgot-pass-container">
+          <div className="forgot-pass-card">
+            <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo"/>
+              <h1>Forgot Password</h1>
+              <p>Enter your email below:</p>
+              <form className="login-form" onSubmit={onSubmit}>
+                <input type="text" id="email" name="email" placeholder="Email:" required value={email} onChange={(event) => setEmail(event.target.value)} />
+                <button className="reg-sign-up" type="submit">Confirm Email</button>
+                {error && <p className="forgot-pass-error">{error}</p>}
+              </form>
+            </div>
+          </div>
     </div>
 }

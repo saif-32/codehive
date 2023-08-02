@@ -26,7 +26,7 @@ router.post('/forgot-password', async (req, res) => {
         console.log(token)
 
         console.log("Hello")
-        
+
         // Sets resetToken to equal the generated token, and cues the sendPasswordReset email to send a pass reset mail
         UserModel.updateOne({email},
             {
@@ -52,7 +52,7 @@ router.post("/verify-pass-token", async(req, res) => {
     }
     if(!user.resetToken)
     {
-      return res.json({Message: "PLACEHOLDER: DID NOT RESET TOKEN"});
+      return res.json({Message: "Token was unable to be reset."});
     }
   
     try {

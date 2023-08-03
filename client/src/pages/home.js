@@ -26,24 +26,25 @@ export const Home = () => {
     <Navbar />
 
     <div className="home-container">
-      <Carousel bg="light" fade interval={5000}>
-          <Carousel.Item>
-            <img className="d-block w-100" src="..." alt="First slide"/>
-            <Carousel.Caption>
-              <h1>Welcome to CodeHive!</h1>
-              <p>CodeHive is a ...</p>
-            </Carousel.Caption>
-          </Carousel.Item>
+      <div className="carousel-container">
+        <Carousel bg="light" fade interval={5000}>
+            <Carousel.Item>
+              <img className="d-block w-100" src="https://media.discordapp.net/attachments/1136400152542855168/1136400167008997427/image.png" alt="First slide"/>
+              <Carousel.Caption>
+                <h1><b>Welcome to CodeHive!</b></h1>
+                <p>Welcome to CodeHive – where students collaborate, code, and create together! Join us to learn, share, and build amazing projects in a supportive coding community.</p>
+              </Carousel.Caption>
+            </Carousel.Item>
 
-          <Carousel.Item>
-            <img className="d-block w-100" src="..."/>
-            <Carousel.Caption>
-              <h1>Placeholder 2</h1>
-              <p>Placeholder Paragraph</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-      </Carousel>
-
+            <Carousel.Item>
+              <img className="d-block w-100" src="https://media.discordapp.net/attachments/798251319847813200/1136392943763210372/image.png?width=1123&height=700"/>
+              <Carousel.Caption>
+                <h1>Placeholder 2</h1>
+                <p>Placeholder Paragraph</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+        </Carousel>
+      </div>
     </div>
   </div>
 };

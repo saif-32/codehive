@@ -7,7 +7,7 @@ export const EmailSent = () => {
 
     return <div>
     <div className="email-container">
-      <img src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
+    <img src='https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png'></img>
       <div className="email-card">
         <h1>Your verification email has been <span class="light-yellow">sent to the following email:</span></h1>
         <div className='user-email-card'><h2>{email}</h2></div>

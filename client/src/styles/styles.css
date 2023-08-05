@@ -532,12 +532,20 @@ input[type="file"] {
   margin-top: 20px!important;
 }
 
+.home-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
 .carousel-container img {
-  filter: brightness(30%);
+  filter: brightness(20%);
+  max-width: 100%;
+  object-fit: cover;
 }
 
 .carousel-container h1 {
-  font-size: 35px;
   text-align: center;
   margin-bottom: 20px;
   color: #FFF7D4;
@@ -550,4 +558,24 @@ input[type="file"] {
 .carousel-caption {
   text-align: center;
   color: white;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  border-radius: 5px;
+  transform: translate(-50%, -50%); 
+}
+
+.email-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: linear-gradient(to top, #261c1c, #2c2223);
+}
+
+.email-container img {
+  top: 75px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
 }

@@ -4,6 +4,10 @@
   }
 }
 
+.navbar-custom {
+  background-color: #261c1c;
+}
+
 .home-container {
   color: white;
   display: flex;
@@ -99,6 +103,7 @@
   .home-features {
     display: flex;
     align-items: center;
+    margin: 0 40px;
   }
 
   .home-images-list {
@@ -118,6 +123,24 @@
   .home-feature-heading p {
     text-align: center;
     margin-top: 15px;
+    font-size: 18px;
+  }
+
+  .home-feature-column-box {
+    background: #251d1e;
+    padding: 1.5rem 1.5rem 2rem;
+    margin: 2rem;
+    border-radius: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .home-feature-column-box p {
+    font-size: 16px;
+  }
+
+  hr {
+    padding-top: 10px;
   }
 
   hr.solid {
@@ -141,7 +164,7 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    border-radius: 50px;
+    border-radius: 5px;
   }
 
   .home-feature-button:hover {
@@ -179,6 +202,7 @@
     border-radius: 20px;
     background: #251d1e;
     padding: 15px 30px;
+    transition: 1s;
   }
 
   .home-features-list details p {

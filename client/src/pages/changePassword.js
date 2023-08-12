@@ -12,21 +12,30 @@ export const ChangePassword = () => {
     const [success, setSuccess] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = async(event) => {
+    const handleSubmit = async (event) => {
       event.preventDefault();
-    }
-
-
-    // const response = axios.post("http://localhost:3001/password/verify-pass-token", {
-    //     username,
-    //     token
-    //   }).then(response => {
-    //     const responseStatus = response.data.status;
-    //     if (responseStatus === 'okay') {
-    //       console.log("Status is good.")
-    //       setIsValidToken(true);
-    //     }
-    //   })
+  
+      if (password !== confirmPassword) {
+          setError('Passwords do not match');
+          return;
+      }
+  
+      try {
+          const response = await axios.post("http://localhost:3001/password/reset-password", {
+              username,
+              password
+          });
+  
+          console.log("Reset response:", response.data);
+  
+          const responseMessage = response.data.message;
+          setSuccess(responseMessage); // Add this line
+          setError(''); // Clear any previous error
+      } catch (error) {
+          console.error("Reset error:", error);
+          setError('An error occurred. Please try again later.');
+      }
+  };  
 
     useEffect(() => {
         const fetchData = async () => {

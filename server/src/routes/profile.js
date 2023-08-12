@@ -86,5 +86,4 @@ router.post("/edit", async(req, res) =>{
     }
 })
 
-
 export { router as profileRouter };

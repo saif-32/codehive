@@ -6,7 +6,7 @@ import axios from 'axios'
 export const ChangePassword = () => {
     const {username, token} = useParams();
     const [isValidToken, setIsValidToken] = useState(false);
-    const [password, setPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -15,15 +15,16 @@ export const ChangePassword = () => {
     const handleSubmit = async (event) => {
       event.preventDefault();
   
-      if (password !== confirmPassword) {
+      if (newPassword !== confirmPassword) {
           setError('Passwords do not match');
           return;
       }
   
       try {
+          console.log("Initating password reset...")
           const response = await axios.post("http://localhost:3001/password/reset-password", {
               username,
-              password
+              newPassword
           });
   
           console.log("Reset response:", response.data);
@@ -73,8 +74,8 @@ export const ChangePassword = () => {
                         id="password"
                         placeholder="Enter Password"
                         name="password"
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
+                        value={newPassword}
+                        onChange={(event) => setNewPassword(event.target.value)}
                         required
                     />
                     <label htmlFor="confirmPassword">Confirm Password:</label>

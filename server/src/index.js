@@ -16,16 +16,19 @@ import { uploadRouter } from './routes/upload.js';
 import { profileRouter } from './routes/profile.js';
 
 
-
-
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Strategy as GitHubStrategy } from 'passport-github2';
 
 dotenv.config();
 
-mongoose.connect("mongodb+srv://hiveadmin:ZbYOedcubmWvLEsc@codehive.ihhueao.mongodb.net/CodeHive?retryWrites=true&w=majority") // Establishes connection
+console.log(process.env.EXAMPLE)
 
+// Establishes connection
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const app = express(); // Generate version of API
 app.use(bodyParser.json({ limit: '10mb', extended: true }));
@@ -37,13 +40,13 @@ app.use(cors({
 })); // Allows API requests from frontend
 
 app.use(session({
-    secret: 'keyboardcat',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false } // Testing purposes, set to false.
 }))
 
-app.use(cookieParser('keyboardcat'))
+app.use(cookieParser(process.env.SESSION_SECRET))
 
 app.use(passport.initialize())
 app.use(passport.session())
@@ -67,8 +70,8 @@ passport.use(
 );
 
 passport.use(new GoogleStrategy({
-  clientID: '899639630095-4s3uehmkjmvkhl0q5mtr1c0f9hpkv6ee.apps.googleusercontent.com',
-  clientSecret: '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',
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: "http://localhost:3001/auth/google/callback"
 },
 function(accessToken, refreshToken, profile, cb) {
@@ -92,8 +95,8 @@ function(accessToken, refreshToken, profile, cb) {
 ));
 
 passport.use(new GitHubStrategy({
-  clientID: '568bee18a368cffd5fdd',
-  clientSecret: 'c370cb694ba0e7545d601a901dd278067b584330',
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
   callbackURL: "http://localhost:3001/auth/github/callback"
 },
 function(accessToken, refreshToken, profile, cb) {

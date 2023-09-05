@@ -22,7 +22,7 @@ router.post('/forgot-password', async (req, res) => {
 
         // Creates the token 
         console.log("Hello")
-        const token = jwt.sign({email}, "secret", {expiresIn: '12h'});
+        const token = jwt.sign({email}, process.env.JWT_SECRET, {expiresIn: '12h'});
 
         console.log(token)
 
@@ -57,7 +57,7 @@ router.post("/verify-pass-token", async(req, res) => {
     }
   
     try {
-      const decode = jwt.verify(token, "secret")
+      const decode = jwt.verify(token, process.env.JWT_SECRET)
       console.log(decode)
       
       console.log("User token has been decoded.");

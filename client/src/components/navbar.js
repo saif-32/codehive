@@ -45,7 +45,7 @@ export const Navbar = () => {
             {!loadingFinished && (
                             <>
                                 <nav>
-                                <header className="navbar-custom">
+                                <header className="p-2 p-lg-3 text-bg-dark">
                                         <div className="container">
                                         <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                                             <img src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" width="60" height="60"></img> 
@@ -64,7 +64,7 @@ export const Navbar = () => {
             <div> 
                 <nav>
                     {
-                        <header className="navbar-custom">
+                        <header className="p-2 p-lg-3 text-bg-dark">
                             <div className="container">
                             <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                                 <img src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" width="60" height="60"></img>
@@ -117,7 +117,7 @@ export const Navbar = () => {
             <div> 
                 <nav>
                     {
-                        <header className="p-3 text-bg-dark">
+                        <header className="p-2 p-lg-3 text-bg-dark">
                             <div className="container">
                             <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                                 <img src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" width="60" height="60"></img>

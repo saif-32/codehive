@@ -36,10 +36,8 @@ export const Home = () => {
     <Navbar />
 
     <div className="home-container">
-      <section class="home-features">
-        <div className="home-feature-heading">
-          <h1><b>Welcome to CodeHive!</b></h1>
-          <p><b>CodeHive</b> is a <b>collaborative hub for learning, creating, and connecting</b> through code. Dive into interactive challenges, real world projects, and a vibrant community of fellow students!</p>
+          <h1 className="welcome-title"><b>Welcome to CodeHive!</b></h1>
+          <p className=""><b>CodeHive</b> is a <b>collaborative hub for learning, creating, and connecting</b> through code. Dive into interactive challenges, real world projects, and a vibrant community of fellow students!</p>
           <img className="reg-logo" src="https://cdn.discordapp.com/attachments/798251319847813200/1114605006927184073/CodeHive-Logo-Isolated-3.png" alt="CodeHive Logo"/>
           <div class="row">
             <div className="column">
@@ -65,8 +63,6 @@ export const Home = () => {
           </div>
           
           <hr class="solid"/>
-        </div>
-      </section>
       
       <div className="home-images-list">
           <div className="home-list">

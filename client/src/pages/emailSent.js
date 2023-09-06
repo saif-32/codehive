@@ -13,6 +13,7 @@ export const EmailSent = () => {
         <div className='user-email-card'><h2>{email}</h2></div>
         <h3>Click the link in your email to verify your account. If you can't find the email, check
         your spam folder.</h3>
+        <h3>Since we are in development mode, all users registred have been pre-verified.</h3>
       </div>
     </div>
   </div>

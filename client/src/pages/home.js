@@ -10,10 +10,12 @@ export const Home = () => {
     const [openSection, setOpenSection] = useState(null);
 
   const handlePointClick = (image) => {
+    console.log("Setting image...")
     setSelectedImage(image);
   }
 
   const handleToggle = (sectionId) => {
+    console.log("Setting summary...")
     setOpenSection(sectionId)
     console.log(sectionId)
   };
@@ -93,6 +95,9 @@ export const Home = () => {
             <img className="home-features-image" width="600px" src={selectedImage}></img>
           </div>
         </div>
+
+
+
 
     </div>
   </div>

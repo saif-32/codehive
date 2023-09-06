@@ -183,6 +183,17 @@
     margin-bottom: 10px;
   }
 
+  .home-features-list summary {
+    transition: color 1s;
+  }
+  
+  .home-features-list details {
+    border-radius: 0;
+    background: initial;
+    padding: 0;
+    transition: all 1s;
+  }
+
   .home-features-list summary:hover {
     color: #FFD95A;
     transition: 1s;

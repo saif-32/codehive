@@ -19,10 +19,10 @@ CodeHive is designed to create a supportive and creative coding environment. Whe
 
 - **Authentication:** Register, log in, and edit your CodeHive profile.
 - **User Discovery:** Find and connect with other users to expand your network.
-- **Messaging System (Coming Soon):** Seamlessly communicate with your connections and collaborators.
-- **Project Showcase (Coming Soon):** Display your coding projects for others to see.
-- **Collaboration Tools (Coming Soon):** Work together with other users on coding projects.
-- **ChatGPT Integration (Coming Soon):** Generate innovative project ideas using ChatGPT.
+- **Messaging System:** Seamlessly communicate with your connections and collaborators.
+- **Project Showcase:** Display your coding projects for others to see.
+- **Collaboration Tools:** Work together with other users on coding projects.
+- **ChatGPT Integration:** Generate innovative project ideas using ChatGPT.
 
 ## Getting Started
 
